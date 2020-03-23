@@ -1,0 +1,151 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+      <div class="card-title-text">Legal/Court-Order Document</div>
+  
+      <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="courtCaseOrderForm" autocomplete="off">
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+              <div class="pb-1">
+                Court Case
+              </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+              <div class="pb-1">
+                <mat-select placeholder="Select Court Case" name="courtCaseId" formControlName="courtCaseId">
+                    <mat-option> -- </mat-option>
+                      <mat-option *ngFor="let cc of courtCaseList" [value]="cc.id">
+                        ({{cc.caseNo}}) {{cc.holdingNo}}
+                    </mat-option> 
+                </mat-select>
+              </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                <div class="pb-1">
+                </div>
+               </div>
+            <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+            <div class="pb-1">
+              <mat-slide-toggle name="isActive" color="primary" formControlName="isActive">Active</mat-slide-toggle>
+            </div>
+           </div>
+          </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+            <div class="pb-1">
+              Order Reference No.
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+            <div class="pb-1">
+               <mat-form-field class="full-width">
+                <input matInput name="orderReferenceNo" formControlName="orderReferenceNo" placeholder="Order Reference No" value="">
+              </mat-form-field>
+               <small
+                *ngIf="courtCaseOrderForm.controls['orderReferenceNo'].hasError('required') && courtCaseOrderForm.controls['orderReferenceNo'].touched"
+                class="form-error-msg">Order Reference no is required</small> 
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1" style="padding-top:20px">
+            <div class="pb-1">
+              Order Type
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1" style="padding-top:20px">
+          <div class="pb-1">
+            <mat-select placeholder="Order Type" name="orderTypeId" formControlName="orderTypeId">
+              <mat-option> -- </mat-option>
+               <mat-option *ngFor="let ot of listCCOrderType" [value]="ot.id">
+                  {{ot.description}}
+              </mat-option>
+          </mat-select>
+          </div>
+         </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+              <div class="pb-1">
+                Order Date
+              </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                    <input matInput [min]="minDate" name="orderDate" formControlName="orderDate"
+                        [matDatepicker]="picker" placeholder="Order Date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1" style="padding-top:20px">
+            <div class="pb-1">
+                Order {{inOutValue.orderRcvSntDate}} Date
+            </div>
+           </div>
+           <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1" style="padding-top:20px">
+            <div class="pb-1">
+                <mat-form-field class="full-width">
+                    <input matInput [min]="minDate" name="orderReceiveDate" formControlName="orderReceiveDate"
+                        [matDatepicker]="pickerRD" placeholder="Order Receive Date">
+                <mat-datepicker-toggle matSuffix [for]="pickerRD"></mat-datepicker-toggle>
+                <mat-datepicker #pickerRD></mat-datepicker>
+                </mat-form-field>
+            </div>
+           </div>
+          </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+            <div class="pb-1">
+              Order Detail
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+            <div class="pb-1">
+              <mat-form-field class="full-width">
+                <textarea matInput name="orderDetails" formControlName="orderDetails" placeholder="Order Detail" value=""></textarea>
+              </mat-form-field>
+              <!-- <small
+                *ngIf="courtCaseOrderForm.controls['name'].hasError('required') && courtCaseOrderForm.controls['name'].touched"
+                class="form-error-msg">Name is required </small> -->
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+            <div class="pb-1">
+              {{inOutValue.rcvSntName}}
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+            <div class="pb-1">
+              <mat-form-field class="full-width">
+                <input matInput name="sendReceiverName" formControlName="sendReceiverName" placeholder="{{inOutValue.rcvSntName}}" value="">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          Note
+          <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+            <mat-card class="p-0">
+              <mat-card-content class="p-0">
+                 <app-rich-text-editor name ="note" formControlName="note"> 
+                </app-rich-text-editor>
+              </mat-card-content>
+            </mat-card>
+            <!-- <small
+              *ngIf="courtCaseOrderForm.controls['note'].hasError('required') && courtCaseOrderForm.controls['note'].touched"
+              class="form-error-msg">Note is required </small> -->
+          </div>
+        </div>
+       
+       
+        <button mat-raised-button *ngIf="!this.id" color="primary" [disabled]="courtCaseOrderForm.invalid"
+          (click)="submitCourtCaseOrderData(courtCaseOrderForm.value)">Submit</button>
+        <button mat-raised-button *ngIf="this.id" color="primary"
+          (click)="updateCourtCaseOrderData(courtCaseOrderForm.value)">Update</button>
+        <!-- {{courtCaseOrderForm.value|json}} -->
+      </form>
+    </mat-card-content>
+  </mat-card>

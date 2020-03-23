@@ -1,0 +1,122 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text">Office</div>
+
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <!-- <mat-card-title>
+    <button style="padding-left: 25px;" mat-button color="primary" (click)="goToListPage()">Organisation List</button>
+  </mat-card-title> -->
+  <mat-card-content>
+    <form [formGroup]="organizationUnitForm" autocomplete="off">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1">
+            Code
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+          <div class="pb-1">
+            <mat-form-field class="full-width">
+              <input matInput [disabled]="true" name="code" formControlName="code" placeholder="Code" value="">
+            </mat-form-field>
+            <small
+              *ngIf="organizationUnitForm.controls['code'].hasError('required') && organizationUnitForm.controls['code'].touched"
+              class="form-error-msg">Code is required</small>
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1" style="padding-top:20px">
+        <div class="pb-1">
+          <mat-slide-toggle name="isActive" color="primary" formControlName="isActive">Active</mat-slide-toggle>
+          <!-- <mat-checkbox name="isActive" formControlName="isActive" placeholder="Is Active">isActive</mat-checkbox>
+          <small
+            *ngIf="organizationUnitForm.controls['isActive'].hasError('required') && organizationUnitForm.controls['isActive'].touched"
+            class="form-error-msg">Is Active is required </small> -->
+        </div>
+       </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1">
+            Description
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="80" class="pr-1">
+          <div class="pb-1">
+            <mat-form-field class="full-width">
+              <input matInput name="description" formControlName="description" placeholder="Description" value="">
+            </mat-form-field>
+            <small
+              *ngIf="organizationUnitForm.controls['description'].hasError('required') && organizationUnitForm.controls['description'].touched"
+              class="form-error-msg">Description is required </small>
+          </div>
+        </div>
+
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1">
+            Parent
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+          <div class="pb-1">
+            <mat-select name="parentUnitId" formControlName="parentUnitId" placeholder="Parent">
+              <mat-option *ngFor="let lp of listParent" [value]="lp.id">
+                ({{lp.code}}) {{lp.description}}
+              </mat-option>
+            </mat-select>
+            <!-- <ng-template #dialogMatSelect>
+              <div>
+                <table style="width:350px;">
+                  <thead>
+                    <tr style="text-align: left;background-color: cyan;padding:5px">
+                      <th>Code</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody >
+                    <tr *ngFor="let pitem of listParent; let i = index" (click)="selectParent(pitem)" class="pointer">
+                      <td>{{pitem.code}}</td>
+                      <td>{{pitem.description}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ng-template> -->
+            <small
+              *ngIf="organizationUnitForm.controls['parentUnitId'].hasError('required') && organizationUnitForm.controls['parentUnitId'].touched"
+              class="form-error-msg">Parent is required</small>
+          </div>
+        </div>
+      </div>
+      <!-- <div fxLayout="row wrap">
+      <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+        <app-adress-editor (on-address)="saveAddressData($event)"></app-adress-editor>
+      </div>
+      </div> -->
+      <div fxLayout="row wrap">
+        Note
+        <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+          <mat-card class="p-0">
+
+            <mat-card-content class="p-0">
+              <quill-editor id="editorContent" theme="snow" name="note" formControlName="note"
+                (onContentChanged)="onContentChanged()" onSelectionChanged="onSelectionChanged()"></quill-editor>
+            </mat-card-content>
+          </mat-card>
+          <small
+            *ngIf="organizationUnitForm.controls['note'].hasError('required') && organizationUnitForm.controls['note'].touched"
+            class="form-error-msg">Note is required </small>
+        </div>
+      </div>
+     
+     
+      <button mat-raised-button *ngIf="Id=='null'" color="primary" [disabled]="organizationUnitForm.invalid"
+        (click)="submitOrganisationData(organizationUnitForm.value)">Submit</button>
+      <button mat-raised-button *ngIf="Id!='null' " color="primary"
+        (click)="updateOrganisationData(organizationUnitForm.value)">Update</button>
+      <!-- {{organizationUnitForm.value|json}} -->
+    </form>
+  </mat-card-content>
+</mat-card>

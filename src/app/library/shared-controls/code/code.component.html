@@ -1,0 +1,18 @@
+<form [formGroup]="codeForm" autocomplete="off">
+ <!-- <div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1"> -->
+        <mat-form-field class="full-width">
+          <input matInput [disabled]="true" name="code" formControlName="code" placeholder="Code" value="">
+        </mat-form-field>
+        <small
+          *ngIf="codeForm.controls['code'].hasError('required') && codeForm.controls['code'].touched"
+          class="form-error-msg">Code is required</small>
+          <small 
+           *ngIf="codeForm.controls['code'].hasError('minlength') && codeForm.controls['code'].touched" 
+                        class="form-error-msg">Code require at least {{codeForm.controls['code'].errors.minlength.requiredLength}} characters </small>
+          <small 
+           *ngIf="codeForm.controls['code'].hasError('maxlength') && codeForm.controls['code'].touched" 
+                        class="form-error-msg">Code can not contain more than {{codeForm.controls['code'].errors.maxlength.requiredLength}} characters </small>
+      <!-- </div>
+    </div> -->
+</form>

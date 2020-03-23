@@ -1,0 +1,162 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text" *ngIf="id && id=='null'">User Registration</div>
+        <div class="card-title-text" *ngIf="id && id!='null'">User Updation</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="userForm" autocomplete="off">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <!-- <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="code" formControlName="code"
+                                placeholder="Employee Code" value="">
+                        </mat-form-field>
+                        <small
+                            *ngIf="userForm.controls['code'].hasError('required') && userForm.controls['code'].touched"
+                            class="form-error-msg">Employee Code is required </small>
+                        <small 
+                        *ngIf="userForm.controls['code'].hasError('minlength') && userForm.controls['code'].touched" 
+                        class="form-error-msg"> Employee Code require at least {{userForm.controls['code'].errors.minlength.requiredLength}} characters </small>
+                         <small 
+                        *ngIf="userForm.controls['username'].hasError('maxlength') && userForm.controls['username'].touched" 
+                        class="form-error-msg"> Username can not contain more than {{userForm.controls['username'].errors.maxlength.requiredLength}} characters </small> 
+                    </div>-->
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="userId" tabindex="1" formControlName="userId" placeholder="User Id"
+                                value="">
+                        </mat-form-field>
+                        <small
+                            *ngIf="userForm.controls['userId'].hasError('required') && userForm.controls['userId'].touched"
+                            class="form-error-msg">User Id is required </small>
+                        <small
+                            *ngIf="userForm.controls['userId'].hasError('minlength') && userForm.controls['userId'].touched"
+                            class="form-error-msg"> User Id require at least
+                            {{userForm.controls['userId'].errors.minlength.requiredLength}} characters </small>
+                        <small
+                            *ngIf="userForm.controls['userId'].hasError('maxlength') && userForm.controls['userId'].touched"
+                            class="form-error-msg"> User Id can not contain more than
+                            {{userForm.controls['userId'].errors.maxlength.requiredLength}} characters </small>
+                    </div>
+                    
+                    <div class="pb-1">
+                        <div class="pb-1">
+                            <mat-form-field class="full-width">
+                                <input matInput type="userEmail" tabindex="3" name="userEmail" formControlName="userEmail"
+                                    placeholder="Email" value="">
+                            </mat-form-field>
+                            <!-- <small
+                                *ngIf="userForm.controls['userEmail'].hasError('required') && userForm.controls['userEmail'].touched"
+                                class="form-error-msg"> Email is required </small> -->
+                            <small
+                                *ngIf="userForm.controls['userEmail'].hasError('email') && userForm.controls['userEmail'].touched"
+                                class="form-error-msg"> Invaild email address </small>
+                        </div>
+                        <mat-form-field class="full-width">
+                            <input matInput name="userFirstName" tabindex="5" formControlName="userFirstName"
+                                placeholder="First Name" value="">
+                        </mat-form-field>
+                        <small
+                            *ngIf="userForm.controls['userFirstName'].hasError('required') && userForm.controls['userFirstName'].touched"
+                            class="form-error-msg">First Name is required </small>
+                        <!-- <small 
+                        *ngIf="userForm.controls['username'].hasError('minlength') && userForm.controls['username'].touched" 
+                        class="form-error-msg"> Username require at least {{userForm.controls['username'].errors.minlength.requiredLength}} characters </small>
+                        <small 
+                        *ngIf="userForm.controls['username'].hasError('maxlength') && userForm.controls['username'].touched" 
+                        class="form-error-msg"> Username can not contain more than {{userForm.controls['username'].errors.maxlength.requiredLength}} characters </small> -->
+                    </div>
+                    <div class="pb-1" *ngIf="id && id=='null'">
+                        <mat-form-field class="full-width">
+                            <input matInput name="password" type="password" matTooltip="Password requires atleast 8 characters" tabindex="7" formControlName="password"
+                                placeholder="Password">
+                        </mat-form-field>
+                        <small
+                            *ngIf="userForm.controls['password'].hasError('required') && userForm.controls['password'].touched"
+                            class="form-error-msg">Password is required</small>
+                    </div>
+
+
+                    
+                    <!-- <div class="pb-1">
+                      <mat-form-field class="full-width">
+                          <input matInput name="confirmPassword" formControlName="confirmPassword" placeholder="ConfirmPassword">
+                      </mat-form-field>
+                      <small
+                          *ngIf="userForm.controls['confirmPassword'].hasError('required') && userForm.controls['confirmPassword'].touched"
+                          class="form-error-msg">Password and Confirm Password does not match</small>
+                  </div> -->
+
+                </div>
+
+                <div fxFlex="100" fxFlex.gt-xs="50">
+                    <div class="pb-1">
+                        <div class="pb-1" style="padding-top:1.2rem">
+                            <mat-checkbox name="isActive" tabindex="2" formControlName="isActive">Is Active</mat-checkbox>
+                            <small 
+                            *ngIf="userForm.controls['isActive'].hasError('isActive') && userForm.controls['isActive'].touched" 
+                            class="form-error-msg">Is Active is required </small>
+                        </div>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="userMobile" tabindex="3" formControlName="userMobile"
+                                placeholder="Phone Number">
+                        </mat-form-field>
+
+                        <small
+                            *ngIf="userForm.controls['userMobile'].hasError('phone') && userForm.controls['userMobile'].touched"
+                            class="form-error-msg">Invaild phone number</small>
+                        <!-- <small
+                            *ngIf="userForm.controls['userMobile'].hasError('required') && userForm.controls['userMobile'].touched"
+                            class="form-error-msg">Phone number is required</small> -->
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="userLastName" tabindex="6" formControlName="userLastName"
+                                placeholder="Last Name" value="">
+                        </mat-form-field>
+                        <small
+                            *ngIf="userForm.controls['userLastName'].hasError('required') && userForm.controls['userLastName'].touched"
+                            class="form-error-msg">Last name is required </small>
+                   </div>
+                    <div class="pb-1" *ngIf="id && id=='null'">
+                        <mat-form-field class="full-width">
+                            <input matInput name="confirmpassword" type="password" tabindex="8" formControlName="confirmpassword"
+                                placeholder="Confirm Password">
+                        </mat-form-field>
+                        <small 
+                        *ngIf="userForm.controls['confirmpassword'].hasError('equalTo')" 
+                        class="form-error-msg">Password mismatch</small>
+                    </div>
+
+                    <!-- <div class="pb-1" *ngIf="id && id=='null'">
+                        <mat-form-field class="full-width">
+                            <input matInput name="passwordHint" formControlName="passwordHint"
+                                placeholder="Password Hint">
+                        </mat-form-field>
+    
+                        <small
+                            *ngIf="userForm.controls['passwordHint'].hasError('minlength') && userForm.controls['passwordHint'].touched"
+                            class="form-error-msg"> Password Hint is require at least
+                            {{userForm.controls['passwordHint'].errors.minlength.requiredLength}} characters </small>
+                        <small
+                            *ngIf="userForm.controls['passwordHint'].hasError('maxlength') && userForm.controls['passwordHint'].touched"
+                            class="form-error-msg"> Password Hint can not contain more than
+                            {{userForm.controls['passwordHint'].errors.maxlength.requiredLength}} characters </small>
+                        <small
+                            *ngIf="userForm.controls['passwordHint'].hasError('required') && userForm.controls['passwordHint'].touched"
+                            class="form-error-msg">Password Hint is required </small>
+                    </div> -->
+
+                </div>
+            </div>
+            <button mat-raised-button color="primary" *ngIf="id && id=='null'" [disabled]="userForm.invalid"
+                (click)="signup()">Submit</button>
+            <button mat-raised-button color="primary" *ngIf="id && id!='null'" (click)="update()">Update</button>
+            <!-- {{userForm.value|json}} -->
+        </form>
+    </mat-card-content>
+</mat-card>

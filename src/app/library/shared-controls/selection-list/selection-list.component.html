@@ -1,0 +1,15 @@
+<div>
+  <mat-form-field style="width:275px">
+    <mat-label>{{shortLabel}}</mat-label>
+    <mat-select [(value)]="this.selectedItem" [disabled]="IsDisabled()" (selectionChange)="onSelectionChange($event)" >
+
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let sourceItem of selectedInActiveMasters" [value]="sourceItem" >
+        ({{sourceItem.Code}}) {{sourceItem.Description}}
+      </mat-option>
+      <mat-option *ngFor="let sourceItem of activeMastersList()" [value]="sourceItem" [disabled]="!(sourceItem.IsActive)">
+        ({{sourceItem.Code}}) {{sourceItem.Description}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

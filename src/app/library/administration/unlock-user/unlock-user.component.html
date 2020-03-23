@@ -1,0 +1,39 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+      <div class="card-title-text">Unlock User</div>
+      <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="unlockUserForm" autocomplete="off">
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+            <div class="pb-1">
+              User
+            </div>
+            <div class="pb-1">
+              Locked Date & Time
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="80" class="pr-1">
+            <div class="pb-1">
+                <mat-select name="userId" formControlName="userId" placeholder="Select User" (selectionChange)="onUserSelectionChange($event)">
+                    <mat-option *ngFor="let lp of lockedUserList" [value]="lp">
+                      {{lp.name}}
+                    </mat-option>
+                </mat-select>
+              <small
+                *ngIf="unlockUserForm.controls['userId'].hasError('required') && unlockUserForm.controls['userId'].touched"
+                class="form-error-msg">Please select a user to unlock</small>
+            </div>
+            <div class="pb-1" *ngIf="selectedUser">
+                 {{selectedUser.lockedAt}}
+            </div>
+          </div>
+  
+        </div>
+        <button mat-raised-button  color="primary" [disabled]="unlockUserForm.invalid"
+          (click)="unlockUser(unlockUserForm.value)">Unlock</button>
+        <!-- {{unlockUserForm.value|json}} -->
+      </form>
+    </mat-card-content>
+  </mat-card>

@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>Lawyer Selection</h1>
+<div mat-dialog-content style="height:4rem;width:44rem">
+    <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="34" class="pr-1" style="padding-top:13px">
+            <mat-select placeholder="Select Lawyer" [(ngModel)]="selectedLPanel.lawyer" [disabled]="data.mode==1" autoFocus>
+                <!-- <mat-form-field>
+                    <input matInput (keyup)="applyFilter($event.target.value)" autocomplete="off"
+                        placeholder="Search Lawyer">
+                </mat-form-field> -->
+                <mat-option *ngFor="let ll of listLawyer" [value]="ll">
+                    ({{ll.code}}) {{ll.description}}
+                </mat-option>
+            </mat-select>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+            <mat-form-field class="full-width">
+            <input matInput [min]="minDate" [(ngModel)]="selectedLPanel.panelInclusionDate" [disabled]="data.mode==0 && selectedLPanel.panelInclusionDate"
+                    [matDatepicker]="pickerInclusion" placeholder="Choose Inclusion Date">
+                <mat-datepicker-toggle matSuffix [for]="pickerInclusion"></mat-datepicker-toggle>
+                <mat-datepicker #pickerInclusion></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+            <mat-form-field class="full-width">
+            <input matInput [min]="minDate" [(ngModel)]="selectedLPanel.panelExclusionDate" (dateChange)="panelExclusionDateCahnge($event)"
+                    [matDatepicker]="pickerExclusion" placeholder="Choose a Exclusion Date">
+                <mat-datepicker-toggle matSuffix [for]="pickerExclusion"></mat-datepicker-toggle>
+                <mat-datepicker #pickerExclusion></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+</div>
+<div mat-dialog-actions style="padding-top:1rem;padding-left:.7rem;float: right!important;">
+    <button mat-raised-button color="primary" (click)="closeButtonClicked(true)" style="margin-right: 1em;">{{selectionMode}}</button>
+    <button mat-raised-button color="primary" (click)="closeButtonClicked(false)">Cancel</button>
+</div>

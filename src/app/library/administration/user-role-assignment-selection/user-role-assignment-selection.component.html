@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>User Role Setup </h1>
+<div mat-dialog-content>
+    <table>
+        <tr>
+
+            <app-user-role-selection (role-selection-changed)="this.roleChanged($event)"
+              [selected-role] ="this.selectedRole" [disabled]="!this.allowChangingRole" >
+            </app-user-role-selection>
+
+            <td>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="startsOn" placeholder="From Date" [(ngModel)]="this.startsOnDate" [disabled] = "true">
+                    <mat-datepicker-toggle matSuffix [for]="startsOn"></mat-datepicker-toggle>
+                    <mat-datepicker #startsOn ></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="expiresOn" [min]="startsOn" placeholder="To Date" [(ngModel)]= "this.expiresOnDate">
+                    <mat-datepicker-toggle matSuffix [for]="expiresOn" ></mat-datepicker-toggle>
+                    <mat-datepicker #expiresOn ></mat-datepicker>
+                </mat-form-field>
+            </td>
+
+        </tr>
+    </table>
+</div>
+<div mat-dialog-actions style="float:right;">
+    <button mat-raised-button color="primary" (click)="closeButtonClicked(true)"
+        style="margin-right: 1em;">{{this.submitCaption}}</button>
+    <button mat-raised-button color="primary" (click)="closeButtonClicked(false)">Cancel</button>
+</div>

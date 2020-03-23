@@ -1,0 +1,16 @@
+<form [formGroup]="descriptionForm" autocomplete="off">
+    <!-- <div fxLayout="row wrap">
+       <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+         <div class="pb-1"> -->
+           <mat-form-field class="full-width">
+             <input matInput [disabled]="true" name="description" formControlName="description" placeholder="{{descPlaceHolder}}" value="">
+           </mat-form-field>
+           <small
+             *ngIf="descriptionForm.controls['description'].hasError('required') && descriptionForm.controls['description'].touched"
+             class="form-error-msg">Description is required</small>
+             
+         <!-- </div>
+       </div>
+     </div> -->
+   </form>
+   

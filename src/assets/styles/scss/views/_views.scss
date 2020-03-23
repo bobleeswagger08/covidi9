@@ -1,0 +1,33 @@
+// Remove imports which are not needed for your project
+@import "sessions/sessions";
+@import "inbox";
+@import "calendar";
+@import "chats";
+@import "gallery";
+@import "pricings";
+@import "users";
+@import "profile";
+@import "shop";
+@import "home";
+@import "invoice";
+@import "todo/todo-details";
+@import "todo/todo-list";
+@import "todo/todo";
+
+/* 
+  Only Required if you want to use Angular Landing
+  (https://themeforest.net/item/angular-landing-material-design-angular-app-landing-page/21198258)
+*/
+// @import "landing";
+.mat-expansion-panel-header{background-color:#64B8E9!important;height:2rem!important;}
+ .mat-expansion-panel-header:hover {background-color:rgb(153, 176, 238)!important;}
+ .mat-expansion-panel-header:active {background-color:#2798f2!important;}
+//   .mat-expansion-panel-body {
+//     padding-bottom: 0;
+// }
+.mat-expansion-panel-header.mat-expanded{
+background-color:#2798f2!important;
+}
+::ng-deep .mat-expansion-panel-body {
+padding-bottom: 0px!important; 
+}

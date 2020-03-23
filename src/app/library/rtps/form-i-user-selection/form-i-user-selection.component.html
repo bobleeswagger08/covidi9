@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>User Selection</h1>
+<div mat-dialog-content style="height:10rem;width:30rem">
+    
+    <mat-select  placeholder="Select User" [(ngModel)]="selectedUser" autoFocus>
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" autocomplete="off" placeholder="Search User">
+        </mat-form-field>
+        <mat-option *ngFor="let lu of listUser" [value]="lu">
+            ({{lu.userId}})  {{lu.userFirstName}}  {{lu.userLastName}}
+        </mat-option>
+    </mat-select>
+    
+</div>
+<div mat-dialog-actions style="padding-top:1rem;padding-left:.7rem;float: center;">
+    <button mat-raised-button color="primary" (click)="closeButtonClicked(true)"
+        style="margin-right: 1em;">Add</button>
+    <button mat-raised-button color="primary" (click)="closeButtonClicked(false)">Cancel</button>
+</div>

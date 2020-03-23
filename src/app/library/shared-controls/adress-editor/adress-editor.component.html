@@ -1,0 +1,112 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text">{{addressType}}</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="addressForm" autocomplete="off">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                        <input
+                            matInput
+                            type="email"
+                            name="email"
+                            formControlName="email"
+                            placeholder="Your Email"
+                            value="">
+                        </mat-form-field>
+                        <small 
+                        *ngIf="addressForm.controls['email'].hasError('email') && addressForm.controls['email'].touched" 
+                        class="form-error-msg"> Invaild email address </small>
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <mat-select name="countryId" formControlName="countryId" placeholder="Country" (selectionChange)="OnCountriesChange($event)">
+                                <mat-option *ngFor="let cntry of listCountries" [value]="cntry.code">
+                                  {{cntry.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <mat-select name="stateId" formControlName="stateId" placeholder="States">
+                                <mat-option *ngFor="let stst of listStates" [value]="stst.code">
+                                  {{stst.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input
+                            matInput
+                            name="landmark"
+                            formControlName="landmark"
+                            placeholder="Landmark"
+                            value="">
+                        </mat-form-field>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input 
+                            matInput 
+                            name="pinCode"
+                            formControlName="pinCode"
+                            placeholder="Pin Code">
+                        </mat-form-field>
+                        
+                        <small 
+                        *ngIf="addressForm.controls['pinCode'].hasError('minlength') && addressForm.controls['pinCode'].touched" 
+                        class="form-error-msg"> Pin Code require at least {{addressForm.controls['pinCode'].errors.minlength.requiredLength}} characters </small>
+                        <small 
+                        *ngIf="addressForm.controls['pinCode'].hasError('maxlength') && addressForm.controls['pinCode'].touched" 
+                        class="form-error-msg"> Pin Code can not contain more than {{addressForm.controls['pinCode'].errors.maxlength.requiredLength}} characters </small>
+                        <small 
+                        *ngIf="addressForm.controls['pinCode'].hasError('required') && addressForm.controls['pinCode'].touched" 
+                        class="form-error-msg"> Pin Code is required </small>
+                    </div>
+                </div>
+
+                <div fxFlex="100" fxFlex.gt-xs="50">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input 
+                            matInput
+                            name="phone"
+                            formControlName="phone"
+                            placeholder="Phone number">
+                        </mat-form-field>
+                        <small 
+                        *ngIf="addressForm.controls['phone'].hasError('phone') && addressForm.controls['phone'].touched" 
+                        class="form-error-msg">Invalid phone number</small>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input 
+                            matInput
+                            name="city"
+                            formControlName="city"
+                            placeholder="City">
+                        </mat-form-field>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <textarea matInput name="houseno" formControlName="houseno" placeholder="Flat / House No. / Floor / Building" value=""></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <textarea matInput name="streetName" formControlName="streetName" placeholder="Colony / Street / Locality" value=""></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>  
+

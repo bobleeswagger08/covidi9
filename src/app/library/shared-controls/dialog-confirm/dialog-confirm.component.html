@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{this.data.caption}} </h1>
+<div mat-dialog-content>
+  <p>{{this.data.text}}</p>
+ 
+</div>
+<div mat-dialog-actions  style="float:right;">
+  <button mat-raised-button color="primary" (click)="closeButtonClicked(true)" style="margin-right: 1em;" >Yes</button>
+  <button mat-raised-button color="primary" (click)="closeButtonClicked(false)">No</button>
+</div>

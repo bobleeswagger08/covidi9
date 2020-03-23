@@ -1,0 +1,32 @@
+<mat-card>
+    <mat-card-header>
+
+    </mat-card-header>
+    <mat-card-content>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1" >
+                <app-service-filter [office-list]="officeList" [service-list]="serviceList"
+                    (on-filter)="this.seachRerquestData($event)"></app-service-filter>
+            </div>
+        </div>
+        
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+                <div id="divCalendarChart">
+
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1" style="margin-left: -20px;">
+                <div id="divLineChart" >
+                </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1" style="margin-left: 20px;">
+                <div id="divPieChart">
+
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

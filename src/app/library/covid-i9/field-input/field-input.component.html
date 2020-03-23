@@ -1,0 +1,95 @@
+<mat-card class="p-0">
+    <mat-card-content>
+        <form [formGroup]="fieldInputForm" autocomplete="off">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="isEverContacted" formControlName="isEverContacted" placeholder="Is Ever Contacted"
+                                value="">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="isContactedOnCurrentDate" formControlName="isContactedOnCurrentDate"
+                                placeholder="Is Contact On Current Date" value="">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="dateOfContacted" formControlName="dateOfContacted" [matDatepicker]="picker"
+                                placeholder="Date of Contact">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="timeOfConected" formControlName="timeOfConected"
+                                placeholder="Time of Contact" value="">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="isSymptomatic" formControlName="isSymptomatic"
+                                placeholder="Is Symptomatic" value="">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="isReferredForMedicalCare" formControlName="isReferredForMedicalCare" placeholder="Is Reffered for medical Care" value="">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="reasonForNotContacted" formControlName="reasonForNotContacted" placeholder="Reason For No Contact" value="">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="isReleasedFromSurveillanc" formControlName="isReleasedFromSurveillanc" placeholder="Is Released from Survelliance" value="">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <textarea matInput name="commentByMOIC" formControlName="commentByMOIC"
+                                placeholder="Comment By MOIC" value=""></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <textarea matInput name="fieldNote" formControlName="fieldNote"
+                                placeholder="Field Note" value=""></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

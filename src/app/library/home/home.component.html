@@ -1,0 +1,43 @@
+<div class="scrollable" [perfectScrollbar]>
+  <section class="home-section section-intro text-center">
+    <div class="container">
+        <span class="egret">Welcome to Purosathi</span>
+        <!-- <img src="assets/images/5-star.png" alt=""> -->
+        <h1>The e-Governance Portal of Howrah Municipal Corporation</h1>
+        <p>Note: Access to the portal is restricted and you need an user id and password to log on to this portal. Please request your system administrator to provide your user id and password if you don’t have it already.</p>
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="mb-48">
+          <!-- <button mat-raised-button mat-lg-button (click)="goToDashboard(mainVersion)">MAIN DASHBOARD</button> -->
+          <span fxFlex="8px"></span>
+          <a routerLink="/sessions/signin">
+            <button mat-raised-button mat-lg-button class="pink pink-500-fg">Login</button>
+          </a>
+        </div>
+        <!-- <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="pt-48">
+          <a href="http://demos.ui-lib.com/egret-doc/" mat-button color="accent" target="_blank">Documentation</a>
+          <a href="https://ui-lib.com/github-access/" mat-button color="warn" target="_blank">GitHub Access</a>
+        </div> -->
+    </div>
+  </section>
+  <!-- <section id="demos" class="home-section section-demos">
+    <div class="container">
+      <div class="text-center">
+          <h2 class="text-20 text-uppercase mt-0 mb-1">Limitless layout variaitons</h2>
+      </div>
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div class="demo-box-wrap" fxFlex="33.33" *ngFor="let v of versions"> 
+          <div class="text-center demo-box" [matTooltip]="v.name" matTooltipPosition="above">
+            <div (click)="goToDashboard(v)" class="p-0 screenshot">
+              <img [src]="v.photo">
+            </div>
+          
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <p>Configure your own layout using customizer.</p>
+        <button mat-fab color="primary" (click)="goToMainDash()"><mat-icon>settings</mat-icon></button>
+      </div>
+    </div>
+  </section> -->
+</div>

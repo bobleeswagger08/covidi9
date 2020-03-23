@@ -1,0 +1,355 @@
+<mat-tab-group [selectedIndex]="tabIndex">
+    <mat-tab label="Service Request (Form 1)"> 
+        <ng-template matTabContent >
+            <mat-card class="p-0">
+                <mat-card-title class="">
+                    <div class="card-title-text">Service Request (Form 1)<span *ngIf="id != 'null'">-Read Only View</span></div>
+                    <mat-divider></mat-divider>
+                </mat-card-title>
+                <!-- <mat-card-title>
+                    <button style="padding-left: 25px;" mat-button color="primary" (click)="goToListPage()">Service Request List</button>
+                </mat-card-title> -->
+                <mat-card-content>
+                    <form [formGroup]="serviceRequestForm" autocomplete="off">
+                        <div fxLayout="row wrap" >
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1" style="padding-top: 1rem">
+                                    Service
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1" style="padding-top: 1rem">
+                                    <mat-select name="serviceId" formControlName="serviceId" placeholder="Service" >
+                                        <mat-option *ngFor="let lsm of listServicemaster" [value]="lsm.id">
+                                            {{lsm.description}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <small
+                                        *ngIf="serviceRequestForm.controls['serviceId'].hasError('required') && serviceRequestForm.controls['serviceId'].touched"
+                                        class="form-error-msg">Service is required </small>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1" style="padding-top: 1rem">
+                                    Reference No
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="referenceNo" formControlName="referenceNo" placeholder="Reference No" [disabled]="id != 'null'"
+                                            value="">
+                                    </mat-form-field>
+                                    <!-- <small
+                                        *ngIf="serviceRequestForm.controls['referenceno'].hasError('required') && serviceRequestForm.controls['referenceno'].touched"
+                                        class="form-error-msg">Reference No is required</small> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1" style="padding-top: 1.1rem">
+                                   Date of Application
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="serviceRequestDate" [max]="minDate" formControlName="serviceRequestDate"
+                                            [matDatepicker]="picker" placeholder="Choose a date">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                    <small
+                                        *ngIf="serviceRequestForm.controls['serviceRequestDate'].hasError('required') && serviceRequestForm.controls['serviceRequestDate'].touched"
+                                        class="form-error-msg">Requested Date is required</small>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1" style="padding-top: 1.1rem">
+                                    Due Date
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="dueDate" formControlName="dueDate"
+                                            [matDatepicker]="pickerduedate" placeholder="Choose a date">
+                                        <mat-datepicker-toggle matSuffix [for]="pickerduedate"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerduedate></mat-datepicker>
+                                    </mat-form-field>
+                                    <small
+                                        *ngIf="serviceRequestForm.controls['dueDate'].hasError('required') && serviceRequestForm.controls['dueDate'].touched"
+                                        class="form-error-msg">Due Date is required</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div>
+                                    Application Reference No
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div>
+                                    <mat-form-field class="full-width" style="margin-top:-20px">
+                                        <input matInput name="hmcApplicationReferenceNo" formControlName="hmcApplicationReferenceNo"
+                                            placeholder="Application Reference No" value="">
+                                    </mat-form-field>
+                                     <small
+                                        *ngIf="serviceRequestForm.controls['hmcApplicationReferenceNo'].hasError('required') && serviceRequestForm.controls['hmcApplicationReferenceNo'].touched"
+                                        class="form-error-msg">Building No is required</small>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1" *ngIf="id != 'null'">
+                                <div class="pb-1">
+                                    Status
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1">
+                                   {{status}}
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1">
+                                    Office
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-select name="officeId" formControlName="officeId" placeholder="Office">
+                                        <mat-option *ngFor="let lo of listOffice" [value]="lo.id">
+                                           {{lo.description}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <small
+                                        *ngIf="serviceRequestForm.controls['officeId'].hasError('required') && serviceRequestForm.controls['officeId'].touched"
+                                        class="form-error-msg">Location is required </small>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <fieldset style="border-radius: .5em;padding-left: 2em;"> 
+                            <legend style="padding:.5em">Applicant Details</legend>
+                            <div fxLayout="row wrap">
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div style="padding-top: 1rem;">
+                                        Name
+                                    </div>
+                                </div>
+            
+                                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                    <div>
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="applicantName" formControlName="applicantName" placeholder="Name" value="">
+                                        </mat-form-field>
+                                        <small
+                                            *ngIf="serviceRequestForm.controls['applicantName'].hasError('required') && serviceRequestForm.controls['applicantName'].touched"
+                                            class="form-error-msg">Applicant Name is required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div fxLayout="row wrap">
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div style="padding-top: 1.1rem;">
+                                        Building Name
+                                    </div>
+                                </div>
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div>
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="buildingName" formControlName="buildingName"
+                                                placeholder="Building Name" value="">
+                                        </mat-form-field>
+                                        <small
+                                            *ngIf="serviceRequestForm.controls['buildingName'].hasError('required') && serviceRequestForm.controls['buildingName'].touched"
+                                            class="form-error-msg">Building No is required</small> 
+                                    </div>
+                                </div>
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div style="padding-top: 1.1rem;padding-left: 2em;">
+                                        Building No./House No.
+                                    </div>
+                                </div>
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div>
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="houseNo" formControlName="houseNo" placeholder="Building No."
+                                                value="">
+                                        </mat-form-field>
+                                         <small
+                                            *ngIf="serviceRequestForm.controls['houseNo'].hasError('required') && serviceRequestForm.controls['houseNo'].touched"
+                                            class="form-error-msg">Building No is required</small> 
+                                    </div>
+                                </div>
+                                
+                            </div> -->
+                            <div fxLayout="row wrap">
+                                <!-- <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div style="padding-top: 1.1rem;">
+                                        Flat No.
+                                    </div>
+                                </div> -->
+                                <!-- <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div>
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="flatNo" formControlName="flatNo" placeholder="Flat No."
+                                                value="">
+                                        </mat-form-field>
+                                         <small
+                                            *ngIf="serviceRequestForm.controls['flatNo'].hasError('required') && serviceRequestForm.controls['flatNo'].touched"
+                                            class="form-error-msg">Flat No. is required</small>
+                                    </div>
+                                </div> -->
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div style="padding-top: 1.1rem">
+                                        Address
+                                    </div>
+                                </div>
+                                <div fxFlex="100" fxFlex.gt-xs="75" class="pr-1">
+                                    <div>
+                                        <!-- <mat-form-field class="full-width">
+                                            <input matInput name="streetName" formControlName="streetName" placeholder="Street Name"
+                                                value="">
+                                        </mat-form-field> -->
+                                        <mat-form-field class="example-full-width">
+                                            <textarea matInput matInput name="streetName" formControlName="streetName" placeholder="Address" ></textarea>
+                                        </mat-form-field>
+                                        <!-- <small
+                                            *ngIf="serviceRequestForm.controls['streetName'].hasError('required') && serviceRequestForm.controls['streetName'].touched"
+                                            class="form-error-msg">Street Name is required</small> -->
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div fxLayout="row wrap">
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div style="padding-top: 1.1rem;">
+                                        Contact No
+                                    </div>
+                                </div>
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div>
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="contactNo"  formControlName="contactNo" placeholder="Contact No"
+                                                value="">
+                                        </mat-form-field>
+                                       <small
+                                            *ngIf="serviceRequestForm.controls['contactNo'].hasError('contactNumber') && serviceRequestForm.controls['contactNo'].touched"
+                                            class="form-error-msg">Please enter a valid Contact Number</small>
+                                    </div>
+                                </div>
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div style="padding-top: 1.1rem;">
+                                        Pin Code
+                                    </div>
+                                </div>
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div>
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pinCode"  formControlName="pinCode" placeholder="Pin Code"
+                                                value="">
+                                        </mat-form-field>
+                                        <small
+                                            *ngIf="serviceRequestForm.controls['pinCode'].hasError('required') && serviceRequestForm.controls['pinCode'].touched"
+                                            class="form-error-msg">Pin Code is required</small>
+                                            <small
+                                            *ngIf="serviceRequestForm.controls['pinCode'].hasError('pinCode') && serviceRequestForm.controls['pinCode'].touched"
+                                            class="form-error-msg">Please enter a valid Pin Code</small>
+                                    </div>
+                                </div>
+                                <!-- <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div style="padding-top: 1.1rem;padding-left: 2em;">
+                                        E-Mail id
+                                    </div>
+                                </div> -->
+                                <!-- <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div>
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="eMailId" formControlName="eMailId" placeholder="E-Mail Id"
+                                                value="">
+                                        </mat-form-field>
+                                         <small
+                                            *ngIf="serviceRequestForm.controls['eMailId'].hasError('required') && serviceRequestForm.controls['eMailId'].touched"
+                                            class="form-error-msg">Email Id is required</small> 
+                                    </div>
+                                </div> -->
+                            </div>
+                            <!-- <div fxLayout="row wrap">
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div style="padding-top: 1.1rem;">
+                                        Pin Code
+                                    </div>
+                                </div>
+                                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                    <div>
+                                        <mat-form-field class="full-width">
+                                            <input matInput name="pinCode" formControlName="pinCode" placeholder="Pin Code"
+                                                value="">
+                                        </mat-form-field>
+                                        <small
+                                            *ngIf="serviceRequestForm.controls['pinCode'].hasError('required') && serviceRequestForm.controls['pinCode'].touched"
+                                            class="form-error-msg">Pin code is required</small>
+                                    </div>
+                                </div>
+                            </div> -->
+                            
+                        </fieldset>
+                        <!-- <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+                                <div class="pb-1">
+                                    Upload file
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                <div class="pb-1">
+                                     <input  name="singleFile" formControlName="singleFile" type="file" /> 
+                                </div>
+                            </div>
+            
+                            <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                                 <mat-file-upload-queue #fileUploadQueue [fileAlias]="'file'"
+                                    [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
+            
+                                    <mat-file-upload [file]="file" [id]="i"
+                                        *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
+                                </mat-file-upload-queue> 
+                                <button mat-raised-button color="primary">Attach File</button>
+                            </div>
+                        </div> -->
+                        <div fxLayout="row wrap" style="padding-top: 1em">
+                            Note
+                            <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+                              <mat-card class="p-0">
+                    
+                                <mat-card-content class="p-0">
+                                  <quill-editor id="editorContent" theme="snow" name="note" formControlName="note"
+                                    (onContentChanged)="onContentChanged()" onSelectionChanged="onSelectionChanged()"></quill-editor>
+                                </mat-card-content>
+                              </mat-card>
+                              <!-- <small
+                                *ngIf="serviceRequestForm.controls['note'].hasError('required') && serviceRequestForm.controls['note'].touched"
+                                class="form-error-msg">Note is required </small> -->
+                            </div>
+                          </div>
+            
+                        <button mat-raised-button color="primary" *ngIf="id == 'null' && userAuthorization.canAdd()" [disabled]="serviceRequestForm.invalid"
+                            (click)="CreateServiceRequest()">Submit</button>
+                        <!-- <button mat-raised-button color="primary"  *ngIf="id!='null'" [disabled]="true"
+                            (click)="UpdateServiceRequest()">Update</button> -->
+                        <!-- {{addressForm.value|json}} -->
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Service Request Status" *ngIf="id != 'null' && tabIndex == 1">
+        <ng-template matTabContent>
+            <app-service-request-status></app-service-request-status>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

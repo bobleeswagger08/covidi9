@@ -1,0 +1,108 @@
+ <mat-card class="p-0">
+    <mat-card-title class="" >
+        <div class="card-title-text">Role</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="roleMasterForm" autocomplete="off">
+            <div fxLayout="row wrap" >
+                <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                    <div class="pb-1" style="padding-top:1.1rem">
+                        Code
+                     </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input
+                            matInput
+                            name="code"
+                            formControlName="code"
+                            placeholder="Code"
+                            value="">
+                        </mat-form-field>
+                        <small 
+                        *ngIf="roleMasterForm.controls['code'].hasError('required') && roleMasterForm.controls['code'].touched" 
+                        class="form-error-msg">Code is required </small>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="15" class="pr-1">
+                    <div class="pb-1" style="padding-top: 1rem">
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="35" style="padding-top: 1.2rem" class="pr-1">
+                    <div class="pb-1">
+                        <div class="pb-1">
+                            <mat-slide-toggle name="isActive" color="primary" formControlName="isActive">Active</mat-slide-toggle>
+                            <!-- <mat-checkbox name="isActive" formControlName="isActive">Is Active</mat-checkbox>
+                            <small 
+                            *ngIf="roleMasterForm.controls['isActive'].hasError('isActive') && roleMasterForm.controls['isActive'].touched" 
+                            class="form-error-msg">Is Active is required </small> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                    
+                    <div class="pb-1" style="padding-top:1.1rem">
+                        Description
+                     </div>
+                     <div class="pb-1" style="padding-top:1rem">
+                        Role Category
+                     </div>
+                </div>
+
+                    <div fxFlex="100" fxFlex.gt-xs="80" class="pr-1">
+                        
+                        <div class="pb-1">
+                            <mat-form-field class="full-width">
+                                <input
+                                matInput
+                                name="description"
+                                formControlName="description"
+                                placeholder="Description"
+                                value="">
+                            </mat-form-field>
+                            <small 
+                            *ngIf="roleMasterForm.controls['description'].hasError('required') && roleMasterForm.controls['description'].touched" 
+                            class="form-error-msg">Description is required </small>
+                        </div>
+                        <div class="pb-1">
+                            <mat-select name="roleCategory" formControlName="roleCategory" placeholder="Role Category">
+                                <mat-option *ngFor="let rc of listCategory" [value]="rc.id">
+                                 {{rc.description}}
+                                </mat-option>
+                            </mat-select>
+                            <small 
+                            *ngIf="roleMasterForm.controls['roleCategory'].hasError('required') && roleMasterForm.controls['roleCategory'].touched" 
+                            class="form-error-msg">Role Category is required</small>
+                        </div>
+                    </div>
+            </div>
+            <div fxLayout="row wrap">
+                Note
+                <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+                  <mat-card class="p-0">
+                    <mat-card-content class="p-0">
+                      <quill-editor id="editorContent" theme="snow" name="note" formControlName="note"
+                        (onContentChanged)="onContentChanged()" onSelectionChanged="onSelectionChanged()"></quill-editor>
+                    </mat-card-content>
+                  </mat-card>
+                  <small
+                    *ngIf="roleMasterForm.controls['note'].hasError('required') && roleMasterForm.controls['note'].touched"
+                    class="form-error-msg">Note is required</small>
+                </div>
+            </div>
+            <button 
+            mat-raised-button 
+            color="primary" *ngIf="id=='null'"
+            [disabled]="roleMasterForm.invalid" (click)="CreateRoleMaster(roleMasterForm.value)">Submit</button>
+            <button 
+            mat-raised-button 
+            color="primary" *ngIf="id!='null'"
+            [disabled]="roleMasterForm.invalid" (click)="UpdateRoleMaster(roleMasterForm.value)">Update</button>
+            <!-- {{addressForm.value|json}} -->
+        </form>
+    </mat-card-content>
+</mat-card> 

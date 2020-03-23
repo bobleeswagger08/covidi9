@@ -1,0 +1,90 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+        <div class="card-title-text">Registered Court Case</div>
+    </div>
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+            <button  mat-raised-button color="accent" (click)="goToAddPage()"
+            style="margin-top: 10px; float: right; "> 
+            Add Court Case
+           </button>
+        </div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+<div fxLayout="row wrap">
+    <!-- <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1"></div>
+    <div fxFlex="100" fxFlex.gt-xs="60" class="pr-1">
+        <mat-list>
+            <h3 mat-subheader>Organization Units</h3>
+            <mat-list-item *ngFor="let lp of listParent">
+                <h4 mat-line>{{lp.description}}</h4>
+                <button mat-raised-button color="accent" (click)="gotoUpdatePage(lp.id)">Modify</button>
+            </mat-list-item>
+            
+        </mat-list>
+    </div>
+    <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+        
+    </div> -->
+    <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      </mat-form-field>
+      <div *ngIf="!dataSource || dataSource.data.length === 0" style="text-align:center;padding-right:8rem">No records found</div>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource"  matSort *ngIf="dataSource && dataSource.data.length > 0">
+      
+          <!-- Position Column -->
+          <ng-container matColumnDef="caseNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Case # </th>
+            <td mat-cell *matCellDef="let element"> {{element.caseNo}} </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="initiationDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Initiation Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.initiationDate| date: 'dd/MM/yyyy'}} </td>
+          </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="courtCode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Court Code </th>
+            <td mat-cell *matCellDef="let element"> {{element.courtCode}} </td>
+          </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="court">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Court Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.court}} </td>
+          </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="holdingNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Holding No</th>
+            <td mat-cell *matCellDef="let element"> {{element.holdingNo}} </td>
+          </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="arNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>AR No</th>
+            <td mat-cell *matCellDef="let element"> {{element.arNo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="modifyButton">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-icon-button color="accent" (click)="gotoUpdatePage(element.id)">
+                 <mat-icon>edit</mat-icon>
+                </button>
+             </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+</div>
+</mat-card-content>
+</mat-card> 
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+  <p style="color: white">Please Wait. </p>  
+</ngx-spinner>

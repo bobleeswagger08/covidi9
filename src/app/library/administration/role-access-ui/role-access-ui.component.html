@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-header>
+    <table>
+      <tr>
+        <td>
+          <div>
+            <app-selection-list shortLabel="Select Role" [sourceList]="userRoles" [disabled]="this.canSave()"
+              (itemSelectionChanged)="roleSelectionChanged($event)" [selectedId]="this.selectedRoleId">
+            </app-selection-list>
+          </div>
+        </td>
+        <td>
+          <div>
+            <app-selection-list shortLabel="Select Office" [sourceList]="organizationUnits" [disabled]="this.canSave()"
+              (itemSelectionChanged)="officeSelectionChanged($event)" [selectedId]="this.selectedOfficeId">
+            </app-selection-list>
+          </div>
+        </td>
+        <td>
+          <button mat-raised-button color="primary" [disabled]="!this.canSave()" (click)="saveChanges()">Update</button>
+        </td>
+        <td>
+          <button mat-flat-button color="primary" [disabled]="!this.canSave()" (click)="resetChanges($event)" >Reset Data</button>
+        </td>
+      </tr>
+    </table>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <mat-tab-group animationDuration="500ms">
+        <mat-tab *ngFor="let sourceItem of this.moduleStructure" [label]="sourceItem.code" [disabled]="false">
+          <div>
+            <mat-card>
+              <mat-card-header>
+                {{sourceItem.description}}
+              </mat-card-header>
+              <mat-card-content>
+                <app-user-role-permission [moduleId]="sourceItem.treeIdentifier"
+                  [module-structure]="sourceItem.subModules" [access-configuration]="moduleAccessConfiguration"
+                  [effective-permissions]="this.liveAccessPermissions">
+                </app-user-role-permission>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </mat-card-content>
+</mat-card>

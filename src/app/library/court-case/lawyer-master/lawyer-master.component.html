@@ -1,0 +1,176 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+      <div class="card-title-text">Lawyer</div>
+  
+      <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="lawyerMasterForm" autocomplete="off">
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+            <div class="pb-1" style="padding-top: 15px;">
+              Code
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+            <div class="pb-1">
+              <app-code name="code" formControlName="code"></app-code>
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1" style="padding-top:20px">
+          <div class="pb-1">
+            <mat-slide-toggle name="isActive" color="primary" formControlName="isActive">Active</mat-slide-toggle>
+          </div>
+         </div>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+            <div class="pb-1" style="padding-top: 14px;">
+              Name
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="80" class="pr-1">
+            <div class="pb-1">
+              <mat-form-field class="full-width">
+                <input matInput name="name" formControlName="name" placeholder="Name" value="">
+              </mat-form-field>
+              <small
+                *ngIf="lawyerMasterForm.controls['name'].hasError('required') && lawyerMasterForm.controls['name'].touched"
+                class="form-error-msg">Name is required </small>
+            </div>
+          </div>
+          <!-- <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+            <div class="pb-1">
+              Description
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="80" class="pr-1">
+            <div class="pb-1">
+              <app-description name="description" formControlName="description"></app-description>
+            </div>
+          </div> -->
+  
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+            <div class="pb-1">
+                <app-adress-editor name="addressOffice" [address-type]="addressLabel.office" formControlName="addressOffice"></app-adress-editor>
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+            <div class="pb-1">
+               <app-adress-editor name="addressHome" [address-type]="addressLabel.home" formControlName="addressHome"></app-adress-editor>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+              <div class="pb-1" style="padding-top: 15px;">
+                Mobile No.
+              </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                  <input matInput name="phone" formControlName="phone" placeholder="Mobile No." value="">
+                </mat-form-field>
+                <small
+                  *ngIf="lawyerMasterForm.controls['phone'].hasError('required') && lawyerMasterForm.controls['phone'].touched"
+                  class="form-error-msg">Mobile No. is required </small>
+              </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                <div class="pb-1" style="padding-top: 15px;">
+                  Alternate Phone No.
+                </div>
+              </div>
+              <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+                <div class="pb-1">
+                  <mat-form-field class="full-width">
+                    <input matInput name="alternatePhone" formControlName="alternatePhone" placeholder="Alternate Phone No." value="">
+                  </mat-form-field>
+                  <!-- <small
+                    *ngIf="lawyerMasterForm.controls['phone'].hasError('required') && lawyerMasterForm.controls['phone'].touched"
+                    class="form-error-msg">Alternate Phone No. is required </small> -->
+                </div>
+              </div>
+    
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+              <div class="pb-1" style="padding-top: 15px;">
+                Email Id
+              </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="80" class="pr-1">
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                  <input matInput name="emailId" formControlName="emailId" placeholder="Email Id" value="">
+                </mat-form-field>
+                <small
+                  *ngIf="lawyerMasterForm.controls['emailId'].hasError('required') && lawyerMasterForm.controls['emailId'].touched"
+                  class="form-error-msg">Email Id is required </small>
+              </div>
+            </div>
+            
+    
+        </div>
+        <div fxLayout="row wrap" >
+          <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+            <div class="pb-1" style="padding-top: 15px;">
+             Practicing Court 
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1" >
+            <div class="pb-1" style="padding-top: 15px;">
+                <mat-select name="practicingCourts" formControlName="practicingCourts" placeholder="Practicing Court" multiple>
+                    <mat-option *ngFor="let lcm of listCourt" [value]="lcm.id">
+                      {{lcm.code}} {{lcm.description}}
+                    </mat-option>
+                </mat-select>
+                <small 
+                *ngIf="lawyerMasterForm.controls['practicingCourts'].hasError('required') && lawyerMasterForm.controls['practicingCourts'].touched" 
+                class="form-error-msg">Practicing Courts are required</small>
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+            <div class="pb-1" style="padding-top: 15px;">
+            Effective From 
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+            <div class="pb-1">
+              <mat-form-field class="full-width">
+                <input matInput name="effectiveFromDate" [min]="minDate" formControlName="effectiveFromDate"
+                    [matDatepicker]="picker" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <small
+                *ngIf="lawyerMasterForm.controls['effectiveFromDate'].hasError('required') && lawyerMasterForm.controls['effectiveFromDate'].touched"
+                class="form-error-msg">Effective From Date is required</small>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          Remarks
+          <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+            <mat-card class="p-0">
+  
+              <mat-card-content class="p-0">
+                 <app-rich-text-editor name ="remarks" formControlName="remarks"> 
+                </app-rich-text-editor>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+       
+       
+        <button mat-raised-button *ngIf="this.id && this.id == 'null'" color="primary" [disabled]="lawyerMasterForm.invalid"
+          (click)="submitLawyerMasterData(lawyerMasterForm.value)">Submit</button>
+        <button mat-raised-button *ngIf="this.id && this.id != 'null'" color="primary"
+          (click)="updateLawyerMasterData(lawyerMasterForm.value)">Update</button>
+        <!-- {{courtMasterForm.value|json}} -->
+      </form>
+    </mat-card-content>
+  </mat-card>

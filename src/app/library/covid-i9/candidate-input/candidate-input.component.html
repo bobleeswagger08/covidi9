@@ -1,0 +1,184 @@
+<form [formGroup]="candidateForm" autocomplete="off">
+<mat-tab-group>
+
+    <mat-tab label="Candidate Input">
+            <mat-card class="p-0">
+                <mat-card-content>
+                    
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="source" formControlName="source" placeholder="Source"
+                                            value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="serialNo" formControlName="serialNo"
+                                            placeholder="Serial No" value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="name" formControlName="name" placeholder="Name" value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="flightNo" formControlName="flightNo"
+                                            placeholder="Flight No" value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="countryVisited" formControlName="countryVisited"
+                                            placeholder="Country Visited" value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="dob" formControlName="dob" [matDatepicker]="picker"
+                                            placeholder="Date of birth">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="age" formControlName="age" placeholder="Age" value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="sex" formControlName="sex" placeholder="Sex" value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="flightNumber" formControlName="flightNumber"
+                                            placeholder="Flight No." value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="arivalDate" formControlName="arivalDate"
+                                            [matDatepicker]="pickerAD" placeholder="Arrival Date">
+                                        <mat-datepicker-toggle matSuffix [for]="pickerAD"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerAD></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="mobileNo" formControlName="mobileNo"
+                                            placeholder="Mobile No" value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <textarea matInput name="address" formControlName="address"
+                                            placeholder="Address" value=""></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="finalDestination" formControlName="finalDestination"
+                                            placeholder="Final Destination" value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="block" formControlName="block" placeholder="Block"
+                                            value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="state" formControlName="state" placeholder="State"
+                                            value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <textarea matInput name="note" formControlName="note" placeholder="Note"
+                                            value=""></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="wardNo" formControlName="wardNo" placeholder="Ward No"
+                                            value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                                <div class="pb-1">
+                                    <mat-form-field class="full-width">
+                                        <input matInput name="uphc" formControlName="uphc" placeholder="UPHC" value="">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- *ngIf="this.id && this.id == 'null'" -->
+                        <button mat-raised-button *ngIf="!this.id" color="primary" [disabled]="candidateForm.invalid"
+                            (click)="submitCandidateInputData(candidateForm.value)">Submit</button>
+                        <button mat-raised-button *ngIf="this.id" color="primary"
+                            (click)="updateCourtMasterData(candidateForm.value)">Update</button>
+                        <!-- {{courtCaseMasterForm.value|json}} -->
+                </mat-card-content>
+            </mat-card>
+    </mat-tab>
+    <mat-tab label="Field Input">
+            <app-field-input name="fieldData" formControlName="fieldData"></app-field-input>
+    </mat-tab>
+</mat-tab-group>
+</form>

@@ -1,0 +1,122 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                <div class="card-title-text">Registered Form(I) Requests</div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                <button style="float: right;margin-top:1em" mat-raised-button color="accent" (click)="goToAddPage()">
+                    Add Request
+                </button>
+            </div>
+        </div>
+        
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+<div fxLayout="row wrap">
+   
+    <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+        <!-- <mat-list>
+            <h3 mat-subheader>Service Requests</h3>
+            <mat-list-item *ngFor="let sr of listServiceRequest">
+                <h4 mat-line>{{sr.referenceNo}} - {{sr.applicantName}}</h4>
+                <button mat-raised-button color="accent" style="width:7em" (click)="gotoUpdatePage(sr.id)">Modify</button>
+                <button mat-raised-button color="primary" style="margin-left: 1em; width: 13em;" (click)="gotoStatusUpdatePage(sr.id)">Update Status</button>
+            </mat-list-item> -->
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+              </mat-form-field>
+              <app-service-filter [office-list]="officeList" [service-list]="serviceList" [status-list]="statusList" [order-list]="orderList" (on-filter)="seachRerquestData($event)"></app-service-filter>
+              <div *ngIf="!dataSource || dataSource.data.length === 0" style="text-align:center;padding-right:8rem">No records found</div>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort *ngIf="dataSource && dataSource.data.length>0">
+                  
+                  <!-- Progress Column -->
+                   <ng-container matColumnDef="referenceNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>RTPS Reference # </th>
+                    <td mat-cell *matCellDef="let row"> {{row.referenceNo}} </td>
+                  </ng-container> 
+                  <!-- Progress Column -->
+                  <ng-container matColumnDef="hmcApplicationReferenceNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Application Reference # </th>
+                    <td mat-cell *matCellDef="let row"> {{row.hmcApplicationReferenceNo}} </td>
+                  </ng-container> 
+                  <!-- ID Column -->
+                  <ng-container matColumnDef="applicantName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Applicant</th>
+                    <td mat-cell *matCellDef="let row"> {{row.applicantName}} </td>
+                  </ng-container>
+                  <!-- Due date Column -->
+                  <ng-container matColumnDef="serviceRequestDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header >Date of Application</th>
+                    <td mat-cell *matCellDef="let row"> {{row.serviceRequestDate | date : 'dd-MM-yyyy' }}</td>
+                  </ng-container>
+                   <!-- Due date Column -->
+                  <ng-container matColumnDef="dueDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Due Date</th>
+                    <td mat-cell *matCellDef="let row"> {{row.dueDate | date : 'dd-MM-yyyy' }}</td>
+                  </ng-container>
+                   <!-- Due Service Code -->
+                   <ng-container matColumnDef="serviceCode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Service Code</th>
+                    <td mat-cell *matCellDef="let row"> {{row.serviceCode}}</td>
+                  </ng-container>
+                  <!-- Due office Code -->
+                  <ng-container matColumnDef="officeCode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Office Code</th>
+                    <td mat-cell *matCellDef="let row"> {{row.officeCode}}</td>
+                  </ng-container>
+              
+                  <!-- Name Column -->
+                 <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+                  </ng-container>
+              
+                  <!-- Color Column -->
+                  <!-- <ng-container matColumnDef="color">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
+                  </ng-container> -->
+                  <ng-container matColumnDef="updatebutton">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button color="accent" (click)="gotoUpdatePage(row.id)">
+                            <mat-icon style="color:#ef8700">visibility</mat-icon>
+                        </button> 
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="updateStatus">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button color="primary" style="margin-left: 1em;" (click)="gotoStatusUpdatePage(row.id)">
+                           <mat-icon>edit</mat-icon>
+                        </button> 
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="reportButton">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button color="primary" style="margin-left: 1em;" (click)="gotoFormIReportPage(row.id)">
+                           <mat-icon style="color:#23b90a">picture_as_pdf</mat-icon>
+                        </button> 
+                    </td>
+                  </ng-container>
+              
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                  </tr>
+                </table>
+              
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+              </div>
+        <!-- </mat-list> -->
+    </div>
+</div>
+</mat-card-content>
+</mat-card> 
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+    <p style="color: white">Please Wait. </p>  
+</ngx-spinner> 
+

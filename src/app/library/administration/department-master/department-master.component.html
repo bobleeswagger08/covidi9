@@ -1,0 +1,106 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text">Department</div>
+
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <!-- <mat-card-title>
+    <button style="padding-left: 25px;" mat-button color="primary" (click)="goToDepartmentListPage()">Department List</button>
+  </mat-card-title> -->
+  <mat-card-content>
+    <form [formGroup]="departmentUnitForm" autocomplete="off">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+            <div class="pb-1" style="padding-top:1.1rem">
+                Code
+             </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+            <div class="pb-1">
+                <mat-form-field class="full-width">
+                    <input
+                    matInput
+                    name="code"
+                    formControlName="code"
+                    placeholder="Code"
+                    value="">
+                </mat-form-field>
+                <small 
+                *ngIf="departmentUnitForm.controls['code'].hasError('required') && departmentUnitForm.controls['code'].touched" 
+                class="form-error-msg">Code is required </small>
+            </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="15" class="pr-1">
+            <div class="pb-1" style="padding-top: 1rem">
+            </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="35" style="padding-top: 1.2rem" class="pr-1">
+            <div class="pb-1">
+                <div class="pb-1">
+                  <mat-slide-toggle name="isActive" color="primary" formControlName="isActive">Active</mat-slide-toggle>
+                    <!-- <mat-checkbox name="isActive" formControlName="isActive">Is Active</mat-checkbox> -->
+                      <!-- <small 
+                      *ngIf="departmentUnitForm.controls['isActive'].hasError('isActive') && departmentUnitForm.controls['isActive'].touched" 
+                      class="form-error-msg">Is Active is required</small> -->
+                </div>
+            </div>
+        </div>
+    </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1" style="padding-top:1.2rem">
+           Description
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="80" class="pr-1">
+          <div class="pb-1">
+            <mat-form-field class="full-width">
+              <input matInput name="description" formControlName="description" placeholder="Description" value="">
+            </mat-form-field>
+            <small
+              *ngIf="departmentUnitForm.controls['description'].hasError('required') && departmentUnitForm.controls['description'].touched"
+              class="form-error-msg">Description is required</small>
+          </div>
+        </div>
+
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1">
+            Offices
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="35" class="pr-1">
+            <mat-select name="organizations" formControlName="organizations" placeholder="Office" multiple>
+              <mat-option *ngFor="let lp of listParent" [value]="lp.id" >
+                 {{lp.description}}
+              </mat-option>
+            </mat-select>
+            
+            <small
+              *ngIf="departmentUnitForm.controls['organizations'].hasError('required') && departmentUnitForm.controls['organizations'].touched"
+              class="form-error-msg">Organizations is required</small>
+          </div>
+      </div>
+      <div fxLayout="row wrap">
+        Note
+        <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+          <mat-card class="p-0">
+
+            <mat-card-content class="p-0">
+              <quill-editor id="editorContent" theme="snow" name="note" formControlName="note"
+                ></quill-editor>
+            </mat-card-content>
+          </mat-card>
+          <!-- <small
+            *ngIf="departmentUnitForm.controls['note'].hasError('required') && departmentUnitForm.controls['note'].touched"
+            class="form-error-msg">Note is required </small> -->
+        </div>
+      </div>
+      <button mat-raised-button  color="primary"  *ngIf="id=='null' "  [disabled]="departmentUnitForm.invalid"
+        (click)="CreateDepartment(departmentUnitForm.value)">Submit</button>
+        <button mat-raised-button *ngIf="id!='null' " color="primary"
+        (click)="UpdateDepartment(departmentUnitForm.value)">Update</button>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,79 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="panelOpenState">
+      <mat-expansion-panel-header (click)="panelOpenState =!panelOpenState">
+        <mat-panel-title>
+          Service Filter Criteria
+        </mat-panel-title>
+        <mat-panel-description>
+            
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div id="textBox">
+      <mat-form-field>
+        <mat-label>List of offices</mat-label>
+        <mat-select multiple [(value)]="this.filterParameter.officeList">
+            <!-- <mat-option> -- </mat-option> -->
+            <mat-option *ngFor="let o of officeList" [value]="o.Id">
+                {{o.Description}}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>List of Services</mat-label>
+        
+        <mat-select multiple [(value)]="this.filterParameter.serviceList"> 
+            <!-- <mat-option>--</mat-option> -->
+            <mat-option *ngFor="let s of serviceList" [value]="s.id">
+              {{s.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select multiple [(value)]="this.filterParameter.statusList">
+            <!-- <mat-option>--</mat-option> -->
+            <mat-option *ngFor="let s of statusList" [value]="s.id">
+              {{s.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Order By</mat-label>
+        <mat-select  [(value)]="this.filterParameter.orderList">
+             <mat-option> -- </mat-option>
+            <mat-option *ngFor="let o of orderList" [value]="o.id">
+                {{o.name}}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+      <div id="calendarBox">
+      <mat-form-field>
+        <mat-label>Application Start Date</mat-label>
+        <input matInput [matDatepicker]="picker" autocomplete="off" [(ngModel)]="filterParameter.ApplicationDateFrom">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Application End Date</mat-label>
+        <input matInput [matDatepicker]="picker1" autocomplete="off" [(ngModel)]="filterParameter.ApplicationDateTo">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Due Start Date</mat-label>
+        <input matInput [matDatepicker]="picker2" autocomplete="off"  [(ngModel)]="filterParameter.DueDateFrom">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Due End Date</mat-label>
+        <input matInput [matDatepicker]="picker3" autocomplete="off"  [(ngModel)]="filterParameter.DueDateTo">
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+      </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" (click)="this.onSearchClicked()">Filter</button>
+    </mat-expansion-panel>
+  </mat-accordion>

@@ -1,0 +1,345 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text">Service</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <!-- <mat-card-title>
+        <button style="padding-left: 25px;" mat-button color="primary" (click)="goToListPage()">Service Master List</button>
+    </mat-card-title> -->
+    <mat-card-content>
+        <form [formGroup]="serviceMasterForm" autocomplete="off">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                    <div class="pb-1" style="padding-top:1.1rem">
+                        Code
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="40" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="code" formControlName="code"
+                                placeholder="Code ( Max four characters allowed )" value="">
+                        </mat-form-field>
+                        <small
+                            *ngIf="serviceMasterForm.controls['code'].hasError('required') && serviceMasterForm.controls['code'].touched"
+                            class="form-error-msg">Code is required </small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['code'].hasError('cannotContainSpace') && serviceMasterForm.controls['code'].touched"
+                            class="form-error-msg">Code can not contain space</small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['code'].hasError('maxlength') && serviceMasterForm.controls['code'].touched"
+                            class="form-error-msg"> Code can not contain more than
+                            {{serviceMasterForm.controls['code'].errors.maxlength.requiredLength}} characters </small>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="26.6" class="pr-1" style="padding-top: 20px;">
+                    <div class="pb-1">
+                        <mat-slide-toggle name="isActive" color="primary" formControlName="isActive">Active
+                        </mat-slide-toggle>
+                        <!-- <mat-checkbox name="isActive" formControlName="isActive">Is Active</mat-checkbox> -->
+                        <!-- <small
+                            *ngIf="serviceMasterForm.controls['isActive'].hasError('isActive') && serviceMasterForm.controls['isActive'].touched"
+                            class="form-error-msg">Is Active is required </small> -->
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                    <div class="pb-1" style="padding-top:1.2rem">
+                        Description
+                    </div>
+                    <small
+                        *ngIf="serviceMasterForm.controls['description'].hasError('required') && serviceMasterForm.controls['description'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    <div class="pb-1" style="padding-top:1rem">
+                        Department
+                    </div>
+                    <small
+                        *ngIf="serviceMasterForm.controls['departmentId'].hasError('required') && serviceMasterForm.controls['departmentId'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    <div class="pb-1" style="padding-top:1rem">
+                        Designated Officer
+                    </div>
+                    <small
+                        *ngIf="serviceMasterForm.controls['designatedOfficerId'].hasError('required') && serviceMasterForm.controls['designatedOfficerId'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    <div class="pb-1" style="padding-top:1rem">
+                        Authorised Officer(s)
+                    </div>
+                    <small
+                        *ngIf="serviceMasterForm.controls['authorizeOfficers'].hasError('required') && serviceMasterForm.controls['authorizeOfficers'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                </div>
+
+                <div fxFlex="100" fxFlex.gt-xs="60" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="description" formControlName="description" placeholder="Description"
+                                value="">
+                        </mat-form-field>
+                        <small
+                            *ngIf="serviceMasterForm.controls['description'].hasError('required') && serviceMasterForm.controls['description'].touched"
+                            class="form-error-msg">Description is required </small>
+                    </div>
+                    <div class="pb-1">
+                        <mat-select name="departmentId" formControlName="departmentId" placeholder="Department">
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let departmentitem of listDepartmentValues" [value]="departmentitem.id">
+                                {{departmentitem.code}} - {{departmentitem.description}}
+                            </mat-option>
+                        </mat-select>
+                        <small
+                            *ngIf="serviceMasterForm.controls['departmentId'].hasError('required') && serviceMasterForm.controls['departmentId'].touched"
+                            class="form-error-msg">Department is required </small>
+                    </div>
+                    <div class="pb-1" style="padding-top:15px">
+                        <mat-select name="designatedOfficerId" formControlName="designatedOfficerId"
+                            placeholder="Designated Officer Id">
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let desOfcr of listDesignatedOfficer" [value]="desOfcr.id">
+                                {{desOfcr.description}}
+                            </mat-option>
+                        </mat-select>
+                        <small
+                            *ngIf="serviceMasterForm.controls['designatedOfficerId'].hasError('required') && serviceMasterForm.controls['designatedOfficerId'].touched"
+                            class="form-error-msg">Designated Officer is required </small>
+                    </div>
+                    <div class="pb-1" style="padding-top:15px">
+                        <!-- <mat-form-field>
+                                    <mat-label>Authorised Officers</mat-label>
+                                    <mat-select formControlName="authorizeOfficers" multiple>
+                                      <mat-option *ngFor="let ao of listAuthorisedOfficer" [value]="ao.code">
+                                          {{ao.code}}
+                                     </mat-option>
+                                    </mat-select>
+                                  </mat-form-field> -->
+                        <mat-select name="authorizeOfficers" formControlName="authorizeOfficers"
+                            placeholder="Authorised Officer" multiple>
+
+                            <mat-option *ngFor="let ao of listAuthorisedOfficer" [value]="ao.id">
+                                ({{ao.code}}) {{ao.description}}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-selection-list formControlName="authorizeOfficers" >
+                                    <mat-list-option *ngFor="let ao of listAuthorisedOfficer" [value]="ao.id" >
+                                        ({{ao.code}}) {{ao.description}}
+                                    </mat-list-option>
+                                  </mat-selection-list> -->
+                        <small
+                            *ngIf="serviceMasterForm.controls['authorizeOfficers'].hasError('required') && serviceMasterForm.controls['authorizeOfficers'].touched"
+                            class="form-error-msg">Authorised Officer is required </small>
+                    </div>
+                </div>
+
+            </div>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                    <div class="pb-1" style="padding-top:1.2rem">
+                        Stipulated Time
+                    </div>
+                    <small
+                        *ngIf="serviceMasterForm.controls['stipulatedTimeLimit'].hasError('required') && serviceMasterForm.controls['stipulatedTimeLimit'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    <small
+                        *ngIf="serviceMasterForm.controls['stipulatedUOMId'].hasError('required') && serviceMasterForm.controls['stipulatedUOMId'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    <small
+                        *ngIf="serviceMasterForm.controls['stipulatedTimeLimit'].hasError('onlyNumber') && serviceMasterForm.controls['stipulatedTimeLimit'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    <div class="pb-1" style="padding-top:2.1rem">
+                        Send Reminder In
+                    </div>
+                    <small
+                        *ngIf="serviceMasterForm.controls['reminderTimeLimit'].hasError('required') && serviceMasterForm.controls['reminderTimeLimit'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    <small
+                        *ngIf="serviceMasterForm.controls['reminderUOMId'].hasError('required') && serviceMasterForm.controls['reminderUOMId'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    <small
+                        *ngIf="serviceMasterForm.controls['reminderTimeLimit'].hasError('onlyNumber') && serviceMasterForm.controls['reminderTimeLimit'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    <div class="pb-1" style="padding-top:2.1rem">
+                        Raise Alert In
+                    </div>
+                    <small
+                        *ngIf="serviceMasterForm.controls['alertTimeLimit'].hasError('required') && serviceMasterForm.controls['alertTimeLimit'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    <small
+                        *ngIf="serviceMasterForm.controls['alertUOMId'].hasError('required') && serviceMasterForm.controls['alertUOMId'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    <small
+                        *ngIf="serviceMasterForm.controls['alertTimeLimit'].hasError('onlyNumber') && serviceMasterForm.controls['alertTimeLimit'].touched"
+                        class="form-error-msg" style="padding-top: 1.5rem"></small>
+                </div>
+
+                <div fxFlex="100" fxFlex.gt-xs="40" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput type="number" min="0" name="stipulatedTimeLimit"
+                                formControlName="stipulatedTimeLimit" placeholder="Stipulated Time" value="">
+                        </mat-form-field>
+                        <small
+                            *ngIf="serviceMasterForm.controls['stipulatedTimeLimit'].hasError('required') && serviceMasterForm.controls['stipulatedTimeLimit'].touched"
+                            class="form-error-msg">Stipulated Time is required </small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['stipulatedTimeLimit'].hasError('onlyNumber') && serviceMasterForm.controls['stipulatedTimeLimit'].touched"
+                            class="form-error-msg">Stipulated Time can only contain integers</small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['stipulatedUOMId'].hasError('required') && serviceMasterForm.controls['stipulatedUOMId'].touched"
+                            class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput type="number" min="0" name="reminderTimeLimit"
+                                formControlName="reminderTimeLimit" placeholder="Send Reminder In" value="">
+                        </mat-form-field>
+                        <small
+                            *ngIf="serviceMasterForm.controls['reminderTimeLimit'].hasError('required') && serviceMasterForm.controls['reminderTimeLimit'].touched"
+                            class="form-error-msg">Send Reminder In is required </small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['reminderTimeLimit'].hasError('onlyNumber') && serviceMasterForm.controls['reminderTimeLimit'].touched"
+                            class="form-error-msg">Send Reminder In can only contain integers</small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['reminderUOMId'].hasError('required') && serviceMasterForm.controls['reminderUOMId'].touched"
+                            class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput type="number" min="0" name="alertTimeLimit" formControlName="alertTimeLimit"
+                                placeholder="Raise Alert In" value="">
+                        </mat-form-field>
+                        <small
+                            *ngIf="serviceMasterForm.controls['alertTimeLimit'].hasError('required') && serviceMasterForm.controls['alertTimeLimit'].touched"
+                            class="form-error-msg">Raise Alert In is required </small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['alertTimeLimit'].hasError('onlyNumber') && serviceMasterForm.controls['alertTimeLimit'].touched"
+                            class="form-error-msg">Raise Alert In can only contain integers</small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['alertUOMId'].hasError('required') && serviceMasterForm.controls['alertUOMId'].touched"
+                            class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="40" class="pr-1">
+                    <div class="pb-1" style="padding-top: 1.5rem">
+                        <mat-select name="stipulatedUOMId" formControlName="stipulatedUOMId" placeholder="Units">
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let workingdatyitem of listWorkingDayUnit" [value]="workingdatyitem.id">
+                                {{workingdatyitem.name}}
+                            </mat-option>
+                        </mat-select>
+                        <small
+                            *ngIf="serviceMasterForm.controls['stipulatedUOMId'].hasError('required') && serviceMasterForm.controls['stipulatedUOMId'].touched"
+                            class="form-error-msg">Working Days Unit is required </small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['stipulatedTimeLimit'].hasError('required') && serviceMasterForm.controls['stipulatedTimeLimit'].touched"
+                            class="form-error-msg" style="padding-top: 1.5rem"></small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['stipulatedTimeLimit'].hasError('onlyNumber') && serviceMasterForm.controls['stipulatedTimeLimit'].touched"
+                            class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    </div>
+                    <div class="pb-1" style="padding-top: 2.1rem">
+                        <mat-select name="reminderUOMId" formControlName="reminderUOMId" placeholder="Units">
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let workingdatyitem of listWorkingDayUnit" [value]="workingdatyitem.id">
+                                {{workingdatyitem.name}}
+                            </mat-option>
+                        </mat-select>
+                        <small
+                            *ngIf="serviceMasterForm.controls['reminderUOMId'].hasError('required') && serviceMasterForm.controls['reminderUOMId'].touched"
+                            class="form-error-msg">Working Days Unit is required </small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['reminderTimeLimit'].hasError('required') && serviceMasterForm.controls['reminderTimeLimit'].touched"
+                            class="form-error-msg" style="padding-top: 1.5rem"></small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['reminderTimeLimit'].hasError('onlyNumber') && serviceMasterForm.controls['reminderTimeLimit'].touched"
+                            class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    </div>
+                    <div class="pb-1" style="padding-top: 2.1rem">
+                        <mat-select name="alertUOMId" formControlName="alertUOMId" placeholder="Units">
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let workingdayitem of listWorkingDayUnit" [value]="workingdayitem.id">
+                                {{workingdayitem.name}}
+                            </mat-option>
+                        </mat-select>
+                        <small
+                            *ngIf="serviceMasterForm.controls['alertUOMId'].hasError('required') && serviceMasterForm.controls['alertUOMId'].touched"
+                            class="form-error-msg">Working Days Unit is required </small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['alertTimeLimit'].hasError('onlyNumber') && serviceMasterForm.controls['alertTimeLimit'].touched"
+                            class="form-error-msg" style="padding-top: 1.5rem"></small>
+                        <small
+                            *ngIf="serviceMasterForm.controls['alertTimeLimit'].hasError('required') && serviceMasterForm.controls['alertTimeLimit'].touched"
+                            class="form-error-msg" style="padding-top: 1.5rem"></small>
+                    </div>
+                </div>
+
+            </div>
+            <!-- <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                    <div class="pb-1" style="padding-top:1.1rem">
+                       Effective From
+                    </div>
+                    <small *ngIf="serviceMasterForm.controls['effectivefrom'].hasError('required') && serviceMasterForm.controls['effectivefrom'].touched"
+                                class="form-error-msg" style="padding-top: 1.5rem"></small>
+                </div>
+
+                    <div fxFlex="100" fxFlex.gt-xs="80" class="pr-1">
+                        <div class="pb-1">
+                            <mat-form-field class="full-width">
+                                <input matInput name="effectivefrom" formControlName="effectivefrom" [matDatepicker]="picker" placeholder="Choose a date">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                                <small
+                                *ngIf="serviceMasterForm.controls['effectivefrom'].hasError('required') && serviceMasterForm.controls['effectivefrom'].touched"
+                                class="form-error-msg">Effective from is required </small>
+                        </div>
+                    </div>
+
+            </div> -->
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                    <div class="pb-1">
+
+                    </div>
+                </div>
+
+                <!-- <div fxFlex="100" fxFlex.gt-xs="26.6" class="pr-1">
+                        <div class="pb-1">
+                            In Active Form
+                        </div>
+                    </div>
+                    <div fxFlex="100" fxFlex.gt-xs="26.6" class="pr-1">
+                        <div class="pb-1">
+                            <mat-form-field class="full-width">
+                                <input matInput name="ineffectivefrom" formControlName="ineffectivefrom" [matDatepicker]="picker1" placeholder="Choose a date">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div> -->
+            </div>
+            <div fxLayout="row wrap">
+                Note
+                <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+                    <mat-card class="p-0">
+
+                        <mat-card-content class="p-0">
+                            <quill-editor id="editorContent" theme="snow" name="note" formControlName="note"
+                                (onContentChanged)="onContentChanged()" onSelectionChanged="onSelectionChanged()">
+                            </quill-editor>
+                        </mat-card-content>
+                    </mat-card>
+                    <!-- <small
+                    *ngIf="serviceMasterForm.controls['note'].hasError('required') && serviceMasterForm.controls['note'].touched"
+                    class="form-error-msg">Note is required </small> -->
+                </div>
+            </div>
+            <button mat-raised-button color="primary" *ngIf="(id=='null' && this.userAuthorization.canAdd())" [disabled]="serviceMasterForm.invalid"
+                (click)="CreateServiceMaster(serviceMasterForm.value)">Submit</button>
+            <button mat-raised-button color="primary" *ngIf="id!='null'" [disabled]="!this.userAuthorization.canModify()"
+                (click)="UpdateServiceMaster(serviceMasterForm.value)">Update</button>
+            <!-- {{serviceMasterForm.value|json}} -->
+        </form>
+    </mat-card-content>
+</mat-card>

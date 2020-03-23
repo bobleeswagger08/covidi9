@@ -1,0 +1,212 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text">Court Case</div>
+
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <!-- <mat-card-title>
+      <button style="padding-left: 25px;" mat-button color="primary" (click)="goToListPage()">Organisation List</button>
+    </mat-card-title> -->
+  <mat-card-content>
+    <form [formGroup]="courtCaseMasterForm" autocomplete="off">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1" style="padding-top:15px">
+            Case No.
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+          <div class="pb-1">
+            <!-- <app-code name="code" formControlName="code"></app-code> -->
+            <mat-form-field class="full-width">
+              <input matInput name="caseNo" formControlName="caseNo" placeholder="Case No." value="">
+            </mat-form-field>
+            <small
+              *ngIf="courtCaseMasterForm.controls['caseNo'].hasError('required') && courtCaseMasterForm.controls['caseNo'].touched"
+              class="form-error-msg">Case No is required</small>
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1">
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1" style="padding-top:20px">
+          <div class="pb-1">
+            <mat-slide-toggle name="isActive" color="primary" formControlName="isActive">Active</mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1" style="padding-top:15px">
+            Reference No.
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+          <div class="pb-1">
+            <mat-form-field class="full-width">
+              <input matInput name="referenceNo" formControlName="referenceNo" placeholder="Reference No." value="">
+            </mat-form-field>
+            <small
+              *ngIf="courtCaseMasterForm.controls['referenceNo'].hasError('required') && courtCaseMasterForm.controls['referenceNo'].touched"
+              class="form-error-msg">Reference No is required</small>
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1" style="padding-top:15px">
+            Legal Document
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+          <div class="pb-1" style="padding-top:15px">
+            <mat-select placeholder="Select Legal/Court Order" name="courtOrderId" formControlName="courtOrderId">
+              <mat-option> -- </mat-option>
+               <mat-option *ngFor="let co of listCourtCaseOrder" [value]="co.id">
+                {{co.orderReferenceNo}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1">
+            Court Name
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+          <div class="pb-1">
+            <mat-select placeholder="Select Court" name="courtId" formControlName="courtId">
+              <mat-option> -- </mat-option>
+              <mat-option *ngFor="let ll of courtMasterList" [value]="ll.id">
+                ({{ll.code}}) {{ll.description}}
+              </mat-option>
+            </mat-select>
+            <small
+              *ngIf="courtCaseMasterForm.controls['courtId'].hasError('required') && courtCaseMasterForm.controls['courtId'].touched"
+              class="form-error-msg">Court Name is required </small>
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1">
+            Initiation Date
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+          <div class="pb-1" style="margin-top: -15px;">
+            <mat-form-field class="full-width">
+              <input matInput [min]="minDate" name="initiationDate" formControlName="initiationDate"
+                [matDatepicker]="picker" placeholder="Initiation Date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1" style="padding-top:15px;">
+            Petitioner(s) Name
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+          <div class="pb-1">
+            <mat-form-field class="full-width" style="width: 84% !important;">
+              <input matInput name="petitioners" formControlName="petitioners" placeholder="Petitioner(s) Name"
+                value="">
+            </mat-form-field>
+           
+            <button mat-icon-button mat-sm-button color="accent" class="mr-1" (click)="addPetitioner()">
+              <mat-icon>add_box</mat-icon>
+            </button>
+            <small *ngIf="courtCaseMasterForm.controls['petitioners'].hasError('cannotContainSpace') && courtCaseMasterForm.controls['petitioners'].touched"
+            class="form-error-msg">Please enter a petitioner name to add</small>
+            <div>{{petitionerValue}}</div>
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1" style="padding-top:15px;">
+            Respondent(s) Name
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+          <div class="pb-1">
+            <mat-form-field class="full-width" style="width: 84% !important;">
+              <input matInput name="respondents" formControlName="respondents" placeholder="Respondent(s) Name"
+                value="">
+            </mat-form-field>
+            
+            <button mat-icon-button mat-sm-button color="accent" class="mr-1" (click)="addRespondent()">
+              <mat-icon>add_box</mat-icon>
+              <small *ngIf="courtCaseMasterForm.controls['respondents'].hasError('cannotContainSpace') && courtCaseMasterForm.controls['petitioners'].touched"
+                  class="form-error-msg">Please enter a respondent name to add</small>
+            </button>
+            <div>{{respondentValue}}</div>
+          </div>
+        </div>
+      </div>
+      <!-- <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+              <div class="pb-1">
+               Order Summary
+              </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="80" class="pr-1">
+              <div class="pb-1">
+                <mat-form-field class="full-width">
+                    <textarea matInput name="description" formControlName="description" placeholder="Order Summary" value="">
+                    </textarea>
+                </mat-form-field>
+              </div>
+            </div>
+        </div> -->
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1" style="padding-top:15px;">
+            Holding No.
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+          <div class="pb-1" >
+            <mat-form-field class="full-width">
+              <input matInput name="holdingNo" formControlName="holdingNo" placeholder="Holding No." value="">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+          <div class="pb-1" style="padding-top:15px;">
+            AR No.
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+          <div class="pb-1">
+            <mat-form-field class="full-width">
+              <input matInput name="arNo" formControlName="arNo" placeholder="AR No." value="">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        Note
+        <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+          <mat-card class="p-0">
+            <mat-card-content class="p-0">
+              <app-rich-text-editor name="note" formControlName="note">
+              </app-rich-text-editor>
+            </mat-card-content>
+          </mat-card>
+          <!-- <small
+              *ngIf="courtCaseMasterForm.controls['note'].hasError('required') && courtCaseMasterForm.controls['note'].touched"
+              class="form-error-msg">Note is required </small> -->
+        </div>
+      </div>
+
+      <!-- *ngIf="this.id && this.id == 'null'" -->
+      <button mat-raised-button *ngIf="!this.id" color="primary" [disabled]="courtCaseMasterForm.invalid"
+        (click)="submitCourtCaseMasterData(courtCaseMasterForm.value)">Submit</button>
+      <button mat-raised-button *ngIf="this.id" color="primary"
+        (click)="updateCourtMasterData(courtCaseMasterForm.value)">Update</button>
+      <!-- {{courtCaseMasterForm.value|json}} -->
+    </form>
+  </mat-card-content>
+</mat-card>

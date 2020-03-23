@@ -1,0 +1,17 @@
+<div [formGroup]="editorform">
+<mat-card class="p-0">
+  
+  <mat-card-content class="p-0">
+    <quill-editor   id="editorContent" name="richTextEditor" formControlName="richTextEditor"
+    theme="snow" 
+    [(ngModel)]="editorData" 
+    (onContentChanged)="onContentChanged()" 
+    onSelectionChanged="onSelectionChanged()"></quill-editor>
+    <small *ngIf="editorform.controls['richTextEditor'].hasError('required') && editorform.controls['richTextEditor'].touched" 
+                        class="form-error-msg">Invalid phone number</small>
+  </mat-card-content>
+</mat-card>
+<button (click)="printContent()" style="margin-left:8px;margin-bottom: 6px;border-radius: 5px;">print</button>
+<button (click)="download()" style="margin-left:9px;margin-bottom: 6px;border-radius: 5px;">download</button>
+<!-- <button (click)="saveToDataBase()">Save to Database</button> -->
+</div> 

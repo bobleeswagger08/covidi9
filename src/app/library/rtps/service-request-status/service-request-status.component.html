@@ -1,0 +1,108 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text">Service Request Status</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="serviceRequestStatusForm" autocomplete="off">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                    <div class="pb-1" style="padding-top: 1.1rem;">
+                        Form (I) Reference No.
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="40" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <mat-select name="referenceId" formControlName="referenceId"
+                                placeholder="Form (I) Reference No.">
+                                <mat-option *ngFor="let sr of listServiceRequest" [value]="sr.id">
+                                    {{sr.referenceNo}} - {{sr.applicantName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <small
+                            *ngIf="serviceRequestStatusForm.controls['referenceId'].hasError('required') && serviceRequestStatusForm.controls['referenceId'].touched"
+                            class="form-error-msg">Form (I) Reference No. is required </small>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                    <div class="pb-1" style="padding-top: 1.2rem;">
+                        Request Status.
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="40" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <mat-select name="statusId" formControlName="statusId"
+                                placeholder="Request Status">
+                                <mat-option *ngFor="let lrs of listRequestStatus" [value]="lrs.id" [disabled]="lrs.id==1">
+                                    {{lrs.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <small
+                            *ngIf="serviceRequestStatusForm.controls['statusId'].hasError('required') && serviceRequestStatusForm.controls['statusId'].touched"
+                            class="form-error-msg">Request Status is required </small>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                    <div class="pb-1" style="padding-top: 1.2rem;">
+                        Status Date
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="40" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="statusDate" formControlName="statusDate" [matDatepicker]="picker"
+                                placeholder="Choose a date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <small
+                        *ngIf="serviceRequestStatusForm.controls['statusDate'].hasError('required') && serviceRequestStatusForm.controls['statusDate'].touched"
+                        class="form-error-msg">Status Date is required </small>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap" *ngIf="displayReason">
+                <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                    <div class="pb-1" style="padding-top: 1.2rem;">
+                        Reason
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="40" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field  class="example-full-width">
+                            <textarea matInput name="reason" formControlName="reason" placeholder="Reason"></textarea>
+                          </mat-form-field>
+                        <small
+                        *ngIf="serviceRequestStatusForm.controls['reason'].hasError('required') && serviceRequestStatusForm.controls['reason'].touched"
+                        class="form-error-msg">Reason is required </small>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap" style="padding-top: 1em">
+                Note
+                <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+                    <mat-card class="p-0">
+
+                        <mat-card-content class="p-0">
+                            <quill-editor id="editorContent" theme="snow" name="note" formControlName="note"
+                                (onContentChanged)="onContentChanged()" onSelectionChanged="onSelectionChanged()">
+                            </quill-editor>
+                        </mat-card-content>
+                    </mat-card>
+                    <!-- <small
+                        *ngIf="serviceRequestStatusForm.controls['note'].hasError('required') && serviceRequestStatusForm.controls['note'].touched"
+                        class="form-error-msg">Note is required </small> -->
+                </div>
+            </div>
+            <button mat-raised-button color="primary" [disabled]="serviceRequestStatusForm.invalid" (click)="UpdateServiceRequestStatus()">Update</button>
+        </form>
+    </mat-card-content>
+</mat-card>
