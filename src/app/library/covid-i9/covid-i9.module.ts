@@ -34,10 +34,11 @@ import { CandidateInputComponent } from './candidate-input/candidate-input.compo
 import { CustomcontrolsModule } from '../shared-controls/customcontrols.module';
 import { FieldInputComponent } from './field-input/field-input.component';
 import { CandidateListComponent } from './candidate-list/candidate-list.component';
+import { FileUploadScreenComponent } from './file-upload-screen/file-upload-screen.component';
 
 
 @NgModule({
-  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent],
+  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent],
   imports: [
     CommonModule,
     CovidI9RoutingModule,

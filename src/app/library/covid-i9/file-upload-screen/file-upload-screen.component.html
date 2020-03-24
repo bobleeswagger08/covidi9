@@ -1,0 +1,67 @@
+<div class="row" style="margin-bottom:15px;">
+
+      <div class="form-group">
+        <label for="file">Choose File</label>
+        <input type="file"
+               id="file"
+               (change)="uploadFile($event.target.files)">
+               <button mat-raised-button color="primary" [disabled]="!canSubmit">Submit {{this.rowCount}} records</button>
+    </div>
+    
+    <table>
+      <tr>
+        <td>
+         
+        </td>
+      </tr>
+      <tr>
+  
+        <td colspan="2" >
+          <div class="example-container mat-elevation-z8" >
+          <table #datalist mat-table [dataSource]="this.dataSource" >
+        
+            <!-- Position Column -->
+            <ng-container matColumnDef="serialNo">
+              <th mat-header-cell *matHeaderCellDef > Serial# </th>
+              <td mat-cell *matCellDef="let element"> {{element.serialNo}} </td>
+             
+            </ng-container>
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  
+            </ng-container>
+            <ng-container matColumnDef="mobileNo">
+              <th mat-header-cell *matHeaderCellDef > Mobile  </th>
+              <td mat-cell *matCellDef="let element"> {{element.mobileNo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="address">
+              <th mat-header-cell *matHeaderCellDef > Address </th>
+              <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+            </ng-container>
+            <ng-container matColumnDef="countryVisited">
+              <th mat-header-cell *matHeaderCellDef > Country Visited </th>
+              <td mat-cell *matCellDef="let element"> {{element.countryVisited}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="arivalDate">
+              <th mat-header-cell *matHeaderCellDef > Arrival Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.arivalDate}} </td>
+            </ng-container>
+           
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; "></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+            
+          </table>
+        </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          
+        </td>
+    </table>
+  </div>
+  
