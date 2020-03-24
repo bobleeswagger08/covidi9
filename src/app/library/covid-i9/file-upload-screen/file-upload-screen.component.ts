@@ -14,13 +14,13 @@ export class FileUploadScreenComponent implements OnInit {
   
   public progress: number;
   public message: string;
-  public result: CandidateData[] = [];
-  dataSource = new MatTableDataSource(this.result);
+   candidateList: CandidateInfo[] = [];
+  dataSource = new MatTableDataSource(this.candidateList);
   public get rowCount(): number
   {
-    if(this.result)
+    if(this.candidateList)
     {
-      return this.result.length;
+      return this.candidateList.length;
     }
     else
     {
@@ -29,10 +29,11 @@ export class FileUploadScreenComponent implements OnInit {
   }
 
   dataLoaded : boolean = false;
+  isSaving : boolean = false;
 
   get canSubmit():boolean
   {
-    if(this.dataLoaded && this.rowCount > 0)
+    if(!this.isSaving && this.dataLoaded && this.rowCount > 0)
     {
       return true;
     }
@@ -66,8 +67,8 @@ this.dataLoaded=false;
     .subscribe(
       r => {
         console.log(r);
-      this.result = r;
-        this.dataSource = new MatTableDataSource(this.result);
+      this.candidateList = r;
+        this.dataSource = new MatTableDataSource(this.candidateList);
         this.dataLoaded = true;
         this.cdr.detectChanges();
         alert("Data loaded");
@@ -77,19 +78,90 @@ this.dataLoaded=false;
       );
   }
 
-  private submitFile(formData: FormData): Observable<CandidateData[]> {
+  private submitFile(formData: FormData): Observable<CandidateInfo[]> {
     let serviceUrl = this.applicationEnvironment.configParam.configServiceUrl + '/ExcelUploader';
 
-    return this.http.post<CandidateData[]>(serviceUrl, formData);
+    return this.http.post<CandidateInfo[]>(serviceUrl, formData);
   }
 
+  saveCandidateList()
+  {
+    this.isSaving = true;
+    const candidateFileInfo : CandidateFileInfo = {};
+    candidateFileInfo.id = this.applicationEnvironment.configParam.getUuid();
+    candidateFileInfo.fileName= "abc";
+    candidateFileInfo.candidates = this.candidateList;
+
+    this.submitCandidateList(candidateFileInfo).subscribe
+    (
+      r =>
+      {
+        if(r)
+        {
+          alert("Data saved");
+          this.candidateList=[];
+          this.dataLoaded=false;
+        
+        }
+        else{
+          alert("Data could not be saved");
+        }
+        this.isSaving = false;
+      },
+      e => 
+      {
+        console.log(e);
+        alert("Failed to save data");
+      }
+    )
+
+  }
+
+  private submitCandidateList(fileData : CandidateFileInfo):Observable<any>
+  {
+    let serviceUrl = this.applicationEnvironment.configParam.configServiceUrl + '/Covid19Candidate/BulkSave';
+    return this.http.post(serviceUrl,fileData);
+  }
 
 
 }
 
-export interface CandidateData {
+// export interface CandidateData {
+//   id?: string;
+//   source?: string | undefined;
+//   serialNo?: string | undefined;
+//   name?: string | undefined;
+//   flightNo?: string | undefined;
+//   countryVisited?: string | undefined;
+//   dob?: string | undefined;
+//   age?: string | undefined;
+//   sex?: string | undefined;
+//   flightNumber?: string | undefined;
+//   arivalDate?: string | undefined;
+//   mobileNo?: string | undefined;
+//   address?: string | undefined;
+//   finalDestination?: string | undefined;
+//   block?: string | undefined;
+//   state?: string | undefined;
+//   note?: string | undefined;
+//   wardNo?: string | undefined;
+//   uphc?: string | undefined;
+//   isActive?: boolean;
+//   // fieldData?: CandidateFieldDataDefiinition[] | undefined;
+// }
+
+interface CandidateFileInfo {
   id?: string;
-  source?: string | undefined;
+  fileName?: string | undefined;
+  dateOfUpload?: Date;
+  uploadedBy?: string | undefined;
+  totalNoOfRecords?: number;
+  errorCount?: number;
+  fileSource?: string | undefined;
+  candidates?: CandidateInfo[] | undefined;
+}
+
+interface CandidateInfo {
   serialNo?: string | undefined;
   name?: string | undefined;
   flightNo?: string | undefined;
@@ -107,7 +179,6 @@ export interface CandidateData {
   note?: string | undefined;
   wardNo?: string | undefined;
   uphc?: string | undefined;
-  isActive?: boolean;
-  // fieldData?: CandidateFieldDataDefiinition[] | undefined;
+  source?: string | undefined;
 }
 

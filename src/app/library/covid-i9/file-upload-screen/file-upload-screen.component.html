@@ -2,10 +2,8 @@
 
       <div class="form-group">
         <label for="file">Choose File</label>
-        <input type="file"
-               id="file"
-               (change)="uploadFile($event.target.files)">
-               <button mat-raised-button color="primary" [disabled]="!canSubmit">Submit {{this.rowCount}} records</button>
+        <input type="file" id="file" (change)="uploadFile($event.target.files)">
+        <button mat-raised-button color="primary" [disabled]="!canSubmit" (click)="this.saveCandidateList()">Submit {{this.rowCount}} records</button>
     </div>
     
     <table>
