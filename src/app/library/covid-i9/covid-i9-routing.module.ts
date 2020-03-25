@@ -21,6 +21,7 @@ const routes: Routes = [{
     data: { title: 'CandidateList', breadcrumb: 'CANDIDATELIST' }
   }]
 },
+,
 {
   path: '',
   children: [{
