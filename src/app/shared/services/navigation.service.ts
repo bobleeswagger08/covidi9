@@ -80,8 +80,8 @@ export class NavigationService {
     icon: "address",
     state: "covidi9",
     sub: [
-      { name: "Candidate", state: "candidate" },
-      { name: "Excel Upload", state: "excelupload" },
+      { name: "Candidate", state: "candidatelist" },
+      { name: "Excel Upload", state: "excelupload" }
      //{ name: "TextEditor", state: "texteditor" },
       //{ name: "UserRolePermission", state: "rolepermission" },
     ]},

@@ -37,6 +37,7 @@ import { CandidateListComponent } from './candidate-list/candidate-list.componen
 import { FileUploadScreenComponent } from './file-upload-screen/file-upload-screen.component';
 
 
+
 @NgModule({
   declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent],
   imports: [

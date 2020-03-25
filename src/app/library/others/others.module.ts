@@ -28,6 +28,7 @@ import { OthersRoutes } from "./others.routing";
 import { CustomcontrolsModule } from '../shared-controls/customcontrols.module';
 import { RtpsModule } from '../../library/rtps/rtps.module';
 import { LineChartComponent } from '../../library/rtps/line-chart/line-chart.component';
+import { WebDataRocksPivot } from './webdatarocks/webdatarocks.angular4'
 
 @NgModule({
   imports: [
@@ -56,7 +57,7 @@ import { LineChartComponent } from '../../library/rtps/line-chart/line-chart.com
     RouterModule.forChild(OthersRoutes)
   ],
   declarations: [
-    AppBlankComponent
+    AppBlankComponent,WebDataRocksPivot
   ],
   entryComponents: [LineChartComponent]
 })

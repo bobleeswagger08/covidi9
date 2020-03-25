@@ -12,10 +12,11 @@ export interface fieldFormValues {
       isReferredForMedicalCare:string,
       reasonForNotContacted:string,
       isReleasedFromSurveillanc:string,
-      commentByMOIC:string,
+     // commentByMOIC:string,
       fieldNote:string
+      id:string;
 }
-
+   
 @Component({
   selector: 'app-field-input',
   templateUrl: './field-input.component.html',
@@ -56,7 +57,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
       isReferredForMedicalCare:[],
       reasonForNotContacted:[],
       isReleasedFromSurveillanc:[],
-      commentByMOIC:[],
+     // commentByMOIC:[],
       fieldNote:[]
     });
     this.subscriptions.push(

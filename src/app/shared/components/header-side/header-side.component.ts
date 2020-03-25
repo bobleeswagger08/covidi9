@@ -59,9 +59,6 @@ export class HeaderSideComponent implements OnInit {
   changeTheme(theme) {
     // this.themeService.changeTheme(theme);
   }
-  toggleNotific() {
-    this.notificPanel.toggle();
-  }
   toggleSidenav() {
     if (this.layoutConf.sidebarStyle === 'closed') {
       return this.layout.publishLayoutChange({
@@ -95,7 +92,7 @@ export class HeaderSideComponent implements OnInit {
   }
   signOut() {
     this.systemEnvironmentService.userSession.logout();
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
   UpdateProfile() {
     this.router.navigate(['/roleservice/user', this.loginUser.id])

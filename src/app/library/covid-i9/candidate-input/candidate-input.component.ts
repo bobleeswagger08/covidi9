@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { v4 as uuid } from 'uuid';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CovidI9Service } from '../services/covid-i9.service';
 import { BadInput } from 'app/shared/commonerror/bad-input';
 import { AppError } from 'app/shared/commonerror/app-error';
-import { ICandidateInput, IFieldData } from '../model/candidate-input';
+import { ICandidateInput, IFieldData, IListWard, IListUPHC } from '../model/candidate-input';
 
 @Component({
   selector: 'app-candidate-input',
@@ -15,16 +15,25 @@ import { ICandidateInput, IFieldData } from '../model/candidate-input';
 export class CandidateInputComponent implements OnInit {
   candidateForm: FormGroup;
   fieldInput:IFieldData[];
-  candidateFormValue:ICandidateInput;
+  listWard:IListWard;
+  listUPHC:IListUPHC;
+  id: string;
   tabIndex:number;
-  constructor(private route: ActivatedRoute,private router:Router,private formBuilder: FormBuilder,private covidService:CovidI9Service) { }
+  candidateFormValue:ICandidateInput;
+  
+  constructor(private route: ActivatedRoute,private router:Router,private formBuilder: FormBuilder,private covidService:CovidI9Service,private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.route.queryParams
+      .subscribe(params => {
+        this.tabIndex = params.tabIndex;
+    });
     this.candidateForm = this.formBuilder.group({
       id: [uuid()],
       source: [],
       serialNo: [],
-      name: [],
+      name: ['',Validators.required],
       flightNo: [],
       countryVisited: [],
       dob: [],
@@ -40,14 +49,50 @@ export class CandidateInputComponent implements OnInit {
       note: [],
       wardNo: [],
       uphc: [],
+      commentByMOIC: [],
       fieldData: [],
       isActive: [true]
     });
+    this.getWardList();
+    this.getUPHCList();
+    if (this.id && this.id != 'null') {
+      this.covidService.getCandidateById(this.id)
+        .subscribe((cItem:ICandidateInput) => {
+          
+          this.candidateForm.setValue({
+            source: cItem.source,
+            name: cItem.name,
+            flightNo: cItem.flightNo,
+            countryVisited: cItem.countryVisited,
+            dob: cItem.dob,
+            age: cItem.age,
+            sex: cItem.sex,
+            flightNumber: cItem.flightNumber,
+            arivalDate: cItem.arivalDate,
+            mobileNo: cItem.mobileNo,
+            address: cItem.address,
+            finalDestination: cItem.finalDestination,
+            block: cItem.block,
+            state: cItem.state,
+            note: cItem.note,
+            wardNo: cItem.wardNo,
+            uphc: cItem.uphc,
+            isActive: cItem.isActive,
+          //  commentByMOIC:cItem.commentByMOIC,
+            commentByMOIC:'',
+            fieldData: cItem.fieldData[0], 
+            id: cItem.id,
+            serialNo: cItem.serialNo
+          })
+      });
+    }
   }
   submitCandidateInputData(candidateInputFormValue){
     console.log(candidateInputFormValue);
      this.fieldInput =[]
+     if(candidateInputFormValue.fieldData!=null)
      this.fieldInput.push(candidateInputFormValue.fieldData)
+
     this.candidateFormValue={
       source: candidateInputFormValue.source,
       name: candidateInputFormValue.name,
@@ -67,6 +112,7 @@ export class CandidateInputComponent implements OnInit {
       wardNo: candidateInputFormValue.wardNo,
       uphc: candidateInputFormValue.uphc,
       isActive: true,
+      commentByMOIC:candidateInputFormValue.commentByMOIC,
       fieldData: this.fieldInput, 
       id: candidateInputFormValue.id,
       serialNo: candidateInputFormValue.serialNo
@@ -74,13 +120,27 @@ export class CandidateInputComponent implements OnInit {
     console.log(this.candidateFormValue)
     this.covidService.saveCandidateInput(this.candidateFormValue)
       .subscribe(court => {
-        alert('Court Master Created  sucessfully')
+        alert('Covid 19 Candidate saved successfully')
         //this.router.navigate(['administration/userlist']);
       }, (error: AppError) => {
         if (error instanceof BadInput) {
           alert('invalid data');
         }
         else throw error;
+      });
+  }
+  getWardList() {
+    this.covidService.getWardList()
+      .subscribe((listW:IListWard) => {
+        this.listWard = listW
+        this.cdr.detectChanges();
+      });
+  }
+  getUPHCList() {
+    this.covidService.getUPHCList()
+      .subscribe((listU:IListUPHC) => {
+        this.listUPHC = listU
+        this.cdr.detectChanges();
       });
   }
 }

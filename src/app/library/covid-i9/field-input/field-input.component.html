@@ -4,18 +4,22 @@
             <div fxLayout="row wrap">
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
-                        <mat-form-field class="full-width">
-                            <input matInput name="isEverContacted" formControlName="isEverContacted" placeholder="Is Ever Contacted"
-                                value="">
-                        </mat-form-field>
+                        <mat-select placeholder="Is Ever Contacted" name="isEverContacted"
+                            formControlName="isEverContacted">
+                            <mat-option> -- </mat-option>
+                            <mat-option value="Y">Yes</mat-option>
+                            <mat-option value="N">No</mat-option>
+                        </mat-select>
                     </div>
                 </div>
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
-                        <mat-form-field class="full-width">
-                            <input matInput name="isContactedOnCurrentDate" formControlName="isContactedOnCurrentDate"
-                                placeholder="Is Contact On Current Date" value="">
-                        </mat-form-field>
+                        <mat-select placeholder="Is Contact On Current Date" name="isContactedOnCurrentDate"
+                            formControlName="isContactedOnCurrentDate">
+                            <mat-option> -- </mat-option>
+                            <mat-option value="Y">Yes</mat-option>
+                            <mat-option value="N">No</mat-option>
+                        </mat-select>
                     </div>
                 </div>
             </div>
@@ -23,8 +27,8 @@
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
                         <mat-form-field class="full-width">
-                            <input matInput name="dateOfContacted" formControlName="dateOfContacted" [matDatepicker]="picker"
-                                placeholder="Date of Contact">
+                            <input matInput name="dateOfContacted" formControlName="dateOfContacted"
+                                [matDatepicker]="picker" placeholder="Date of Contact">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -42,17 +46,22 @@
             <div fxLayout="row wrap">
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
-                        <mat-form-field class="full-width">
-                            <input matInput name="isSymptomatic" formControlName="isSymptomatic"
-                                placeholder="Is Symptomatic" value="">
-                        </mat-form-field>
+                        <mat-select placeholder="Is Symptomatic" name="isSymptomatic"
+                            formControlName="isSymptomatic">
+                            <mat-option> -- </mat-option>
+                            <mat-option value="Y">Yes</mat-option>
+                            <mat-option value="N">No</mat-option>
+                        </mat-select>
                     </div>
                 </div>
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
-                        <mat-form-field class="full-width">
-                            <input matInput name="isReferredForMedicalCare" formControlName="isReferredForMedicalCare" placeholder="Is Reffered for medical Care" value="">
-                        </mat-form-field>
+                        <mat-select placeholder="Is Reffered for medical Care" name="isReferredForMedicalCare"
+                            formControlName="isReferredForMedicalCare">
+                            <mat-option> -- </mat-option>
+                            <mat-option value="Y">Yes</mat-option>
+                            <mat-option value="N">No</mat-option>
+                        </mat-select>
                     </div>
                 </div>
             </div>
@@ -60,36 +69,35 @@
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
                         <mat-form-field class="full-width">
-                            <input matInput name="reasonForNotContacted" formControlName="reasonForNotContacted" placeholder="Reason For No Contact" value="">
+                            <input matInput name="reasonForNotContacted" formControlName="reasonForNotContacted"
+                                placeholder="Reason For No Contact" value="">
                         </mat-form-field>
                     </div>
                 </div>
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
-                    <div class="pb-1">
-                        <mat-form-field class="full-width">
-                            <input matInput name="isReleasedFromSurveillanc" formControlName="isReleasedFromSurveillanc" placeholder="Is Released from Survelliance" value="">
-                        </mat-form-field>
+                    <div class="pb-1" style="padding-top:20px">
+                        <mat-select placeholder="Is Released from Survelliance" name="isReleasedFromSurveillanc"
+                            formControlName="isReleasedFromSurveillanc">
+                            <mat-option> -- </mat-option>
+                            <mat-option value="Y">Yes</mat-option>
+                            <mat-option value="N">No</mat-option>
+                        </mat-select>
                     </div>
                 </div>
             </div>
             <div fxLayout="row wrap">
-                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                
+                <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
                     <div class="pb-1">
                         <mat-form-field class="full-width">
-                            <textarea matInput name="commentByMOIC" formControlName="commentByMOIC"
-                                placeholder="Comment By MOIC" value=""></textarea>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
-                    <div class="pb-1">
-                        <mat-form-field class="full-width">
-                            <textarea matInput name="fieldNote" formControlName="fieldNote"
-                                placeholder="Field Note" value=""></textarea>
+                            <textarea matInput name="fieldNote" formControlName="fieldNote" placeholder="Field Note"
+                                value=""></textarea>
                         </mat-form-field>
                     </div>
                 </div>
             </div>
+            <button mat-raised-button *ngIf="this.id && this.id != 'null'" color="primary"
+                        (click)="updateCourtMasterData(candidateForm.value)">Update</button>
         </form>
     </mat-card-content>
 </mat-card>

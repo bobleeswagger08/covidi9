@@ -24,7 +24,6 @@ import { CustomizerComponent } from './customizer/customizer.component';
 // ALWAYS REQUIRED 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { NotificationsComponent } from './notifications/notifications.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { AppComfirmComponent } from '../services/app-confirm/app-confirm.component';
@@ -40,7 +39,6 @@ const components = [
   HeaderTopComponent,
   SidebarTopComponent,
   SidenavComponent,
-  NotificationsComponent,
   SidebarSideComponent,
   HeaderSideComponent,
   AdminLayoutComponent,

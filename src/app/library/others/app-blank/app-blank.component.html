@@ -1,6 +1,18 @@
-<div fxLayout="row wrap">
-  <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
-     <app-line-chart></app-line-chart>
-  </div>
+<mat-card class="p-0">
+  <mat-card-title class="">
+
+      <div class="card-title-text">Department wise analysis</div>
   
-</div>
+  <mat-divider></mat-divider>
+</mat-card-title>
+<mat-card-content>
+<wbr-pivot #pivot1 [toolbar]="true"
+[width]="'100%'"
+[height]="500"
+[customizeCell]="onCustomizeCell"
+(ready)="onPivotReady($event)"
+(reportcomplete)="onReportComplete()">
+WebDataRocks will appear here
+</wbr-pivot>
+</mat-card-content>
+</mat-card> 
