@@ -4,22 +4,26 @@
             <div fxLayout="row wrap">
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
-                        <mat-select placeholder="Is Ever Contacted" name="isEverContacted"
-                            formControlName="isEverContacted">
-                            <mat-option> -- </mat-option>
-                            <mat-option value="Y">Yes</mat-option>
-                            <mat-option value="N">No</mat-option>
-                        </mat-select>
+                        <mat-form-field>
+                            <mat-label>Is Ever Contacted</mat-label>
+                            <mat-select name="isEverContacted" formControlName="isEverContacted">
+                                <mat-option> -- </mat-option>
+                                <mat-option value="Y">Yes</mat-option>
+                                <mat-option value="N">No</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
-                        <mat-select placeholder="Is Contact On Current Date" name="isContactedOnCurrentDate"
-                            formControlName="isContactedOnCurrentDate">
-                            <mat-option> -- </mat-option>
-                            <mat-option value="Y">Yes</mat-option>
-                            <mat-option value="N">No</mat-option>
-                        </mat-select>
+                        <mat-form-field>
+                            <mat-label>Is Contact On Current Date</mat-label>
+                            <mat-select name="isContactedOnCurrentDate" formControlName="isContactedOnCurrentDate">
+                                <mat-option> -- </mat-option>
+                                <mat-option value="Y">Yes</mat-option>
+                                <mat-option value="N">No</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
@@ -46,22 +50,26 @@
             <div fxLayout="row wrap">
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
-                        <mat-select placeholder="Is Symptomatic" name="isSymptomatic"
-                            formControlName="isSymptomatic">
-                            <mat-option> -- </mat-option>
-                            <mat-option value="Y">Yes</mat-option>
-                            <mat-option value="N">No</mat-option>
-                        </mat-select>
+                        <mat-form-field>
+                            <mat-label>Is Symptomatic</mat-label>
+                            <mat-select placeholder="" name="isSymptomatic" formControlName="isSymptomatic">
+                                <mat-option> -- </mat-option>
+                                <mat-option value="Y">Yes</mat-option>
+                                <mat-option value="N">No</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
-                        <mat-select placeholder="Is Reffered for medical Care" name="isReferredForMedicalCare"
-                            formControlName="isReferredForMedicalCare">
-                            <mat-option> -- </mat-option>
-                            <mat-option value="Y">Yes</mat-option>
-                            <mat-option value="N">No</mat-option>
-                        </mat-select>
+                        <mat-form-field>
+                            <mat-label>Is Reffered for medical Care</mat-label>
+                            <mat-select name="isReferredForMedicalCare" formControlName="isReferredForMedicalCare">
+                                <mat-option> -- </mat-option>
+                                <mat-option value="Y">Yes</mat-option>
+                                <mat-option value="N">No</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
@@ -75,18 +83,21 @@
                     </div>
                 </div>
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
-                    <div class="pb-1" style="padding-top:20px">
-                        <mat-select placeholder="Is Released from Survelliance" name="isReleasedFromSurveillanc"
-                            formControlName="isReleasedFromSurveillanc">
-                            <mat-option> -- </mat-option>
-                            <mat-option value="Y">Yes</mat-option>
-                            <mat-option value="N">No</mat-option>
-                        </mat-select>
+                    <div class="pb-1">
+                        <mat-form-field>
+                            <mat-label>Is Reffered for medical Care</mat-label>
+                            <mat-select placeholder="Is Released from Survelliance" name="isReleasedFromSurveillanc"
+                                formControlName="isReleasedFromSurveillanc">
+                                <mat-option> -- </mat-option>
+                                <mat-option value="Y">Yes</mat-option>
+                                <mat-option value="N">No</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
             <div fxLayout="row wrap">
-                
+
                 <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
                     <div class="pb-1">
                         <mat-form-field class="full-width">
@@ -97,7 +108,7 @@
                 </div>
             </div>
             <button mat-raised-button *ngIf="this.id && this.id != 'null'" color="primary"
-                        (click)="updateCourtMasterData(candidateForm.value)">Update</button>
+                (click)="updateCourtMasterData(candidateForm.value)">Update</button>
         </form>
     </mat-card-content>
 </mat-card>
