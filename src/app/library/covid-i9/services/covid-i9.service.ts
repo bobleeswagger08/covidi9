@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
-import { ICandidateFilter, ICandidateInput } from '../model/candidate-input';
+import { ICandidateInput, CandidateSearchFilter, CandidateListItem } from '../model/candidate-input';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +26,9 @@ export class CovidI9Service {
   getUPHCList(){
     return this.httpClient.get(this.urlCovidI9+'/UPHC');
   }
-  getCandidateList(filterParam:ICandidateFilter){
-    return this.httpClient.post(this.urlCovidI9+'/Covid19Candidate/List',filterParam);
+  getCandidateList(filterParam:CandidateSearchFilter):Observable<CandidateListItem[]>
+  {
+    return this.httpClient.post<CandidateListItem[]>(this.urlCovidI9+'/Covid19Candidate/List',filterParam);
   }
   getCandidateById(id:string){
     return this.httpClient.get(this.urlCovidI9+'/Covid19Candidate/'+id);
