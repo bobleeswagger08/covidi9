@@ -33,3 +33,18 @@ table {
   ::ng-deep .mat-option-text{
     padding-left:8px;
   }
+  .mat-form-field-label-wrapper {
+    left: 11px!important;
+  }
+  @media screen and (max-width: 960px) {
+    .mat-table .mat-cell{
+      display:unset !important;
+    }
+    .mat-table .mat-row {
+      border-bottom: 1px solid green;
+      display: block;
+  }
+  .mat-icon{
+    height:37px!important;
+  }
+  }

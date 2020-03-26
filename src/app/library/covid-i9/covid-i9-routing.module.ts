@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CandidateInputComponent } from './candidate-input/candidate-input.component';
 import { CandidateListComponent } from './candidate-list/candidate-list.component';
 import { FileUploadScreenComponent } from './file-upload-screen/file-upload-screen.component';
+import { CandidateAnalysisComponent } from './candidate-analysis/candidate-analysis.component';
 
 
 const routes: Routes = [{
@@ -21,13 +22,20 @@ const routes: Routes = [{
     data: { title: 'CandidateList', breadcrumb: 'CANDIDATELIST' }
   }]
 },
-,
 {
   path: '',
   children: [{
     path: 'excelupload',
     component: FileUploadScreenComponent,
     data: { title: 'Upload Excel', breadcrumb: 'FILEUPLOAD' }
+  }]
+},
+{
+  path: '',
+  children: [{
+    path: 'candidateanalysis',
+    component: CandidateAnalysisComponent,
+    data: { title: 'Candidate Analysis', breadcrumb: 'CANDIDATEANALYSIS' }
   }]
 }
 ];

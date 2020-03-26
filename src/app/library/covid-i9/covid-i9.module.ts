@@ -35,11 +35,13 @@ import { CustomcontrolsModule } from '../shared-controls/customcontrols.module';
 import { FieldInputComponent } from './field-input/field-input.component';
 import { CandidateListComponent } from './candidate-list/candidate-list.component';
 import { FileUploadScreenComponent } from './file-upload-screen/file-upload-screen.component';
+import { CandidateAnalysisComponent } from './candidate-analysis/candidate-analysis.component';
+import { WebDataRocksPivot } from './webdatarocks/webdatarocks.angular4'
 
 
 
 @NgModule({
-  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent],
+  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent, CandidateAnalysisComponent,WebDataRocksPivot],
   imports: [
     CommonModule,
     CovidI9RoutingModule,

@@ -81,7 +81,8 @@ export class NavigationService {
     state: "covidi9",
     sub: [
       { name: "Candidate", state: "candidatelist" },
-      { name: "Excel Upload", state: "excelupload" }
+      { name: "Excel Upload", state: "excelupload" },
+      { name: "Candidate Analysis", state: "candidateanalysis" }
      //{ name: "TextEditor", state: "texteditor" },
       //{ name: "UserRolePermission", state: "rolepermission" },
     ]},
