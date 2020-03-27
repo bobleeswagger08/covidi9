@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { IListCandidate, IListUPHC, IListWard, CandidateSearchFilter } from '../model/candidate-input';
+import { IListCandidate, IListUPHC, IListWard, CandidateSearchFilter, SelectedUPHC } from '../model/candidate-input';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -28,10 +28,41 @@ export class CandidateListComponent implements OnInit {
   listCandidate: IListCandidate[];
   listOfUpHC : IListUPHC[]=[];
   listOfWards : IListWard[]=[];
+
+  set uphcFilter(value : IListUPHC[])
+  {
+    this.candidateFilter.upscs=[];
+    if(value)
+    {
+      for(let currentSelection of value)
+      {
+        let selectedItem :SelectedUPHC ={};
+        selectedItem.uphc = currentSelection.uphc;
+        this.candidateFilter.upscs.push(selectedItem);
+      }
+    }
+  }
+
+  get uphcFilter(): IListUPHC[]
+  {
+    let filter : IListUPHC[] =[];
+    if( this.candidateFilter.upscs)
+    {
+      for(let currentSelection of this.candidateFilter.upscs)
+      {
+        let selectedItem :IListUPHC ={};
+        selectedItem.uphc = currentSelection.uphc;
+        this.candidateFilter.upscs.push(selectedItem);
+      }
+    }
+
+    return filter;
+  }
+
   candidateFilter: CandidateSearchFilter = {};
 
   dataSource: MatTableDataSource<IListCandidate>;
-  
+
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;

@@ -33,7 +33,7 @@
           </mat-form-field>
           <mat-form-field style="width:275px">
             <mat-label>UPHC Selection</mat-label>
-            <mat-select [(ngModel)]="this.candidateFilter.upscs" multiple >
+            <mat-select [(ngModel)]="uphcFilter" multiple >
               <mat-option>--</mat-option>
               <mat-option *ngFor="let sourceItem of this.listOfUpHC" [value]="uphc" >
                 {{sourceItem.uphc}}
