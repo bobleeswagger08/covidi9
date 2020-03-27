@@ -18,7 +18,7 @@ export interface ICandidateInput{
         uphc: string,
         isActive: true,
        // commentByMOIC: string,
-        fieldData: IFieldData[],
+        fieldData?: IFieldData[],
         id: string,
         serialNo: string
       
@@ -26,13 +26,13 @@ export interface ICandidateInput{
 export interface IFieldData{
         isEverContacted: string,
        // isContactedOnCurrentDate: string,
-        dateOfContacted: string,
+        dateOfContacted?: string,
        // timeOfConected: string,
-        isSymptomatic: string,
-        isReferredForMedicalCare: string,
-        reasonForNotContacted: string,
-        isReleasedFromSurveillanc: string,
-        commentByMOIC: string,
+        isSymptomatic?: string,
+        isReferredForMedicalCare?: string,
+        reasonForNotContacted?: string,
+        isReleasedFromSurveillanc?: string,
+        commentByMOIC?: string,
         //fieldNote: string
 }
 export interface IListWard 

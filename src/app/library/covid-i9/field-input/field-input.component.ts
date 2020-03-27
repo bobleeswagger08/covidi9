@@ -150,7 +150,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
     console.log(this.fieldInputValue)
     this.covidService.saveFieldInput(this.fieldInputValue)
       .subscribe(court => {
-        alert('Covid 19 Field Input saved successfully')
+        alert('Field Input data saved successfully')
         //this.router.navigate(['administration/userlist']);
       }, (error: AppError) => {
         if (error instanceof BadInput) {

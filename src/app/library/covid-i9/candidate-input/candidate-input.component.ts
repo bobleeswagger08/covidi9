@@ -15,8 +15,8 @@ import { ICandidateInput, IFieldData, IListWard, IListUPHC } from '../model/cand
 export class CandidateInputComponent implements OnInit {
   candidateForm: FormGroup;
   fieldInput:IFieldData[];
-  listWard:IListWard;
-  listUPHC:IListUPHC;
+  listWard:IListWard[];
+  listUPHC:IListUPHC[];
   id: string;
   tabIndex:number;
   candidateFormValue:ICandidateInput;
@@ -62,9 +62,9 @@ export class CandidateInputComponent implements OnInit {
       this.candidateId=this.id;
       this.covidService.getCandidateById(this.id)
         .subscribe((cItem:ICandidateInput) => {
-          
+          let result:IFieldData = { isEverContacted: "N"};
           this.candidateForm.setValue({
-            source: cItem.source,
+            source: cItem.source , // ? 'District' : 'Others',
             name: cItem.name,
             flightNo: cItem.flightNo,
             countryVisited: cItem.countryVisited,
@@ -84,11 +84,14 @@ export class CandidateInputComponent implements OnInit {
             isActive: cItem.isActive,
           //  commentByMOIC:cItem.commentByMOIC,
             commentByMOIC:'',
-            fieldData: cItem.fieldData?cItem.fieldData[0]:[], 
+           fieldData: result, 
             id: cItem.id,
             serialNo: cItem.serialNo
-          })
-      });
+          }
+          );
+      }
+      ,(e)=> alert("An error occurred loading data")
+      );
     }
   }
   submitCandidateInputData(candidateInputFormValue){
@@ -117,14 +120,14 @@ export class CandidateInputComponent implements OnInit {
       uphc: candidateInputFormValue.uphc,
       isActive: true,
      // commentByMOIC:candidateInputFormValue.commentByMOIC,
-      fieldData: this.fieldInput, 
+      // fieldData: this.fieldInput, 
       id: candidateInputFormValue.id,
       serialNo: candidateInputFormValue.serialNo
     }
     console.log(this.candidateFormValue)
     this.covidService.saveCandidateInput(this.candidateFormValue)
       .subscribe(court => {
-        alert('Covid 19 Candidate saved successfully')
+        alert('Candidate data saved successfully')
         //this.router.navigate(['administration/userlist']);
       }, (error: AppError) => {
         if (error instanceof BadInput) {
@@ -135,14 +138,14 @@ export class CandidateInputComponent implements OnInit {
   }
   getWardList() {
     this.covidService.getWardList()
-      .subscribe((listW:IListWard) => {
+      .subscribe((listW:IListWard[]) => {
         this.listWard = listW
         this.cdr.detectChanges();
       });
   }
   getUPHCList() {
     this.covidService.getUPHCList()
-      .subscribe((listU:IListUPHC) => {
+      .subscribe((listU:IListUPHC[]) => {
         this.listUPHC = listU
         this.cdr.detectChanges();
       });
