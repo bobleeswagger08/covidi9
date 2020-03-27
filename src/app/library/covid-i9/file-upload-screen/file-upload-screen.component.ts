@@ -11,44 +11,55 @@ import { Observable } from 'rxjs';
 })
 export class FileUploadScreenComponent implements OnInit {
 
-  
-  public progress: number;
-  public message: string;
-   candidateList: CandidateInfo[] = [];
+
+  candidateList: CandidateInfo[] = [];
+  listSourceName: string = "District";
+  ignoreDataError: boolean = false;
+
   dataSource = new MatTableDataSource(this.candidateList);
-  public get rowCount(): number
-  {
-    if(this.candidateList)
-    {
+  public get rowCount(): number {
+    if (this.candidateList) {
       return this.candidateList.length;
     }
-    else
-    {
+    else {
       return 0;
     }
   }
 
-  dataLoaded : boolean = false;
-  isSaving : boolean = false;
+  dataLoaded: boolean = false;
+  isSaving: boolean = false;
 
-  get canSubmit():boolean
-  {
-    if(!this.isSaving && this.dataLoaded && this.rowCount > 0)
-    {
+  get canSubmit(): boolean {
+    if (!this.isSaving && this.dataLoaded && this.rowCount > 0 && (!this.hasDataError || this.ignoreDataError)) {
       return true;
     }
-    else
-    {
+    else {
       return false;
     }
+  }
+
+  get incorrectArrivalDateCount(): number {
+    let count: number = 0;
+    if (this.candidateList) {
+      let result = this.candidateList.filter(c => !c.arivalDate);
+      if (result) {
+        count = result.length;
+      }
+    }
+
+    return count;
+  }
+
+  get hasDataError(): boolean {
+    return (this.incorrectArrivalDateCount > 0) ? true : false;
   }
 
   @Output() public onUploadFinished = new EventEmitter();
 
   // dataSource: CandidateData[];
-  displayedColumns: string[] = ['serialNo', 'name', 'mobileNo','arivalDate', 'address', 'countryVisited' ];
+  displayedColumns: string[] = ['serialNo', 'name', 'mobileNo', 'arivalDate', 'address', 'countryVisited'];
 
-  constructor(private http: HttpClient, private applicationEnvironment: ApplicationEnvironmentService, private cdr :ChangeDetectorRef) { }
+  constructor(private http: HttpClient, private applicationEnvironment: ApplicationEnvironmentService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
@@ -61,20 +72,20 @@ export class FileUploadScreenComponent implements OnInit {
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-this.dataLoaded=false;
-   this.dataSource = new MatTableDataSource([]);
+    this.dataLoaded = false;
+    this.dataSource = new MatTableDataSource([]);
     this.submitFile(formData)
-    .subscribe(
-      r => {
-        console.log(r);
-      this.candidateList = r;
-        this.dataSource = new MatTableDataSource(this.candidateList);
-        this.dataLoaded = true;
-        this.cdr.detectChanges();
-        alert("Data loaded");
-     // this.table.renderRows();
-      },
-      e => alert("An error occurred in uploading the file")
+      .subscribe(
+        r => {
+          console.log(r);
+          this.candidateList = r;
+          this.dataSource = new MatTableDataSource(this.candidateList);
+          this.dataLoaded = true;
+          this.cdr.detectChanges();
+          alert("Data loaded");
+          // this.table.renderRows();
+        },
+        e => alert("An error occurred in uploading the file")
       );
   }
 
@@ -84,43 +95,41 @@ this.dataLoaded=false;
     return this.http.post<CandidateInfo[]>(serviceUrl, formData);
   }
 
-  saveCandidateList()
-  {
+  saveCandidateList() {
     this.isSaving = true;
-    const candidateFileInfo : CandidateFileInfo = {};
+    const candidateFileInfo: CandidateFileInfo = {};
     candidateFileInfo.id = this.applicationEnvironment.configParam.getUuid();
-    candidateFileInfo.fileName= "abc";
+    candidateFileInfo.fileName = "abc";
     candidateFileInfo.candidates = this.candidateList;
+    for (let candidate of candidateFileInfo.candidates) {
+      candidate.source = this.listSourceName;
+    }
 
     this.submitCandidateList(candidateFileInfo).subscribe
-    (
-      r =>
-      {
-        if(r)
-        {
-          alert("Data saved");
-          this.candidateList=[];
-          this.dataLoaded=false;
-        
+      (
+        r => {
+          if (r) {
+            alert("Data saved");
+            this.candidateList = [];
+            this.dataLoaded = false;
+
+          }
+          else {
+            alert("Data could not be saved");
+          }
+          this.isSaving = false;
+        },
+        e => {
+          console.log(e);
+          alert("Failed to save data");
         }
-        else{
-          alert("Data could not be saved");
-        }
-        this.isSaving = false;
-      },
-      e => 
-      {
-        console.log(e);
-        alert("Failed to save data");
-      }
-    )
+      )
 
   }
 
-  private submitCandidateList(fileData : CandidateFileInfo):Observable<any>
-  {
+  private submitCandidateList(fileData: CandidateFileInfo): Observable<any> {
     let serviceUrl = this.applicationEnvironment.configParam.configServiceUrl + '/Covid19Candidate/BulkSave';
-    return this.http.post(serviceUrl,fileData);
+    return this.http.post(serviceUrl, fileData);
   }
 
 

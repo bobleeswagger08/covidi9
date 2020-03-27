@@ -98,3 +98,35 @@ export interface IFieldInput{
 export interface IListNoContactReason{
   reason:string;
 }
+export interface CandidateSearchFilter {
+  isEverContacted?: string | undefined;
+  words?: SelectedWord[] | undefined;
+  upscs?: SelectedUPHC[] | undefined;
+  selectedStatuses?: SelectedStatus[] | undefined;
+  inputDate?: Date;
+}
+
+export interface SelectedWord {
+  wordNo?: string | undefined;
+}
+
+export interface SelectedUPHC {
+  uphc?: string | undefined;
+}
+
+export interface SelectedStatus {
+  statusId?: number;
+}
+export interface CandidateListItem {
+  id?: string;
+  referenceNo?: number;
+  source?: string | undefined;
+  serialNo?: string | undefined;
+  arivalDate?: string | undefined;
+  name?: string | undefined;
+  mobileNo?: string | undefined;
+  uphc?: string | undefined;
+  wardNo?: string | undefined;
+  lastContactDate?: Date | undefined;
+  address?: string | undefined;
+}

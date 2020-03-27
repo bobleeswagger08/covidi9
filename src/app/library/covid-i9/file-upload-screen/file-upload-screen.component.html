@@ -1,10 +1,29 @@
 <div class="row" style="margin-bottom:15px;">
-
-      <div class="form-group">
-        <label for="file">Choose File</label>
-        <input type="file" id="file" (change)="uploadFile($event.target.files)">
-        <button mat-raised-button color="primary" [disabled]="!canSubmit" (click)="this.saveCandidateList()">Submit {{this.rowCount}} records</button>
-    </div>
+  <table>
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-label>Data Source</mat-label>
+          <mat-select [(ngModel)]="this.listSourceName">
+            <mat-option  [value]="'District'"> District </mat-option> 
+            <mat-option  [value]="'Other'"> Other Sources </mat-option> 
+          </mat-select>
+             
+        </mat-form-field>
+      </td>
+      <td>
+        <div class="form-group">
+          <label for="file">  Select data file </label>
+          <input type="file" id="file" (change)="uploadFile($event.target.files)">
+        
+          <mat-checkbox [disabled]="!this.hasDataError" [(ngModel)]="this.ignoreDataError">Ignore {{this.incorrectArrivalDateCount}} arrival date errors </mat-checkbox>
+          <button mat-raised-button color="primary" [disabled]="!canSubmit" (click)="this.saveCandidateList()">Submit {{this.rowCount}} records</button>
+      </div>
+      </td>
+    </tr>
+  </table>
+  
+   
     
     <table>
       <tr>
