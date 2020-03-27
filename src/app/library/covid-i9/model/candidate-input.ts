@@ -17,7 +17,7 @@ export interface ICandidateInput{
         wardNo: string,
         uphc: string,
         isActive: true,
-        commentByMOIC: string,
+       // commentByMOIC: string,
         fieldData: IFieldData[],
         id: string,
         serialNo: string
@@ -25,15 +25,15 @@ export interface ICandidateInput{
 }
 export interface IFieldData{
         isEverContacted: string,
-        isContactedOnCurrentDate: string,
+       // isContactedOnCurrentDate: string,
         dateOfContacted: string,
-        timeOfConected: string,
+       // timeOfConected: string,
         isSymptomatic: string,
         isReferredForMedicalCare: string,
         reasonForNotContacted: string,
         isReleasedFromSurveillanc: string,
-      //  commentByMOIC: string,
-        fieldNote: string
+        commentByMOIC: string,
+        //fieldNote: string
 }
 export interface IListWard 
 {
@@ -77,4 +77,24 @@ export interface ICandidateFilter{
   ],
   selectedStatuses: [
   ]
+}
+export interface IFieldInput{
+  isEverContacted: string,
+  isContactedOnCurrentDate: string,
+  dateOfContacted: string,
+  timeOfConected: string,
+  isSymptomatic: string,
+  isReferredForMedicalCare: string,
+  reasonForNotContacted: string,
+  isReleasedFromSurveillanc: string,
+  streetName: string,
+  commentByMOIC: string,
+  reasonForUnableToTraceId: number,
+  fieldNote: string,
+  id: string,
+  candidateId: string,
+  isActive: true
+}
+export interface IListNoContactReason{
+  reason:string;
 }

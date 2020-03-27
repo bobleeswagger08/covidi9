@@ -9,7 +9,7 @@ import { CandidateAnalysisComponent } from './candidate-analysis/candidate-analy
 const routes: Routes = [{
   path: '',
   children: [{
-    path: 'candidate/:id',
+    path: 'candidate/:id/:tabIndex',
     component: CandidateInputComponent,
     data: { title: 'CandidateInput', breadcrumb: 'CANDIDATEINPUT' }
   }]

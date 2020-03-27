@@ -46,10 +46,11 @@ export class CandidateListComponent implements OnInit {
     }
   }
   gotoUpdatePage(id) {
-    this.router.navigate(['covidi9/candidate', id], { queryParams: { tabIndex: '0' } })
+    this.router.navigate(['covidi9/candidate', id, 0])
   }
   gotoStatusUpdatePage(id) {
-    this.router.navigate(['covidi9/candidate', id], { queryParams: { tabIndex: '1' } })
+   // this.router.navigate(['covidi9/candidate', id,1], { queryParams: { tabIndex: '1' } })
+   this.router.navigate(['covidi9/candidate', id, 1])
   }
   goToAddPage() {
     this.router.navigate(['covidi9/candidate', 'null']);

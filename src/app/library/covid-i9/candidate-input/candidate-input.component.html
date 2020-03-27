@@ -1,17 +1,20 @@
 <form [formGroup]="candidateForm" autocomplete="off">
     <mat-tab-group [selectedIndex]="tabIndex">
 
-        <mat-tab label="Candidate Input">
+        <mat-tab label="Candidate Master">
             <mat-card class="p-0">
                 <mat-card-content>
-
                     <div fxLayout="row wrap">
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                             <div class="pb-1">
-                                <mat-form-field class="full-width">
-                                    <input matInput name="source" formControlName="source" placeholder="Source"
-                                        value="Manual">
-                                </mat-form-field>
+                                        <mat-form-field class="full-width">
+                                            <mat-label>Source</mat-label>
+                                            <mat-select name="source" formControlName="source">
+                                                <mat-option> -- </mat-option>
+                                                <mat-option value="District">District</mat-option>
+                                                <mat-option value="Others">Others</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
                             </div>
                         </div>
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
@@ -150,15 +153,7 @@
                         </div>
                     </div>
                     <div fxLayout="row wrap">
-                        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
-                            <div class="pb-1">
-                                <mat-form-field class="full-width">
-                                    <textarea matInput name="commentByMOIC" formControlName="commentByMOIC"
-                                        placeholder="Comment By MOIC" value=""></textarea>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                        <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
                             <div class="pb-1">
                                 <mat-form-field class="full-width">
                                     <textarea matInput name="note" formControlName="note" placeholder="Note"
@@ -170,7 +165,7 @@
                     <div fxLayout="row wrap">
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                             <div class="pb-1">
-                                <mat-form-field>
+                                <mat-form-field class="full-width">
                                     <mat-label>Select Ward No</mat-label>
                                     <mat-select name="wardNo" formControlName="wardNo">
                                         <mat-option> -- </mat-option>
@@ -183,7 +178,7 @@
                         </div>
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                             <div class="pb-1">
-                                <mat-form-field>
+                                <mat-form-field class="full-width">
                                     <mat-label>Select UPHC</mat-label>
                                     <mat-select name="uphc" formControlName="uphc">
                                         <mat-option> -- </mat-option>
@@ -207,7 +202,9 @@
             </mat-card>
         </mat-tab>
         <mat-tab label="Field Input">
-            <app-field-input name="fieldData" formControlName="fieldData"></app-field-input>
+            <app-field-input name="fieldData" formControlName="fieldData"  [candidate-id]="candidateId"></app-field-input>
+        </mat-tab>
+        <mat-tab label="History">
         </mat-tab>
     </mat-tab-group>
 </form>

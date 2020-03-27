@@ -20,17 +20,20 @@ export class CandidateInputComponent implements OnInit {
   id: string;
   tabIndex:number;
   candidateFormValue:ICandidateInput;
+  candidateId:string;
   
   constructor(private route: ActivatedRoute,private router:Router,private formBuilder: FormBuilder,private covidService:CovidI9Service,private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.candidateId = uuid();
     this.id = this.route.snapshot.paramMap.get('id');
-    this.route.queryParams
-      .subscribe(params => {
-        this.tabIndex = params.tabIndex;
-    });
+    this.tabIndex = Number(this.route.snapshot.paramMap.get('tabIndex'));
+    // this.route.queryParams
+    //   .subscribe(params => {s
+    //     this.tabIndex = params.tabIndex;
+    // });
     this.candidateForm = this.formBuilder.group({
-      id: [uuid()],
+      id: [this.candidateId],
       source: [],
       serialNo: [],
       name: ['',Validators.required],
@@ -56,6 +59,7 @@ export class CandidateInputComponent implements OnInit {
     this.getWardList();
     this.getUPHCList();
     if (this.id && this.id != 'null') {
+      this.candidateId=this.id;
       this.covidService.getCandidateById(this.id)
         .subscribe((cItem:ICandidateInput) => {
           
@@ -80,7 +84,7 @@ export class CandidateInputComponent implements OnInit {
             isActive: cItem.isActive,
           //  commentByMOIC:cItem.commentByMOIC,
             commentByMOIC:'',
-            fieldData: cItem.fieldData[0], 
+            fieldData: cItem.fieldData?cItem.fieldData[0]:[], 
             id: cItem.id,
             serialNo: cItem.serialNo
           })
@@ -112,7 +116,7 @@ export class CandidateInputComponent implements OnInit {
       wardNo: candidateInputFormValue.wardNo,
       uphc: candidateInputFormValue.uphc,
       isActive: true,
-      commentByMOIC:candidateInputFormValue.commentByMOIC,
+     // commentByMOIC:candidateInputFormValue.commentByMOIC,
       fieldData: this.fieldInput, 
       id: candidateInputFormValue.id,
       serialNo: candidateInputFormValue.serialNo

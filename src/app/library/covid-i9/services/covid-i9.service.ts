@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
-import { ICandidateFilter, ICandidateInput } from '../model/candidate-input';
+import { ICandidateFilter, ICandidateInput, IFieldInput } from '../model/candidate-input';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +29,12 @@ export class CovidI9Service {
   }
   getCandidateById(id:string){
     return this.httpClient.get(this.urlCovidI9+'/Covid19Candidate/'+id);
+  }
+  saveFieldInput(resourceInput:IFieldInput) { 
+    return this.httpClient.post(this.urlCovidI9+'/Covid19Candidate/'+ resourceInput.candidateId,resourceInput);
+      
+  }
+  getNotPickedUpReason(){
+    return this.httpClient.get(this.urlCovidI9+'/NotContactedReason');
   }
 }
