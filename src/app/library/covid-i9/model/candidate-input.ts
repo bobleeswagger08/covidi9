@@ -98,16 +98,19 @@ export interface IFieldInput{
 export interface IListNoContactReason{
   reason:string;
 }
-export interface CandidateSearchFilter {
+export interface SearchCriteria {
   isEverContacted?: string | undefined;
-  words?: SelectedWord[] | undefined;
-  upscs?: SelectedUPHC[] | undefined;
+  wards?: SelectedWord[] | undefined;
+  uphcs?: SelectedUPHC[] | undefined;
   selectedStatuses?: SelectedStatus[] | undefined;
-  inputDate?: Date;
+}
+
+export interface CandidateSearchFilter extends SearchCriteria {
+  inputDate?: Date | undefined;
 }
 
 export interface SelectedWord {
-  wordNo?: string | undefined;
+  wardNo?: string | undefined;
 }
 
 export interface SelectedUPHC {
@@ -117,6 +120,7 @@ export interface SelectedUPHC {
 export interface SelectedStatus {
   statusId?: number;
 }
+
 export interface CandidateListItem {
   id?: string;
   referenceNo?: number;
@@ -129,4 +133,9 @@ export interface CandidateListItem {
   wardNo?: string | undefined;
   lastContactDate?: Date | undefined;
   address?: string | undefined;
+}
+
+export interface ColsedReason {
+  id?: number;
+  reason?: string | undefined;
 }

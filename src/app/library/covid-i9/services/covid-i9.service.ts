@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
-import { ICandidateFilter,  IFieldInput } from '../model/candidate-input';
+import { ICandidateFilter,  IFieldInput, ColsedReason } from '../model/candidate-input';
 import { ICandidateInput, CandidateSearchFilter, CandidateListItem } from '../model/candidate-input';
 import { Observable } from 'rxjs';
 
@@ -40,5 +40,10 @@ export class CovidI9Service {
   }
   getNotPickedUpReason(){
     return this.httpClient.get(this.urlCovidI9+'/NotContactedReason');
+  }
+
+  getCandidateClosedReason():Observable<ColsedReason[]>
+  {
+    return this.httpClient.get<ColsedReason[]>(this.urlCovidI9+'/CosedReason');
   }
 }

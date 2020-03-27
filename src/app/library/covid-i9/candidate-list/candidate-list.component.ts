@@ -34,13 +34,13 @@ export class CandidateListComponent implements OnInit {
   set uphcFilter(value : IListUPHC[])
   {
     console.log("setting data");
-    this.candidateFilter.upscs=[];
+    this.candidateFilter.uphcs=[];
     if(value)
     {
       for(let currentSelection of value)
       {
         let selectedItem :SelectedUPHC ={uphc : currentSelection.uphc};
-        this.candidateFilter.upscs.push(selectedItem);
+        this.candidateFilter.uphcs.push(selectedItem);
       }
     }
   }
@@ -49,12 +49,12 @@ export class CandidateListComponent implements OnInit {
   {
     console.log("reading data");
     let filter : IListUPHC[] =[];
-    if( this.candidateFilter.upscs)
+    if( this.candidateFilter.uphcs)
     {
-      for(let currentSelection of this.candidateFilter.upscs)
+      for(let currentSelection of this.candidateFilter.uphcs)
       {
         let selectedItem :IListUPHC ={uphc :  currentSelection.uphc };
-        this.candidateFilter.upscs.push(selectedItem);
+        this.candidateFilter.uphcs.push(selectedItem);
       }
     }
 
@@ -70,8 +70,8 @@ export class CandidateListComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(private router: Router, private cdr: ChangeDetectorRef, private SpinnerService: NgxSpinnerService,private covidService:CovidI9Service) {
     this.candidateFilter.isEverContacted=null;
-    this.candidateFilter.upscs=[];
-    this.candidateFilter.words=[];
+    this.candidateFilter.uphcs=[];
+    this.candidateFilter.wards=[];
    // this.candidateFilterP.names=[];
     this.candidateFilter.selectedStatuses=[];
     this.filterSource();
@@ -100,13 +100,13 @@ export class CandidateListComponent implements OnInit {
 
   setUPHCList()
   {
-    this.candidateFilter.upscs=[];
+    this.candidateFilter.uphcs=[];
     if(this.selectedUphc)
     {
       for(let currentSelection of this.selectedUphc)
       {
         let selectedItem :SelectedUPHC ={uphc : currentSelection.uphc};
-        this.candidateFilter.upscs.push(selectedItem);
+        this.candidateFilter.uphcs.push(selectedItem);
       }
     }
 
