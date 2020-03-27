@@ -1,5 +1,5 @@
 import { Component, OnInit, forwardRef, OnDestroy, Input, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IFieldInput, IListNoContactReason } from '../model/candidate-input';
@@ -75,7 +75,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
       id: [uuid()],
       isEverContacted: [],
      // isContactedOnCurrentDate: [],
-      dateOfContacted: [],
+      dateOfContacted: ['',Validators.required],
      // timeOfConected: [],
       reason:[],
       isSymptomatic: [],

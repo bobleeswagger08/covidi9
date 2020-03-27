@@ -37,7 +37,7 @@ export interface IFieldData{
 }
 export interface IListWard 
 {
-  wordNo: string
+  wardNo: string
 }
 export interface IListUPHC
 {

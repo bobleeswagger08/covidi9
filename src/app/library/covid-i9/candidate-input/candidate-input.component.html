@@ -169,8 +169,8 @@
                                     <mat-label>Select Ward No</mat-label>
                                     <mat-select name="wardNo" formControlName="wardNo">
                                         <mat-option> -- </mat-option>
-                                        <mat-option *ngFor="let wl of listWard" [value]="wl.wordNo">
-                                            {{wl.wordNo}}
+                                        <mat-option *ngFor="let wl of listWard" [value]="wl.wardNo">
+                                            {{wl.wardNo}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -202,8 +202,8 @@
             </mat-card>
         </mat-tab>
         <mat-tab label="Field Input">
-            <app-field-input name="fieldData" formControlName="fieldData"  [candidate-id]="candidateId"></app-field-input>
-            <!-- <app-field-input name="fieldData"   [candidate-id]="candidateId"></app-field-input> -->
+            <!-- <app-field-input name="fieldData" formControlName="fieldData"  [candidate-id]="candidateId"></app-field-input> -->
+            <app-field-input name="fieldData"   [candidate-id]="candidateId"></app-field-input>
         </mat-tab>
         <mat-tab label="History">
         </mat-tab>
