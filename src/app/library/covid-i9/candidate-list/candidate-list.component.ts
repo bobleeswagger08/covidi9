@@ -29,15 +29,17 @@ export class CandidateListComponent implements OnInit {
   listOfUpHC : IListUPHC[]=[];
   listOfWards : IListWard[]=[];
 
+  selectedUphc : IListUPHC[] = [];
+
   set uphcFilter(value : IListUPHC[])
   {
+    console.log("setting data");
     this.candidateFilter.upscs=[];
     if(value)
     {
       for(let currentSelection of value)
       {
-        let selectedItem :SelectedUPHC ={};
-        selectedItem.uphc = currentSelection.uphc;
+        let selectedItem :SelectedUPHC ={uphc : currentSelection.uphc};
         this.candidateFilter.upscs.push(selectedItem);
       }
     }
@@ -45,13 +47,13 @@ export class CandidateListComponent implements OnInit {
 
   get uphcFilter(): IListUPHC[]
   {
+    console.log("reading data");
     let filter : IListUPHC[] =[];
     if( this.candidateFilter.upscs)
     {
       for(let currentSelection of this.candidateFilter.upscs)
       {
-        let selectedItem :IListUPHC ={};
-        selectedItem.uphc = currentSelection.uphc;
+        let selectedItem :IListUPHC ={uphc :  currentSelection.uphc };
         this.candidateFilter.upscs.push(selectedItem);
       }
     }
@@ -67,7 +69,7 @@ export class CandidateListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(private router: Router, private cdr: ChangeDetectorRef, private SpinnerService: NgxSpinnerService,private covidService:CovidI9Service) {
-    this.candidateFilter.isEverContacted="";
+    this.candidateFilter.isEverContacted=null;
     this.candidateFilter.upscs=[];
     this.candidateFilter.words=[];
    // this.candidateFilterP.names=[];
@@ -96,8 +98,23 @@ export class CandidateListComponent implements OnInit {
       });
   }
 
+  setUPHCList()
+  {
+    this.candidateFilter.upscs=[];
+    if(this.selectedUphc)
+    {
+      for(let currentSelection of this.selectedUphc)
+      {
+        let selectedItem :SelectedUPHC ={uphc : currentSelection.uphc};
+        this.candidateFilter.upscs.push(selectedItem);
+      }
+    }
+
+  }
+
   filterSource()
   {
+    this.setUPHCList();
     this.covidService.getCandidateList(this.candidateFilter)
     .subscribe((cList:IListCandidate[]) => {
       //this.listServiceRequest = srList;

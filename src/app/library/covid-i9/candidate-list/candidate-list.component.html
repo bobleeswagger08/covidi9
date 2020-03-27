@@ -22,35 +22,35 @@
           <mat-expansion-panel-header>
             <mat-panel-title>Filter Candidate List </mat-panel-title>
           </mat-expansion-panel-header>
-          <mat-form-field style="width:275px">
-            <mat-label>Current Status</mat-label>
+         <!-- <mat-form-field style="width:275px">
+             <mat-label>Current Status</mat-label>
             <mat-select [(ngModel)]="this.candidateFilter" multiple>
               <mat-option>--</mat-option>
               <mat-option *ngFor="let sourceItem of this.listOfUpHC" [value]="uphc" >
                 {{sourceItem.uphc}}
               </mat-option>
             </mat-select>
-          </mat-form-field>
+          </mat-form-field> -->
           <mat-form-field style="width:275px">
             <mat-label>UPHC Selection</mat-label>
-            <mat-select [(ngModel)]="uphcFilter" multiple >
+            <mat-select  multiple [(ngModel)]="this.selectedUphc" >
               <mat-option>--</mat-option>
-              <mat-option *ngFor="let sourceItem of this.listOfUpHC" [value]="uphc" >
+              <mat-option *ngFor="let sourceItem of this.listOfUpHC" [value]="sourceItem" >
                 {{sourceItem.uphc}}
               </mat-option>
              
             </mat-select>
           </mat-form-field>
-          <mat-form-field style="width:275px">
+          <!-- <mat-form-field style="width:275px">
             <mat-label>Ward Selection</mat-label>
             <mat-select multiple [(ngModel)] = "this.candidateFilter.words">
               <mat-option>--</mat-option>
-              <mat-option *ngFor="let sourceItem of this.listOfWards" [value]="wordNo" >
+              <mat-option *ngFor="let sourceItem of this.listOfWards" [value]="sourceItem" >
                 {{sourceItem.wordNo}}
               </mat-option>
              
             </mat-select>
-          </mat-form-field>
+          </mat-form-field>  -->
           <button mat-raised-button color="primary" (click)="filterSource()">Filter</button>
         </mat-expansion-panel>
         <mat-form-field>

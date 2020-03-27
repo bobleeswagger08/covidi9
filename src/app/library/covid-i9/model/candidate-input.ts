@@ -41,7 +41,7 @@ export interface IListWard
 }
 export interface IListUPHC
 {
-  uphc?: string
+  uphc: string
 }
 export interface IListCandidate
 {
