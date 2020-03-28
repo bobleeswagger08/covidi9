@@ -139,3 +139,75 @@ export interface ColsedReason {
   id?: number;
   reason?: string | undefined;
 }
+
+export interface CandidateCoreData {
+  id?: string;
+  referenceNo?: number;
+  source?: string | undefined;
+  name?: string | undefined;
+  flightNo?: string | undefined;
+  countryVisited?: string | undefined;
+  dob?: string | undefined;
+  age?: string | undefined;
+  sex?: string | undefined;
+  flightNumber?: string | undefined;
+  arivalDate?: string | undefined;
+  mobileNo?: string | undefined;
+  address?: string | undefined;
+  finalDestination?: string | undefined;
+  block?: string | undefined;
+  state?: string | undefined;
+}
+
+export interface CandidateFieldDataDefiinition {
+  isEverContacted?: string | undefined;
+  isContactedOnCurrentDate?: string | undefined;
+  dateOfContacted?: Date | undefined;
+  timeOfConected?: string | undefined;
+  isSymptomatic?: string | undefined;
+  isReferredForMedicalCare?: string | undefined;
+  reasonForNotContacted?: string | undefined;
+  isReleasedFromSurveillanc?: string | undefined;
+  streetName?: string | undefined;
+  commentByMOIC?: string | undefined;
+  reasonForUnableToTraceId?: number | undefined;
+  fieldNote?: string | undefined;
+}
+
+export interface CandidateDefinition extends CandidateCoreData {
+  readonly dateOfArival?: Date | undefined;
+  note?: string | undefined;
+  wardNo?: string | undefined;
+  uphc?: string | undefined;
+  isActive?: boolean;
+  candidateStatusId?: number | undefined;
+  fieldData?: CandidateFieldDataDefiinition[] | undefined;
+}
+
+export interface CandidateData extends CandidateDefinition {
+  id?: string;
+  serialNo?: string | undefined;
+}
+
+export interface CandidateDateWiseReport extends CandidateData {
+  id?: string;
+  serialNo?: string | undefined;
+  isEverContacted?: string | undefined;
+  isContactedOnCurrentDate?: string | undefined;
+  dateOfContacted?: Date | undefined;
+  isSymptomatic?: string | undefined;
+  isReferredForMedicalCare?: string | undefined;
+  reasonForUnableToTrace?: string | undefined;
+  isReleasedFromSurveillanc?: string | undefined;
+  wardNo?: string | undefined;
+  uphc?: string | undefined;
+  commentByMOIC?: string | undefined;
+  statusDate?: Date | undefined;
+  candidateReason?: string | undefined;
+}
+
+export interface CandidateReportFilter {
+  reportStartDate?: Date;
+  reportEndDate?: Date;
+  sourceVal?: string | undefined;
+}

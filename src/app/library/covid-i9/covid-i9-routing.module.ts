@@ -4,6 +4,7 @@ import { CandidateInputComponent } from './candidate-input/candidate-input.compo
 import { CandidateListComponent } from './candidate-list/candidate-list.component';
 import { FileUploadScreenComponent } from './file-upload-screen/file-upload-screen.component';
 import { CandidateAnalysisComponent } from './candidate-analysis/candidate-analysis.component';
+import { DailyReportComponent } from './daily-report/daily-report.component';
 
 
 const routes: Routes = [{
@@ -36,6 +37,14 @@ const routes: Routes = [{
     path: 'candidateanalysis',
     component: CandidateAnalysisComponent,
     data: { title: 'Candidate Analysis', breadcrumb: 'CANDIDATEANALYSIS' }
+  }]
+},
+{
+  path: '',
+  children: [{
+    path: 'dailyreport',
+    component: DailyReportComponent,
+    data: { title: 'Daily Report', breadcrumb: 'DAILYREPORT' }
   }]
 }
 ];

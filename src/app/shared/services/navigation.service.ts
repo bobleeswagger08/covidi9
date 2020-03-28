@@ -84,7 +84,8 @@ export class NavigationService {
       { name: "Candidate Master", state: "candidate/null/0" },
       { name: "Field Input", state: "candidate/null/1" },
       { name: "Excel Upload", state: "excelupload" },
-      { name: "Candidate Analysis", state: "candidateanalysis" }
+      { name: "Candidate Analysis", state: "candidateanalysis" },
+      { name : "Daily Report", state : "dailyreport" }
      //{ name: "TextEditor", state: "texteditor" },
       //{ name: "UserRolePermission", state: "rolepermission" },
     ]},

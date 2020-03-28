@@ -37,12 +37,13 @@ import { CandidateListComponent } from './candidate-list/candidate-list.componen
 import { FileUploadScreenComponent } from './file-upload-screen/file-upload-screen.component';
 import { CandidateAnalysisComponent } from './candidate-analysis/candidate-analysis.component';
 import { WebDataRocksPivot } from './webdatarocks/webdatarocks.angular4';
-import { SourceSelectionComponent } from './source-selection/source-selection.component'
+import { SourceSelectionComponent } from './source-selection/source-selection.component';
+import { DailyReportComponent } from './daily-report/daily-report.component'
 
 
 
 @NgModule({
-  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent, CandidateAnalysisComponent,WebDataRocksPivot, SourceSelectionComponent],
+  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent, CandidateAnalysisComponent,WebDataRocksPivot, SourceSelectionComponent, DailyReportComponent],
   imports: [
     CommonModule,
     CovidI9RoutingModule,
