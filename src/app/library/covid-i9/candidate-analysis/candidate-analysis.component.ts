@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { WebDataRocksPivot } from 'app/library/rtps/webdatarocks/webdatarocks.angular4';
-import { IListCandidate } from '../model/candidate-input';
+import { IListCandidate, CandidateListItem, CandidateDateWiseReport } from '../model/candidate-input';
 import { CovidI9Service } from '../services/covid-i9.service';
 
 @Component({
@@ -10,21 +10,21 @@ import { CovidI9Service } from '../services/covid-i9.service';
 })
 export class CandidateAnalysisComponent implements OnInit {
   @ViewChild('pivot1', { static: false }) child: WebDataRocksPivot;
-  dataSource: IListCandidate[] = [];
+  dataSource: CandidateDateWiseReport[] = [];
   constructor(private covidService:CovidI9Service,private cdr: ChangeDetectorRef) {
-    this.getReportData();
+
+   
    }
 
   ngOnInit() {
+    this.getReportData();
   }
   getReportData() {
     let candidateFilterP: any = {};
-    candidateFilterP.isEverContacted=""
-    candidateFilterP.words=[]
-    candidateFilterP.upscs=[]
-    candidateFilterP.names=[]
-    candidateFilterP.selectedStatuses=[]
-    this.covidService.getCandidateList(candidateFilterP).subscribe((cList:IListCandidate[]) => {
+    //candidateFilterP.isEverContacted=""
+    candidateFilterP.reportStartDate=new Date();
+    candidateFilterP.reportEndDate=new Date('2020-03-10T00:00:00');
+    this.covidService.getDailyReportData(candidateFilterP).subscribe((cList:CandidateDateWiseReport[]) => {
       this.dataSource =cList;
       this.cdr.detectChanges();
       // update table
@@ -49,14 +49,14 @@ export class CandidateAnalysisComponent implements OnInit {
         },
         slice: {
           rows: [{
-            uniqueName: "name"
+            uniqueName: "source"
           }],
           columns: [{
-            uniqueName: "flightNo"
+            uniqueName: "uphc"
           }],
           
           measures: [{
-            uniqueName: "countryVisited",
+            uniqueName: "name",
             aggregation: "count"
           }]
         }

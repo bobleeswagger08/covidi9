@@ -16,7 +16,7 @@ export class ConfigParamService {
   public configServiceUrl: string  = environment.configServiceUrl; // "http://192.168.1.200/applicationconfiguration"; //"http://localhost:5000"; //"http://192.168.1.200/applicationconfiguration"; //"http://localhost/applicationconfiguration"; // "http://192.168.1.200/applicationconfiguration"; // "http://13.234.214.18/applicationconfiguration";
   public rtpsServiceUrl: string  = environment.rtpsServiceUrl;
   public courtCaseServiceUrl: string  = environment.courtCaseServiceUrl;  // "http://192.168.1.200/Rtps"; //"http://localhost:5000"; // "http://13.232.154.36/Rtps"; 
-  public covidi9Url: string  = "http://13.232.154.36/CovidCandiateTracker";
+  public covidi9Url: string  = environment.configServiceUrl; ; // "http://13.232.154.36/CovidCandiateTracker";
   public emptyUUID: string = "00000000-0000-0000-0000-000000000000";
 
     //public setJwtSession(token:string)

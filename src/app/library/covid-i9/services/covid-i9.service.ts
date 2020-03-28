@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
-import { ICandidateFilter,  IFieldInput } from '../model/candidate-input';
+import { ICandidateFilter,  IFieldInput, ColsedReason, CandidateDateWiseReport, CandidateReportFilter } from '../model/candidate-input';
 import { ICandidateInput, CandidateSearchFilter, CandidateListItem } from '../model/candidate-input';
 import { Observable } from 'rxjs';
 
@@ -48,5 +48,14 @@ export class CovidI9Service {
       //   map(response => response.json()),
       //   catchError(this.HandleError)
       // );
+  }
+  getCandidateClosedReason():Observable<ColsedReason[]>
+  {
+    return this.httpClient.get<ColsedReason[]>(this.urlCovidI9+'/CosedReason');
+  }
+
+  getDailyReportData(reportFilter : CandidateReportFilter):Observable<CandidateDateWiseReport[]>
+  {
+    return this.httpClient.post<CandidateDateWiseReport[]>(this.urlCovidI9+'/Covid19Candidate/DateWiseReport',reportFilter);
   }
 }

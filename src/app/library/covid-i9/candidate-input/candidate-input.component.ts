@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CovidI9Service } from '../services/covid-i9.service';
 import { BadInput } from 'app/shared/commonerror/bad-input';
 import { AppError } from 'app/shared/commonerror/app-error';
-import { ICandidateInput, IFieldData, IListWard, IListUPHC, fieldFormValues } from '../model/candidate-input';
+import { ICandidateInput, IFieldData, IListWard, IListUPHC, fieldFormValues, ColsedReason } from '../model/candidate-input';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -18,6 +18,7 @@ export class CandidateInputComponent implements OnInit {
   fieldInput:IFieldData[];
   listWard:IListWard[];
   listUPHC:IListUPHC[];
+  listClosedReason : ColsedReason[];
   id: string;
   tabIndex:number;
   candidateFormValue:ICandidateInput;
@@ -60,6 +61,7 @@ export class CandidateInputComponent implements OnInit {
     });
     this.getWardList();
     this.getUPHCList();
+    this.getClosedReasonList();
     if (this.id && this.id != 'null') {
       this.candidateId=this.id;
       this.covidService.getCandidateById(this.id)
@@ -213,5 +215,18 @@ export class CandidateInputComponent implements OnInit {
         this.listUPHC = listU
         this.cdr.detectChanges();
       });
+
+     
+  }
+
+  getClosedReasonList()
+  {
+    this.covidService.getCandidateClosedReason()
+    .subscribe(
+      r => 
+      {
+      this.listClosedReason = r;
+      }
+    )
   }
 }
