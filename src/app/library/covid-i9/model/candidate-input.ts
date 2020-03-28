@@ -130,3 +130,17 @@ export interface CandidateListItem {
   lastContactDate?: Date | undefined;
   address?: string | undefined;
 }
+export interface fieldFormValues {
+  id:string,
+  isEverContacted: string,
+//  isContactedOnCurrentDate: string,
+  dateOfContacted: string,
+ // timeOfConected: string,
+  reasonForUnableToTraceId:string,
+  isSymptomatic: string,
+  isReferredForMedicalCare:string,
+  reasonForNotContacted:string,
+  isReleasedFromSurveillanc:string,
+  commentByMOIC:string,
+//  fieldNote:string
+}

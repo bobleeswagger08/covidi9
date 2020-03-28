@@ -41,4 +41,12 @@ export class CovidI9Service {
   getNotPickedUpReason(){
     return this.httpClient.get(this.urlCovidI9+'/NotContactedReason');
   }
+  updateCandidateInput(resourceCandidate:ICandidateInput) {
+    //return this.http.post(this.url,JSON.stringify(resource))
+    return this.httpClient.post(this.urlCovidI9+'/Covid19Candidate/Update'+ resourceCandidate.id, resourceCandidate);
+      // .pipe(
+      //   map(response => response.json()),
+      //   catchError(this.HandleError)
+      // );
+  }
 }

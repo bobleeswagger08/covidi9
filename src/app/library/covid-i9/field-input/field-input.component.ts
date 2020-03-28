@@ -2,27 +2,14 @@ import { Component, OnInit, forwardRef, OnDestroy, Input, ChangeDetectorRef } fr
 import { FormGroup, FormBuilder, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IFieldInput, IListNoContactReason } from '../model/candidate-input';
+import { IFieldInput, IListNoContactReason, fieldFormValues } from '../model/candidate-input';
 import { v4 as uuid } from 'uuid';
 import { CovidI9Service } from '../services/covid-i9.service';
 import { AppError } from 'app/shared/commonerror/app-error';
 import { BadInput } from 'app/shared/commonerror/bad-input';
 import { formatDate } from '@angular/common';
 
-export interface fieldFormValues {
-      id:string,
-      isEverContacted: string,
-    //  isContactedOnCurrentDate: string,
-      dateOfContacted: string,
-     // timeOfConected: string,
-      reasonForUnableToTraceId:string,
-      isSymptomatic: string,
-      isReferredForMedicalCare:string,
-      reasonForNotContacted:string,
-      isReleasedFromSurveillanc:string,
-      commentByMOIC:string,
-    //  fieldNote:string
-}
+
    
 @Component({
   selector: 'app-field-input',
@@ -46,6 +33,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   fieldInputValue:IFieldInput;
   subscriptions: Subscription[] = [];
   listNoContactReason:IListNoContactReason;
+  lastStatusDate:string;
 
   get isSymptomaticControl() {
     return this.fieldInputForm.controls.isSymptomatic;
@@ -57,6 +45,9 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   
   get isReleasedSControl() {
     return this.fieldInputForm.controls.isReleasedFromSurveillanc;
+  }
+  get isEvrContactedControl() {
+    return this.fieldInputForm.controls.isEverContacted;
   }
   @Input('candidate-id') candidateId: string;
 
@@ -77,8 +68,8 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
      // isContactedOnCurrentDate: [],
       dateOfContacted: ['',Validators.required],
      // timeOfConected: [],
-      reason:[],
-      isSymptomatic: [],
+      //reason:[],
+      isSymptomatic: ['',Validators.required],
       reasonForUnableToTraceId:[],
       isReferredForMedicalCare:[],
       reasonForNotContacted:[],
@@ -112,11 +103,20 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
 
   writeValue(value) {
     if (value) { 
+      this.lastStatusDate = value.dateOfContacted;
+      this.isEvrContactedControl.disable();
+
+      if(value.isSymptomatic=='Y'){
+        this.isReferredMControl.enable();
+      }
       this.value = value;
+      this.fieldInputForm.controls.dateOfContacted.setValue('');
     }
 
     if (value === null) {
       this.fieldInputForm.reset();
+      this.isEvrContactedControl.disable();
+      this.isEvrContactedControl.setValue('N')
     }
   } 
 
@@ -128,7 +128,8 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   validate(_: FormControl) {
     return this.fieldInputForm.valid ? null : { address: { valid: false } };
   }
-  submitCandidateInputData(fieldFormValue){
+  submitCandidateInputData(){
+    let fieldFormValue = this.fieldInputForm.getRawValue();
     this.fieldInputValue={
       isEverContacted: fieldFormValue.isEverContacted,
       isContactedOnCurrentDate: fieldFormValue.isContactedOnCurrentDate,
@@ -169,19 +170,26 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   onReasonForUnableToTraceChange(reasonForUnableToTraceValue){
     if(reasonForUnableToTraceValue)
     {
+      this.isSymptomaticControl.clearValidators();
+
       this.isSymptomaticControl.disable();
       this.isReferredMControl.disable();
       this.isReleasedSControl.disable();
+
+      this.isSymptomaticControl.setValue('');
+      this.isReferredMControl.setValue('');
+      this.isReleasedSControl.setValue('');
     }
     else
     {
       this.isSymptomaticControl.enable();
+      this.isSymptomaticControl.setValidators(Validators.required);
       if(this.isSymptomaticControl.value=="Y")
       {
         this.isReferredMControl.enable();
+        this.isReferredMControl.setValidators(Validators.required);
       }
       this.isReleasedSControl.enable();
-
     }
 
   }
@@ -189,9 +197,20 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
     if(isSymptomatic=="Y")
     {
     this.isReferredMControl.enable();
+    this.isReleasedSControl.disable();
     }
     else{
       this.isReferredMControl.disable();
+      this.isReleasedSControl.enable();
+    }
+  }
+  onReferedForMdclCChange(isMedicalCare){
+    if(isMedicalCare=="Y")
+    {
+      this.isReleasedSControl.enable();
+    }
+    else{
+      this.isReleasedSControl.disable();
     }
   }
 }

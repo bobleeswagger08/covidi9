@@ -144,7 +144,7 @@ export class CandidateListComponent implements OnInit {
    this.router.navigate(['covidi9/candidate', id, 1])
   }
   goToAddPage() {
-    this.router.navigate(['covidi9/candidate', 'null']);
+    this.router.navigate(['covidi9/candidate', 'null',0]);
   }
 
 }

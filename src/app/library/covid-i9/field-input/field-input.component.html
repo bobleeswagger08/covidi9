@@ -16,6 +16,7 @@
                 </div>
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
+                        Last Updated On : {{lastStatusDate | date : 'dd-MM-yyyy'}}
                         <!-- <mat-form-field class="full-width">
                             <mat-label>Is Contact On Current Date</mat-label>
                             <mat-select name="isContactedOnCurrentDate" formControlName="isContactedOnCurrentDate">
@@ -72,7 +73,7 @@
                     <div class="pb-1">
                         <mat-form-field class="full-width">
                             <mat-label>Is Referred For Medical Care</mat-label>
-                            <mat-select name="isReferredForMedicalCare" formControlName="isReferredForMedicalCare">
+                            <mat-select name="isReferredForMedicalCare" formControlName="isReferredForMedicalCare" (selectionChange)="onReferedForMdclCChange($event.value)">
                                 <mat-option> -- </mat-option>
                                 <mat-option value="Y">Yes</mat-option>
                                 <mat-option value="N">No</mat-option>
@@ -119,8 +120,8 @@
                     </div>
                 </div> -->
             </div>
-            <button mat-raised-button color="primary"
-                        (click)="submitCandidateInputData(fieldInputForm.value)">Submit</button>
+            <button mat-raised-button color="primary" [disabled]="fieldInputForm.invalid"
+                        (click)="submitCandidateInputData()">Submit</button>
             <!-- <button mat-raised-button *ngIf="this.id && this.id != 'null'" color="primary"
                 (click)="updateCourtMasterData(fieldInputForm.value)">Update</button> -->
         </form>

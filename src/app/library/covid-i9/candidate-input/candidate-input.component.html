@@ -39,8 +39,13 @@
                         </div>
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                             <div class="pb-1">
-                                <mat-slide-toggle name="isActive" color="primary" formControlName="isActive">Active
-                                </mat-slide-toggle>
+                                <mat-form-field class="full-width">
+                                    <input matInput name="arivalDate" formControlName="arivalDate"
+                                        [matDatepicker]="pickerAD" placeholder="Arrival Date">
+                                    <mat-datepicker-toggle matSuffix [for]="pickerAD"></mat-datepicker-toggle>
+                                    <mat-datepicker #pickerAD></mat-datepicker>
+                                </mat-form-field>
+                               
                             </div>
                         </div>
                     </div>
@@ -48,17 +53,48 @@
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                             <div class="pb-1">
                                 <mat-form-field class="full-width">
-                                    <input matInput name="flightNo" formControlName="flightNo" placeholder="Flight No"
-                                        value="">
+                                    <mat-label>Select UPHC</mat-label>
+                                    <mat-select name="uphc" formControlName="uphc">
+                                        <mat-option> -- </mat-option>
+                                        <mat-option *ngFor="let uc of listUPHC" [value]="uc.uphc">
+                                            {{uc.uphc}}
+                                        </mat-option>
+                                    </mat-select>
                                 </mat-form-field>
+                                   
                             </div>
                         </div>
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                             <div class="pb-1">
                                 <mat-form-field class="full-width">
-                                    <input matInput name="countryVisited" formControlName="countryVisited"
-                                        placeholder="Country Visited" value="">
+                                    <mat-label>Select Ward No</mat-label>
+                                    <mat-select name="wardNo" formControlName="wardNo">
+                                        <mat-option> -- </mat-option>
+                                        <mat-option *ngFor="let wl of listWard" [value]="wl.wardNo">
+                                            {{wl.wardNo}}
+                                        </mat-option>
+                                    </mat-select>
                                 </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap">
+                        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                            <div class="pb-1">
+                                <mat-form-field class="full-width">
+                                    <input matInput name="mobileNo" formControlName="mobileNo" placeholder="Mobile No"
+                                        value="">
+                                </mat-form-field>
+                              
+                            </div>
+                        </div>
+                        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                            <div class="pb-1">
+                                <mat-form-field class="full-width">
+                                    <textarea matInput name="address" formControlName="address" placeholder="Address"
+                                        value=""></textarea>
+                                </mat-form-field>
+                                
                             </div>
                         </div>
                     </div>
@@ -91,10 +127,8 @@
                         </div>
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                             <div class="pb-1">
-                                <mat-form-field class="full-width">
-                                    <input matInput name="flightNumber" formControlName="flightNumber"
-                                        placeholder="Flight No." value="">
-                                </mat-form-field>
+                                <mat-slide-toggle name="isActive" color="primary" formControlName="isActive">Active
+                                </mat-slide-toggle>
                             </div>
                         </div>
                     </div>
@@ -102,17 +136,15 @@
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                             <div class="pb-1">
                                 <mat-form-field class="full-width">
-                                    <input matInput name="arivalDate" formControlName="arivalDate"
-                                        [matDatepicker]="pickerAD" placeholder="Arrival Date">
-                                    <mat-datepicker-toggle matSuffix [for]="pickerAD"></mat-datepicker-toggle>
-                                    <mat-datepicker #pickerAD></mat-datepicker>
+                                    <input matInput name="flightNumber" formControlName="flightNumber"
+                                        placeholder="Flight Number" value="">
                                 </mat-form-field>
                             </div>
                         </div>
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                             <div class="pb-1">
                                 <mat-form-field class="full-width">
-                                    <input matInput name="mobileNo" formControlName="mobileNo" placeholder="Mobile No"
+                                    <input matInput name="flightNo" formControlName="flightNo" placeholder="Flight No"
                                         value="">
                                 </mat-form-field>
                             </div>
@@ -122,8 +154,8 @@
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                             <div class="pb-1">
                                 <mat-form-field class="full-width">
-                                    <textarea matInput name="address" formControlName="address" placeholder="Address"
-                                        value=""></textarea>
+                                    <input matInput name="countryVisited" formControlName="countryVisited"
+                                        placeholder="Country Visited" value="">
                                 </mat-form-field>
                             </div>
                         </div>
@@ -162,48 +194,21 @@
                             </div>
                         </div>
                     </div>
-                    <div fxLayout="row wrap">
-                        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
-                            <div class="pb-1">
-                                <mat-form-field class="full-width">
-                                    <mat-label>Select Ward No</mat-label>
-                                    <mat-select name="wardNo" formControlName="wardNo">
-                                        <mat-option> -- </mat-option>
-                                        <mat-option *ngFor="let wl of listWard" [value]="wl.wardNo">
-                                            {{wl.wardNo}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
-                            <div class="pb-1">
-                                <mat-form-field class="full-width">
-                                    <mat-label>Select UPHC</mat-label>
-                                    <mat-select name="uphc" formControlName="uphc">
-                                        <mat-option> -- </mat-option>
-                                        <mat-option *ngFor="let uc of listUPHC" [value]="uc.uphc">
-                                            {{uc.uphc}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
+                    
 
                     <!-- *ngIf="this.id && this.id == 'null'" -->
                     <button mat-raised-button color="primary" *ngIf="this.id && this.id == 'null'"
                         [disabled]="candidateForm.invalid"
                         (click)="submitCandidateInputData(candidateForm.value)">Submit</button>
-                    <!-- <button mat-raised-button *ngIf="this.id" color="primary"
-                        (click)="updateCourtMasterData(candidateForm.value)">Update</button> -->
+                    <button mat-raised-button *ngIf="this.id && this.id != 'null'" color="primary"
+                        (click)="updateCandidateInputData(candidateForm.value)">Update</button>
                     <!-- {{courtCaseMasterForm.value|json}} -->
                 </mat-card-content>
             </mat-card>
         </mat-tab>
         <mat-tab label="Field Input">
             <!-- <app-field-input name="fieldData" formControlName="fieldData"  [candidate-id]="candidateId"></app-field-input> -->
-            <app-field-input name="fieldData"   [candidate-id]="candidateId"></app-field-input>
+            <app-field-input name="fieldData" formControlName="fieldData"  [candidate-id]="candidateId"></app-field-input>
         </mat-tab>
         <mat-tab label="History">
         </mat-tab>

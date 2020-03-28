@@ -5,7 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CovidI9Service } from '../services/covid-i9.service';
 import { BadInput } from 'app/shared/commonerror/bad-input';
 import { AppError } from 'app/shared/commonerror/app-error';
-import { ICandidateInput, IFieldData, IListWard, IListUPHC } from '../model/candidate-input';
+import { ICandidateInput, IFieldData, IListWard, IListUPHC, fieldFormValues } from '../model/candidate-input';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-candidate-input',
@@ -20,6 +21,7 @@ export class CandidateInputComponent implements OnInit {
   id: string;
   tabIndex:number;
   candidateFormValue:ICandidateInput;
+  fieldInputFormValue:fieldFormValues;
   candidateId:string;
   
   constructor(private route: ActivatedRoute,private router:Router,private formBuilder: FormBuilder,private covidService:CovidI9Service,private cdr: ChangeDetectorRef) { }
@@ -62,7 +64,26 @@ export class CandidateInputComponent implements OnInit {
       this.candidateId=this.id;
       this.covidService.getCandidateById(this.id)
         .subscribe((cItem:ICandidateInput) => {
-          let result:IFieldData = { isEverContacted: "N"};
+         // let result:IFieldData = { isEverContacted: "N"};
+       //  let dateList =[];
+         if(cItem.fieldData && cItem.fieldData.length>0){
+          var dates = cItem.fieldData.map(function(x) { return new Date(x.dateOfContacted);});
+          var latest = new Date(Math.max.apply(null,dates));
+          this.fieldInputFormValue ={
+              commentByMOIC:'',
+              dateOfContacted:formatDate(latest,'yyyy-MM-dd', 'en-US'),
+              id:uuid(),
+              isEverContacted:cItem.fieldData[0].isEverContacted,
+              isReferredForMedicalCare:'',
+              isReleasedFromSurveillanc:'',
+              isSymptomatic:'',
+              reasonForNotContacted:'',
+              reasonForUnableToTraceId:''
+          }
+        }
+        else{
+          this.fieldInputFormValue =null;
+        }
           this.candidateForm.setValue({
             source: cItem.source , // ? 'District' : 'Others',
             name: cItem.name,
@@ -84,7 +105,7 @@ export class CandidateInputComponent implements OnInit {
             isActive: cItem.isActive,
           //  commentByMOIC:cItem.commentByMOIC,
             commentByMOIC:'',
-           fieldData: result, 
+            fieldData:  this.fieldInputFormValue, 
             id: cItem.id,
             serialNo: cItem.serialNo
           }
@@ -97,7 +118,7 @@ export class CandidateInputComponent implements OnInit {
   submitCandidateInputData(candidateInputFormValue){
     console.log(candidateInputFormValue);
      this.fieldInput =[]
-     if(candidateInputFormValue.fieldData!=null)
+     if(candidateInputFormValue.fieldData!=[])
      this.fieldInput.push(candidateInputFormValue.fieldData)
 
     this.candidateFormValue={
@@ -120,12 +141,54 @@ export class CandidateInputComponent implements OnInit {
       uphc: candidateInputFormValue.uphc,
       isActive: true,
      // commentByMOIC:candidateInputFormValue.commentByMOIC,
-      // fieldData: this.fieldInput, 
+      fieldData: this.fieldInput, 
       id: candidateInputFormValue.id,
       serialNo: candidateInputFormValue.serialNo
     }
     console.log(this.candidateFormValue)
     this.covidService.saveCandidateInput(this.candidateFormValue)
+      .subscribe(court => {
+        alert('Candidate data updated successfully')
+        //this.router.navigate(['administration/userlist']);
+      }, (error: AppError) => {
+        if (error instanceof BadInput) {
+          alert('invalid data');
+        }
+        else throw error;
+      });
+  }
+  updateCandidateInputData(candidateInputFormValue){
+    console.log(candidateInputFormValue);
+     this.fieldInput =[]
+     if(candidateInputFormValue.fieldData!=[])
+     this.fieldInput.push(candidateInputFormValue.fieldData)
+
+    this.candidateFormValue={
+      source: candidateInputFormValue.source,
+      name: candidateInputFormValue.name,
+      flightNo: candidateInputFormValue.flightNo,
+      countryVisited: candidateInputFormValue.countryVisited,
+      dob: candidateInputFormValue.dob,
+      age: candidateInputFormValue.age,
+      sex: candidateInputFormValue.sex,
+      flightNumber: candidateInputFormValue.flightNumber,
+      arivalDate: candidateInputFormValue.arivalDate,
+      mobileNo: candidateInputFormValue.mobileNo,
+      address: candidateInputFormValue.address,
+      finalDestination: candidateInputFormValue.finalDestination,
+      block: candidateInputFormValue.block,
+      state: candidateInputFormValue.state,
+      note: candidateInputFormValue.note,
+      wardNo: candidateInputFormValue.wardNo,
+      uphc: candidateInputFormValue.uphc,
+      isActive: true,
+     // commentByMOIC:candidateInputFormValue.commentByMOIC,
+      fieldData: this.fieldInput, 
+      id: candidateInputFormValue.id,
+      serialNo: candidateInputFormValue.serialNo
+    }
+    console.log(this.candidateFormValue)
+    this.covidService.updateCandidateInput(this.candidateFormValue)
       .subscribe(court => {
         alert('Candidate data saved successfully')
         //this.router.navigate(['administration/userlist']);
@@ -135,6 +198,7 @@ export class CandidateInputComponent implements OnInit {
         }
         else throw error;
       });
+
   }
   getWardList() {
     this.covidService.getWardList()
