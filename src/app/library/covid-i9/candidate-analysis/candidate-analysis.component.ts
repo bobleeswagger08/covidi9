@@ -52,11 +52,11 @@ export class CandidateAnalysisComponent implements OnInit {
     });
   }
   onPivotReady(pivot: WebDataRocks.Pivot): void {
-    console.log("[ready] WebDataRocksPivot", this.child);
-    this.child.webDataRocks.setReport({
-      dataSource: {
-        data: this.dataSource
-      }
+  //  console.log("[ready] WebDataRocksPivot", this.child);
+    // this.child.webDataRocks.setReport({
+    //   dataSource: {
+    //     data: this.dataSource
+    //   }
       // ,
       // slice: {
       //   rows: [{
@@ -72,7 +72,7 @@ export class CandidateAnalysisComponent implements OnInit {
       //   }
       // ]
       // }
-    });
+    // });
   }
 
   onCustomizeCell(cell: WebDataRocks.CellBuilder, data: WebDataRocks.CellData): void {
