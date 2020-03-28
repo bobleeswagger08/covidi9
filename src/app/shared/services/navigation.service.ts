@@ -74,7 +74,7 @@ export class NavigationService {
   //     //{ name: "UserRolePermission", state: "rolepermission" },
   //   ]},
   {
-    name: "Covid 19",
+    name: "Candidate Tracker",
     type: "dropDown",
     tooltip: "Covid 19",
     icon: "address",

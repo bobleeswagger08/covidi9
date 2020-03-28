@@ -197,8 +197,7 @@
                     
 
                     <!-- *ngIf="this.id && this.id == 'null'" -->
-                    <button mat-raised-button color="primary" *ngIf="this.id && this.id == 'null'"
-                        [disabled]="candidateForm.invalid"
+                    <button mat-raised-button color="primary" *ngIf="this.id && this.id == 'null'"                        
                         (click)="submitCandidateInputData(candidateForm.value)">Submit</button>
                     <button mat-raised-button *ngIf="this.id && this.id != 'null'" color="primary"
                         (click)="updateCandidateInputData(candidateForm.value)">Update</button>
