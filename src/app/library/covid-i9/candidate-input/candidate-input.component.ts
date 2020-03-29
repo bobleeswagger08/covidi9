@@ -40,6 +40,7 @@ export class CandidateInputComponent implements OnInit {
       source: [],
       serialNo: [],
       name: ['',Validators.required],
+      candidateStatusId: [],
       flightNo: [],
       countryVisited: [],
       dob: [],
