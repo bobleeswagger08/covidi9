@@ -133,9 +133,9 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   }
 
   // communicate the inner form validation to the parent form
-  validate(_: FormControl) {
-    return this.fieldInputForm.valid ? null : { address: { valid: false } };
-  }
+  // validate(_: FormControl) {
+  //   return this.fieldInputForm.valid ? null : { address: { valid: false } };
+  // }
   submitCandidateInputData(){
     let fieldFormValue = this.fieldInputForm.getRawValue();
     this.fieldInputValue={

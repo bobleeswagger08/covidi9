@@ -120,7 +120,7 @@ export class CandidateInputComponent implements OnInit {
   submitCandidateInputData(candidateInputFormValue){
     console.log(candidateInputFormValue);
      this.fieldInput =[]
-     if(candidateInputFormValue.fieldData!=[])
+     if(candidateInputFormValue.fieldData && (candidateInputFormValue.fieldData!=[] || candidateInputFormValue.fieldData!=null))
      this.fieldInput.push(candidateInputFormValue.fieldData)
 
     this.candidateFormValue={
@@ -150,13 +150,13 @@ export class CandidateInputComponent implements OnInit {
     console.log(this.candidateFormValue)
     this.covidService.saveCandidateInput(this.candidateFormValue)
       .subscribe(court => {
-        alert('Candidate data updated successfully')
+        alert('Candidate data submited successfully')
         //this.router.navigate(['administration/userlist']);
       }, (error: AppError) => {
         if (error instanceof BadInput) {
           alert('invalid data');
         }
-        else throw error;
+        alert(error.originalError);
       });
   }
   updateCandidateInputData(candidateInputFormValue){
@@ -198,7 +198,7 @@ export class CandidateInputComponent implements OnInit {
         if (error instanceof BadInput) {
           alert('invalid data');
         }
-        else throw error;
+        alert(error.originalError);
       });
 
   }
