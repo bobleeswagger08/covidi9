@@ -25,6 +25,20 @@
                                 </mat-form-field>
                             </div>
                         </div>
+                        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                            <div class="pb-1">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Current Status</mat-label>
+                                    <mat-select name="status" >
+                                        <mat-option> -- </mat-option>
+                                        <mat-option *ngFor="let uc of listClosedReason" [value]="uc.id">
+                                            {{uc.reason}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                   
+                            </div>
+                        </div>
                     </div>
                     <div fxLayout="row wrap">
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
