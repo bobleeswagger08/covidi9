@@ -2,6 +2,7 @@ export interface ICandidateInput{
         source: string,
         name: string,
         flightNo: string,
+        candidateStatusId:string,
         countryVisited: string,
         dob: string,
         age: string,

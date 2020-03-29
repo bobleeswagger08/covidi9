@@ -90,6 +90,7 @@ export class CandidateInputComponent implements OnInit {
           this.candidateForm.setValue({
             source: cItem.source , // ? 'District' : 'Others',
             name: cItem.name,
+            candidateStatusId:cItem.candidateStatusId,
             flightNo: cItem.flightNo,
             countryVisited: cItem.countryVisited,
             dob: cItem.dob,
@@ -127,6 +128,7 @@ export class CandidateInputComponent implements OnInit {
     this.candidateFormValue={
       source: candidateInputFormValue.source,
       name: candidateInputFormValue.name,
+      candidateStatusId:candidateInputFormValue.candidateStatusId,
       flightNo: candidateInputFormValue.flightNo,
       countryVisited: candidateInputFormValue.countryVisited,
       dob: candidateInputFormValue.dob,
@@ -169,6 +171,7 @@ export class CandidateInputComponent implements OnInit {
     this.candidateFormValue={
       source: candidateInputFormValue.source,
       name: candidateInputFormValue.name,
+      candidateStatusId:candidateInputFormValue.candidateStatusId,
       flightNo: candidateInputFormValue.flightNo,
       countryVisited: candidateInputFormValue.countryVisited,
       dob: candidateInputFormValue.dob,
