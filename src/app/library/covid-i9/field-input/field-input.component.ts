@@ -105,6 +105,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   writeValue(value) {
     if (value) { 
       this.lastStatusDate = value.dateOfContacted;
+     
       this.isEvrContactedControl.disable();
       
 
@@ -112,6 +113,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
         this.isReferredMControl.enable();
       }
       this.value = value;
+      this.isEvrContactedControl.setValue('Y');
       this.fieldInputForm.controls.dateOfContacted.setValue('');
     }
 
