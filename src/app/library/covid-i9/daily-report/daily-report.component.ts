@@ -13,7 +13,7 @@ import { CovidI9Service } from '../services/covid-i9.service';
 export class DailyReportComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  displayedColumns: string[] = ['referenceNo', 'source', 'serialNo', 'arivalDate', 'name', 'mobileNo', 'uphc', 'lastContactDate'];
+  displayedColumns: string[] = ['source', 'serialNo', 'dateOfArival', 'name', 'mobileNo', 'uphc', 'dateOfContacted'];
   listCandidate: CandidateDateWiseReport[];
   listOfUpHC: IListUPHC[] = [];
   listOfWards: IListWard[] = [];
@@ -35,6 +35,7 @@ export class DailyReportComponent implements OnInit {
       .subscribe((cList: CandidateDateWiseReport[]) => {
         //this.listServiceRequest = srList;
         this.dataSource = new MatTableDataSource(cList);
+       // console.log(cList);
         this.cdr.detectChanges();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

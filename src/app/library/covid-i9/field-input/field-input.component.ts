@@ -89,6 +89,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   ngOnInit() {
     this.getNoContactReason();
     this.isReferredMControl.disable();
+    
   }
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
@@ -106,6 +107,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
       this.lastStatusDate = value.dateOfContacted;
      
       this.isEvrContactedControl.disable();
+      
 
       if(value.isSymptomatic=='Y'){
         this.isReferredMControl.enable();
@@ -119,6 +121,10 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
       this.fieldInputForm.reset();
       this.isEvrContactedControl.disable();
       this.isEvrContactedControl.setValue('N')
+    }
+    else
+    {
+      this.isEvrContactedControl.setValue("Y");
     }
   } 
 

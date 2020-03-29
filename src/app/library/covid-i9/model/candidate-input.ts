@@ -189,7 +189,7 @@ export interface CandidateFieldDataDefiinition {
 }
 
 export interface CandidateDefinition extends CandidateCoreData {
-  readonly dateOfArival?: Date | undefined;
+ 
   note?: string | undefined;
   wardNo?: string | undefined;
   uphc?: string | undefined;
@@ -218,6 +218,7 @@ export interface CandidateDateWiseReport extends CandidateData {
   commentByMOIC?: string | undefined;
   statusDate?: Date | undefined;
   candidateReason?: string | undefined;
+  dateOfArival?: Date | undefined;
 }
 
 export interface CandidateReportFilter {
