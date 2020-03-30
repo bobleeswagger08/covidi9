@@ -49,8 +49,8 @@
                             <mat-label>Unable To Contact Reason</mat-label>
                             <mat-select name="reasonForUnableToTraceId" formControlName="reasonForUnableToTraceId" (selectionChange)="onReasonForUnableToTraceChange($event.value)">
                                 <mat-option> -- </mat-option>
-                                <mat-option *ngFor="let lncr of listNoContactReason" [value]="lncr.id">
-                                    {{lncr.reason}}</mat-option>
+                                <mat-option *ngFor="let lncr of listNoContactReason" [value]="lncr.description">
+                                    {{lncr.description}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>

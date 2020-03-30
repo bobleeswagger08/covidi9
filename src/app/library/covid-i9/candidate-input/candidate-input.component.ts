@@ -9,7 +9,7 @@ import { ICandidateInput, IFieldData, IListWard, IListUPHC, fieldFormValues, Col
 import { formatDate } from '@angular/common';
 
 @Component({
-  selector: 'app-candidate-input',
+  selector: 'app-candidate-input',    
   templateUrl: './candidate-input.component.html',
   styleUrls: ['./candidate-input.component.scss']
 })
@@ -122,6 +122,7 @@ export class CandidateInputComponent implements OnInit {
     }
   }
   submitCandidateInputData(candidateInputFormValue){
+    //this.candidateForm.controls['fieldData'][0].commentByMOIC{}
     console.log(candidateInputFormValue);
     //  this.fieldInput =[]
     //  if(candidateInputFormValue.fieldData && (candidateInputFormValue.fieldData!=[] || candidateInputFormValue.fieldData!=null))

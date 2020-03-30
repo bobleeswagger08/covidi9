@@ -97,7 +97,9 @@ export interface IFieldInput{
   isActive: true
 }
 export interface IListNoContactReason{
-  reason:string;
+  id:string,
+  category:string,
+  description:string
 }
 export interface SearchCriteria {
   isEverContacted?: string | undefined;
@@ -152,7 +154,8 @@ export interface fieldFormValues {
 
 export interface ColsedReason {
   id: number;
-  reason: string;
+  category: string;
+  description:string;
 }
 
 export interface CandidateCoreData {
