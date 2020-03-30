@@ -19,6 +19,9 @@ export class ConfigParamService {
   public covidi9Url: string  = environment.configServiceUrl; ; // "http://13.232.154.36/CovidCandiateTracker";
   public emptyUUID: string = "00000000-0000-0000-0000-000000000000";
 
+
+  // npm i @angular-devkit/build-angular@0.803.24
+  
     //public setJwtSession(token:string)
     // {
     //   this.sessionJwtToken= token;
