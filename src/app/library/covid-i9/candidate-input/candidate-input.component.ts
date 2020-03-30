@@ -37,10 +37,10 @@ export class CandidateInputComponent implements OnInit {
     // });
     this.candidateForm = this.formBuilder.group({
       id: [this.candidateId],
-      source: [],
+      source: ['',Validators.required],
       serialNo: [],
       name: ['',Validators.required],
-      candidateStatusId: [],
+      candidateStatusId: [0],
       flightNo: [],
       countryVisited: [],
       dob: [],
@@ -60,9 +60,11 @@ export class CandidateInputComponent implements OnInit {
       fieldData: [],
       isActive: [true]
     });
+
     this.getWardList();
     this.getUPHCList();
     this.getClosedReasonList();
+
     if (this.id && this.id != 'null') {
       this.candidateId=this.id;
       this.covidService.getCandidateById(this.id)
@@ -90,7 +92,7 @@ export class CandidateInputComponent implements OnInit {
           this.candidateForm.setValue({
             source: cItem.source , // ? 'District' : 'Others',
             name: cItem.name,
-            candidateStatusId:cItem.candidateStatusId,
+           candidateStatusId:cItem.candidateStatusId,
             flightNo: cItem.flightNo,
             countryVisited: cItem.countryVisited,
             dob: cItem.dob,
@@ -121,9 +123,9 @@ export class CandidateInputComponent implements OnInit {
   }
   submitCandidateInputData(candidateInputFormValue){
     console.log(candidateInputFormValue);
-     this.fieldInput =[]
-     if(candidateInputFormValue.fieldData && (candidateInputFormValue.fieldData!=[] || candidateInputFormValue.fieldData!=null))
-     this.fieldInput.push(candidateInputFormValue.fieldData)
+    //  this.fieldInput =[]
+    //  if(candidateInputFormValue.fieldData && (candidateInputFormValue.fieldData!=[] || candidateInputFormValue.fieldData!=null))
+    //  this.fieldInput.push(candidateInputFormValue.fieldData)
 
     this.candidateFormValue={
       source: candidateInputFormValue.source,
@@ -135,7 +137,7 @@ export class CandidateInputComponent implements OnInit {
       age: candidateInputFormValue.age,
       sex: candidateInputFormValue.sex,
       flightNumber: candidateInputFormValue.flightNumber,
-      arivalDate: candidateInputFormValue.arivalDate,
+      arivalDate: formatDate(candidateInputFormValue.arivalDate,'yyyy-MM-dd', 'en-US'),
       mobileNo: candidateInputFormValue.mobileNo,
       address: candidateInputFormValue.address,
       finalDestination: candidateInputFormValue.finalDestination,
@@ -146,7 +148,7 @@ export class CandidateInputComponent implements OnInit {
       uphc: candidateInputFormValue.uphc,
       isActive: true,
      // commentByMOIC:candidateInputFormValue.commentByMOIC,
-      fieldData: this.fieldInput, 
+      fieldData: null, 
       id: candidateInputFormValue.id,
       serialNo: candidateInputFormValue.serialNo
     }
@@ -164,9 +166,9 @@ export class CandidateInputComponent implements OnInit {
   }
   updateCandidateInputData(candidateInputFormValue){
     console.log(candidateInputFormValue);
-     this.fieldInput =[]
-     if(candidateInputFormValue.fieldData!=[])
-     this.fieldInput.push(candidateInputFormValue.fieldData)
+    //  this.fieldInput =[]
+    //  if(candidateInputFormValue.fieldData!=[])
+    //  this.fieldInput.push(candidateInputFormValue.fieldData)
 
     this.candidateFormValue={
       source: candidateInputFormValue.source,
@@ -178,7 +180,7 @@ export class CandidateInputComponent implements OnInit {
       age: candidateInputFormValue.age,
       sex: candidateInputFormValue.sex,
       flightNumber: candidateInputFormValue.flightNumber,
-      arivalDate: candidateInputFormValue.arivalDate,
+      arivalDate: formatDate(candidateInputFormValue.arivalDate,'yyyy-MM-dd', 'en-US'),
       mobileNo: candidateInputFormValue.mobileNo,
       address: candidateInputFormValue.address,
       finalDestination: candidateInputFormValue.finalDestination,
@@ -189,7 +191,7 @@ export class CandidateInputComponent implements OnInit {
       uphc: candidateInputFormValue.uphc,
       isActive: true,
      // commentByMOIC:candidateInputFormValue.commentByMOIC,
-      fieldData: this.fieldInput, 
+      fieldData: null, 
       id: candidateInputFormValue.id,
       serialNo: candidateInputFormValue.serialNo
     }
@@ -226,10 +228,9 @@ export class CandidateInputComponent implements OnInit {
   getClosedReasonList()
   {
     this.covidService.getCandidateClosedReason()
-    .subscribe(
-      r => 
-      {
+    .subscribe((r :ColsedReason[])=>{
       this.listClosedReason = r;
+      this.cdr.detectChanges();
       }
     )
   }

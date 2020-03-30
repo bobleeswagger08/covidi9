@@ -20,12 +20,13 @@ import { formatDate } from '@angular/common';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => FieldInputComponent),
       multi: true
-    },
-    {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => FieldInputComponent),
-      multi: true
     }
+    // ,
+    // {
+    //   provide: NG_VALIDATORS,
+    //   useExisting: forwardRef(() => FieldInputComponent),
+    //   multi: true
+    // }
   ]
 })
 export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestroy {
@@ -70,7 +71,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
      // timeOfConected: [],
       //reason:[],
       isSymptomatic: ['',Validators.required],
-      reasonForUnableToTraceId:[],
+      reasonForUnableToTraceId:[0],
       isReferredForMedicalCare:[],
       reasonForNotContacted:[],
       isReleasedFromSurveillanc:[],
@@ -209,6 +210,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
     }
     else{
       this.isReferredMControl.disable();
+      this.isReferredMControl.setValue('');
       this.isReleasedSControl.enable();
     }
   }

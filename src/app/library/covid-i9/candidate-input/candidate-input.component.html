@@ -31,8 +31,8 @@
                                     <mat-label>Current Status</mat-label>
                                     <mat-select name="candidateStatusId" formControlName="candidateStatusId">
                                         <mat-option> -- </mat-option>
-                                        <mat-option *ngFor="let uc of listClosedReason" [value]="uc.id">
-                                            {{uc.reason}}
+                                        <mat-option *ngFor="let cr of listClosedReason" [value]="cr.id">
+                                            {{cr.reason}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -213,7 +213,7 @@
                     <!-- *ngIf="this.id && this.id == 'null'" -->
                     <button mat-raised-button color="primary" *ngIf="this.id && this.id == 'null'" [disabled] ="candidateForm.invalid"                  
                         (click)="submitCandidateInputData(candidateForm.value)">Submit</button>
-                    <button mat-raised-button *ngIf="this.id && this.id != 'null'" color="primary"
+                    <button mat-raised-button *ngIf="this.id && this.id != 'null'" color="primary" [disabled] ="candidateForm.invalid"
                         (click)="updateCandidateInputData(candidateForm.value)">Update</button>
                     <!-- {{courtCaseMasterForm.value|json}} -->
                 </mat-card-content>

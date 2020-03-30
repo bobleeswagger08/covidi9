@@ -43,15 +43,15 @@ export class CovidI9Service {
   }
   updateCandidateInput(resourceCandidate:ICandidateInput) {
     //return this.http.post(this.url,JSON.stringify(resource))
-    return this.httpClient.post(this.urlCovidI9+'/Covid19Candidate/Update'+ resourceCandidate.id, resourceCandidate);
+    return this.httpClient.post(this.urlCovidI9+'/Covid19Candidate/Update/'+ resourceCandidate.id, resourceCandidate);
       // .pipe(
       //   map(response => response.json()),
       //   catchError(this.HandleError)
       // );
   }
-  getCandidateClosedReason():Observable<ColsedReason[]>
+  getCandidateClosedReason()
   {
-    return this.httpClient.get<ColsedReason[]>(this.urlCovidI9+'/CosedReason');
+    return this.httpClient.get(this.urlCovidI9+'/CosedReason');
   }
 
   getDailyReportData(reportFilter : CandidateReportFilter):Observable<CandidateDateWiseReport[]>

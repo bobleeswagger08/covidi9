@@ -2,7 +2,7 @@ export interface ICandidateInput{
         source: string,
         name: string,
         flightNo: string,
-        candidateStatusId:string,
+        candidateStatusId:number,
         countryVisited: string,
         dob: string,
         age: string,
@@ -151,8 +151,8 @@ export interface fieldFormValues {
 }
 
 export interface ColsedReason {
-  id?: number;
-  reason?: string | undefined;
+  id: number;
+  reason: string;
 }
 
 export interface CandidateCoreData {
