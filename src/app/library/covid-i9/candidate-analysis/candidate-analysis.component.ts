@@ -44,6 +44,16 @@ dateChanged(eventType: string, eventData: any) {
         ,
         slice: {
           rows: [{
+            uniqueName: "isContactedOnCurrentDate"
+          },
+          {
+            uniqueName : "reasonForUnableToTrace"
+          },
+          {
+            uniqueName : "isSymptomatic"
+          },
+        ],
+          reportFilters: [{
             uniqueName: "source"
           }],
           columns: [{
@@ -54,6 +64,7 @@ dateChanged(eventType: string, eventData: any) {
             uniqueName: "name",
             aggregation: "count"
           }
+
           ]
         }
       });
