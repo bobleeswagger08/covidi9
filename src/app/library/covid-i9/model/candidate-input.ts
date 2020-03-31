@@ -223,6 +223,8 @@ export interface CandidateDateWiseReport extends CandidateData {
   statusDate?: Date | undefined;
   candidateReason?: string | undefined;
   dateOfArival?: Date | undefined;
+  status?: string | undefined;
+  category?: string | undefined;
 }
 
 export interface CandidateReportFilter {
