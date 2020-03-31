@@ -25,6 +25,7 @@ export class CandidateInputComponent implements OnInit {
   fieldInputFormValue:fieldFormValues;
   candidateId:string;
   fiButtonVisible:boolean;
+  maxStatusDate:Date;
   
   constructor(private route: ActivatedRoute,private router:Router,private formBuilder: FormBuilder,private covidService:CovidI9Service,private cdr: ChangeDetectorRef) { }
 
@@ -72,7 +73,10 @@ export class CandidateInputComponent implements OnInit {
         .subscribe((cItem:ICandidateInput) => {
          // let result:IFieldData = { isEverContacted: "N"};
        //  let dateList =[];
-       this.fiButtonVisible = cItem.candidateStatusId>0 && cItem.candidateStatusId<3;
+        this.fiButtonVisible = cItem.candidateStatusId>0 && cItem.candidateStatusId<3;
+        // var aD = new Date();
+        // var mD = aD.setDate(28);
+        // console.log('modified',mD);
          if(cItem.fieldData && cItem.fieldData.length>0){
           var dates = cItem.fieldData.map(function(x) { return new Date(x.dateOfContacted);});
           var latest = new Date(Math.max.apply(null,dates));
@@ -97,11 +101,11 @@ export class CandidateInputComponent implements OnInit {
             candidateStatusId:cItem.candidateStatusId,
             flightNo: cItem.flightNo,
             countryVisited: cItem.countryVisited,
-            dob: new Date(cItem.dob),
+            dob: cItem.dob?new Date(cItem.dob):cItem.arivalDate,
             age: cItem.age,
             sex: cItem.sex,
             flightNumber: cItem.flightNumber,
-            arivalDate: new Date(cItem.arivalDate),
+            arivalDate:cItem.arivalDate?new Date(cItem.arivalDate):cItem.arivalDate,
             mobileNo: cItem.mobileNo,
             address: cItem.address,
             finalDestination: cItem.finalDestination,
@@ -136,7 +140,7 @@ export class CandidateInputComponent implements OnInit {
       candidateStatusId:candidateInputFormValue.candidateStatusId,
       flightNo: candidateInputFormValue.flightNo,
       countryVisited: candidateInputFormValue.countryVisited,
-      dob: candidateInputFormValue.dob,
+      dob: formatDate(candidateInputFormValue.dob,'yyyy-MM-dd', 'en-US'),
       age: candidateInputFormValue.age,
       sex: candidateInputFormValue.sex,
       flightNumber: candidateInputFormValue.flightNumber,
@@ -179,7 +183,7 @@ export class CandidateInputComponent implements OnInit {
       candidateStatusId:candidateInputFormValue.candidateStatusId,
       flightNo: candidateInputFormValue.flightNo,
       countryVisited: candidateInputFormValue.countryVisited,
-      dob: candidateInputFormValue.dob,
+      dob: formatDate(candidateInputFormValue.dob,'yyyy-MM-dd', 'en-US'),
       age: candidateInputFormValue.age,
       sex: candidateInputFormValue.sex,
       flightNumber: candidateInputFormValue.flightNumber,

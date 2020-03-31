@@ -36,10 +36,10 @@
   .mat-table .mat-cell {
     border-bottom: 1px solid #ddd;
     display: block;
-    font-size: 1em;
+    font-size: .7em;
     text-align: right;
     font-weight: bold;
-    height:30px;
+    height:20px;
     margin-bottom: 4%;
   }
   .mat-table .mat-cell:before {
@@ -52,7 +52,7 @@
     text-transform: uppercase;
     font-weight: normal;
     
-    font-size: .85em;
+    font-size: .7em;
   }
   .mat-table .mat-cell:last-child {
     border-bottom: 0;
@@ -60,4 +60,19 @@
     .mat-table .mat-cell:first-child {
     margin-top: 4%;
   }
+}
+.mat-table .mat-cell {
+  font-size: .85em;
+}
+.mat-table .mat-cell:before {
+  /*
+  * aria-label has no advantage, it won't be read inside a table
+  content: attr(aria-label);
+  */
+  content: attr(data-label);
+  float: left;
+  text-transform: uppercase;
+  font-weight: normal;
+  
+  font-size: .85em;
 }
