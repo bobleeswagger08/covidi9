@@ -18,7 +18,7 @@ export class DailyReportComponent implements OnInit {
   // displayedColumns: string[] = ['source', 'serialNo', 'dateOfArival', 'name', 'mobileNo', 'uphc','isEverContacted', 'dateOfContacted'];
   displayedColumns: string[] = ['source', 'serialNo','name', 'flightNumber', 'countryVisited','dob','sex','flightNo','arivalDate',
   'mobileNo','address','finalDestination','block','state','isEverContacted','isContactedOnCurrentDate',
-  'isSymptomatic','isReferredForMedicalCare','reasonForUnableToTrace','isReleasedFromSurveillanc',
+  'isSymptomatic','isReferredForMedicalCare','reasonForUnableToTrace','isReleasedFromSurveillance',
   'wardNo','uphc','commentByMOIC'];
 
   selectedDate : Date = new Date();

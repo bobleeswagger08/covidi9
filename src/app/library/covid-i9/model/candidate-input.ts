@@ -216,7 +216,7 @@ export interface CandidateDateWiseReport extends CandidateData {
   isSymptomatic?: string | undefined;
   isReferredForMedicalCare?: string | undefined;
   reasonForUnableToTrace?: string | undefined;
-  isReleasedFromSurveillanc?: string | undefined;
+  isReleasedFromSurveillance?: string | undefined;
   wardNo?: string | undefined;
   uphc?: string | undefined;
   commentByMOIC?: string | undefined;

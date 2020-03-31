@@ -33,8 +33,31 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   fieldInputForm: FormGroup;
   fieldInputValue:IFieldInput;
   subscriptions: Subscription[] = [];
-  listNoContactReason:IListNoContactReason;
+  listNoContactReason:IListNoContactReason[];
   lastStatusDate:string;
+  NoContactReasonHierarchy: NoContactCategory[];
+
+  getNoContactReasonHierarchy(): NoContactCategory[]
+  {
+    let hierarchyList : NoContactCategory[] =[];
+    if(this.listNoContactReason)
+    {
+      for(let reason of this.listNoContactReason)
+      {
+          let hierarchyItem = hierarchyList.find(h=> h.categoryName === reason.category);
+          if(!hierarchyItem)
+          {
+            hierarchyItem = {categoryName: reason.category,reason : []};
+            hierarchyList.push(hierarchyItem);
+          }
+
+          hierarchyItem.reason.push(reason);
+        
+      }
+    }
+    this.NoContactReasonHierarchy = hierarchyList;
+    return hierarchyList;
+  }
 
   get isSymptomaticControl() {
     return this.fieldInputForm.controls.isSymptomatic;
@@ -171,8 +194,9 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   }
   getNoContactReason(){
       this.covidService.getNotPickedUpReason()
-        .subscribe((listNCR:IListNoContactReason) => {
-          this.listNoContactReason = listNCR
+        .subscribe((listNCR:IListNoContactReason[]) => {
+          this.listNoContactReason = listNCR;
+          this.getNoContactReasonHierarchy();
           this.cdr.detectChanges();
         });
   }
@@ -223,4 +247,10 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
       this.isReleasedSControl.disable();
     }
   }
+}
+
+export interface NoContactCategory
+{
+  categoryName : string;
+  reason? : IListNoContactReason[];
 }
