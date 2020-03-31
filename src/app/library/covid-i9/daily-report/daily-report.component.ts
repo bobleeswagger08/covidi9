@@ -18,14 +18,16 @@ export class DailyReportComponent implements OnInit {
   // displayedColumns: string[] = ['source', 'serialNo', 'dateOfArival', 'name', 'mobileNo', 'uphc','isEverContacted', 'dateOfContacted'];
   displayedColumns: string[] = ['source', 'serialNo','name', 'flightNumber', 'countryVisited','dob','sex','flightNo','arivalDate',
   'mobileNo','address','finalDestination','block','state','isEverContacted','isContactedOnCurrentDate',
-  'isSymptomatic','isReferredForMedicalCare','reasonForUnableToTrace','isReleasedFromSurveillanc',
+  'isSymptomatic','isReferredForMedicalCare','reasonForUnableToTrace','isReleasedFromSurveillance',
   'wardNo','uphc','commentByMOIC'];
 
-  selectedDate : Date= new Date();
+  selectedDate : Date = new Date();
 
   listCandidate: CandidateDateWiseReport[];
   listOfUpHC: IListUPHC[] = [];
   listOfWards: IListWard[] = [];
+
+  dataLoadStatus : number =0;
 
   reportFilter: CandidateReportFilter = {};
   dataSource: MatTableDataSource<CandidateDateWiseReport>;
@@ -41,7 +43,7 @@ export class DailyReportComponent implements OnInit {
   getReportData() {
     this.reportFilter.reportStartDate=this.selectedDate;
     this.reportFilter.reportEndDate=this.selectedDate;
-    
+    this.dataLoadStatus = 1; // loading started
     this.covidService.getDailyReportData(this.reportFilter)
       .subscribe((cList: CandidateDateWiseReport[]) => {
         //this.listServiceRequest = srList;
@@ -51,9 +53,11 @@ export class DailyReportComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.SpinnerService.hide();
+        this.dataLoadStatus = 2; // data loaded
       }, (e) => {
         alert("An unexpected error occurred")
         this.SpinnerService.hide();
+        this.dataLoadStatus = 0; // error
       })
   }
 
@@ -74,9 +78,20 @@ export class DailyReportComponent implements OnInit {
 
     // /* save to file */
     // XLSX.writeFile(wb, 'Daily Summary.xlsx');
-   this.exportToExcelWithId("reportTable","Daily Status Summary");
+   this.exportToExcelWithId("reportTable","Daily Status " + this.selectedDate.toDateString());
 
   }
+
+  dateChanged(eventType: string, eventData: any) {
+    console.log(eventData);
+    let newDate: Date = eventData.value;
+    if (this.selectedDate != newDate) {
+      // alert("Date selection changed to " + newDate);
+      this.selectedDate = newDate;
+      //this.masterSelectionChanged();
+    }
+  }
+
   // downloadaspdf() {
 
   //   // const documentDefinition = { content: 'This is an sample PDF printed with pdfMake' };

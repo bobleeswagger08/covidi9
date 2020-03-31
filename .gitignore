@@ -1,6 +1,6 @@
 .DS_STORE
 
-app-hmcgov/dist/*
+covidi9/dist/*
 /bazel-out
 /integration/bazel/bazel-*
 e2e_test.*
@@ -43,7 +43,9 @@ yarn-error.log
 
 .notes.md
 baseline.json
-app-hmcgov/dist/at.svg
-app-hmcgov/package-lock.json
-app-hmcgov/package.json
-app-hmcgov/package-lock.json
+covidi9/dist/at.svg
+covidi9/package-lock.json
+covidi9/package.json
+covidi9/package-lock.json
+dist/0-es5.8ca3bfff42b469eb3e45.js
+dist/*

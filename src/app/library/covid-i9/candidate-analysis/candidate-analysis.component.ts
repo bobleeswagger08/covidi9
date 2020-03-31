@@ -22,8 +22,8 @@ export class CandidateAnalysisComponent implements OnInit {
   getReportData() {
     let candidateFilterP: CandidateReportFilter = {};
     //candidateFilterP.isEverContacted=""
-    candidateFilterP.reportStartDate = new Date();
-    candidateFilterP.reportEndDate = new Date('2020-03-10T00:00:00');
+    candidateFilterP.reportStartDate =new Date();
+    candidateFilterP.reportEndDate = new Date(); 
     this.covidService.getDailyReportData(candidateFilterP).subscribe((cList: CandidateDateWiseReport[]) => {
       this.dataSource = cList;
       alert("Data loaded");

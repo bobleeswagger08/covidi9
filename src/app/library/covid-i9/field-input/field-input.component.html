@@ -6,7 +6,7 @@
                     <div class="pb-1">
                         <mat-form-field class="full-width">
                             <mat-label>Is Ever Contacted</mat-label>
-                            <mat-select name="isEverContacted" formControlName="isEverContacted" >
+                            <mat-select name="isEverContacted" formControlName="isEverContacted">
                                 <mat-option> -- </mat-option>
                                 <mat-option value="Y">Yes</mat-option>
                                 <mat-option value="N">No</mat-option>
@@ -45,13 +45,20 @@
                             <input matInput name="timeOfConected" formControlName="timeOfConected"
                                 placeholder="Time of Contact" value="">
                         </mat-form-field> -->
-                          <mat-form-field class="full-width">
-                            <mat-label>Unable To Contact Reason</mat-label>
-                            <mat-select name="reasonForUnableToTraceId" formControlName="reasonForUnableToTraceId" (selectionChange)="onReasonForUnableToTraceChange($event.value)">
+                        <mat-form-field class="full-width">
+                            
+                            <mat-label>Status</mat-label>
+                        <mat-select name="reasonForUnableToTraceId" formControlName="reasonForUnableToTraceId" (selectionChange)="onReasonForUnableToTraceChange($event.value)">
                                 <mat-option> -- </mat-option>
-                                <mat-option *ngFor="let lncr of listNoContactReason" [value]="lncr.description">
+                                <!-- <mat-option *ngFor="let lncr of listNoContactReason" [value]="lncr.description">
                                     {{lncr.description}}</mat-option>
-                            </mat-select>
+                            </mat-select> -->
+                            <mat-optgroup *ngFor="let group of this.NoContactReasonHierarchy" [label]="group.categoryName">
+                                <mat-option *ngFor="let reason of group.reason" [value]="reason.id">
+                                    {{reason.description}}
+                                </mat-option>
+                            </mat-optgroup>
+                        </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
@@ -61,7 +68,8 @@
                     <div class="pb-1">
                         <mat-form-field class="full-width">
                             <mat-label>Is Symptomatic</mat-label>
-                            <mat-select placeholder="" name="isSymptomatic" formControlName="isSymptomatic" (selectionChange)="onSymptomaticChange($event.value)">
+                            <mat-select placeholder="" name="isSymptomatic" formControlName="isSymptomatic"
+                                (selectionChange)="onSymptomaticChange($event.value)">
                                 <mat-option> -- </mat-option>
                                 <mat-option value="Y">Yes</mat-option>
                                 <mat-option value="N">No</mat-option>
@@ -73,7 +81,8 @@
                     <div class="pb-1">
                         <mat-form-field class="full-width">
                             <mat-label>Is Referred For Medical Care</mat-label>
-                            <mat-select name="isReferredForMedicalCare" formControlName="isReferredForMedicalCare" (selectionChange)="onReferedForMdclCChange($event.value)">
+                            <mat-select name="isReferredForMedicalCare" formControlName="isReferredForMedicalCare"
+                                (selectionChange)="onReferedForMdclCChange($event.value)">
                                 <mat-option> -- </mat-option>
                                 <mat-option value="Y">Yes</mat-option>
                                 <mat-option value="N">No</mat-option>
@@ -87,7 +96,7 @@
                     <div class="pb-1">
                         <mat-form-field class="full-width">
                             <mat-label>Is Released from Surveillance</mat-label>
-                            <mat-select  placeholder="Is Released from Surveillance" name="isReleasedFromSurveillanc"
+                            <mat-select placeholder="Is Released from Surveillance" name="isReleasedFromSurveillanc"
                                 formControlName="isReleasedFromSurveillanc">
                                 <mat-option> -- </mat-option>
                                 <mat-option value="Y">Yes</mat-option>

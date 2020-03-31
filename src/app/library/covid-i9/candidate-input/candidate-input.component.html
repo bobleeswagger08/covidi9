@@ -11,8 +11,9 @@
                                             <mat-label>Source</mat-label>
                                             <mat-select name="source" formControlName="source">
                                                 <mat-option> -- </mat-option>
-                                                <mat-option value="District">District</mat-option>
-                                                <mat-option value="Others">Others</mat-option>
+                                                <mat-option  [value]="'Format 1'"> Format 1 </mat-option> 
+                                                <mat-option  [value]="'Format 2'"> Format 2 </mat-option> 
+                                                <mat-option  [value]="'Others'"> Other Sources </mat-option> 
                                             </mat-select>
                                         </mat-form-field>
                             </div>
