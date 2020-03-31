@@ -24,6 +24,7 @@ export class CandidateInputComponent implements OnInit {
   candidateFormValue:ICandidateInput;
   fieldInputFormValue:fieldFormValues;
   candidateId:string;
+  fiButtonVisible:boolean;
   
   constructor(private route: ActivatedRoute,private router:Router,private formBuilder: FormBuilder,private covidService:CovidI9Service,private cdr: ChangeDetectorRef) { }
 
@@ -71,6 +72,7 @@ export class CandidateInputComponent implements OnInit {
         .subscribe((cItem:ICandidateInput) => {
          // let result:IFieldData = { isEverContacted: "N"};
        //  let dateList =[];
+       this.fiButtonVisible = cItem.candidateStatusId>0 && cItem.candidateStatusId<3;
          if(cItem.fieldData && cItem.fieldData.length>0){
           var dates = cItem.fieldData.map(function(x) { return new Date(x.dateOfContacted);});
           var latest = new Date(Math.max.apply(null,dates));
