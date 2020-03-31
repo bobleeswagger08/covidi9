@@ -15,21 +15,31 @@ export class CandidateAnalysisComponent implements OnInit {
 
 
   }
+reportDate : Date =new Date();
 
+dateChanged(eventType: string, eventData: any) {
+  console.log(eventData);
+  let newDate: Date = eventData.value;
+  if (this.reportDate != newDate) {
+    // alert("Date selection changed to " + newDate);
+    this.reportDate = newDate;
+    //this.masterSelectionChanged();
+  }
+}
   ngOnInit() {
     this.getReportData();
   }
   getReportData() {
     let candidateFilterP: CandidateReportFilter = {};
     //candidateFilterP.isEverContacted=""
-    candidateFilterP.reportStartDate =new Date();
-    candidateFilterP.reportEndDate = new Date(); 
+    candidateFilterP.reportStartDate = this.reportDate;
+    candidateFilterP.reportEndDate = this.reportDate;
     this.covidService.getDailyReportData(candidateFilterP).subscribe((cList: CandidateDateWiseReport[]) => {
       this.dataSource = cList;
       alert("Data loaded");
       this.child.webDataRocks.setReport({
         dataSource: {
-          data: this.dataSource
+          data: this.dataSource // this.filterReportData(this.dataSource)
         }
         ,
         slice: {
@@ -39,12 +49,12 @@ export class CandidateAnalysisComponent implements OnInit {
           columns: [{
             uniqueName: "uphc"
           }],
-  
+
           measures: [{
             uniqueName: "name",
             aggregation: "count"
           }
-        ]
+          ]
         }
       });
       // this.cdr.detectChanges();
@@ -52,26 +62,26 @@ export class CandidateAnalysisComponent implements OnInit {
     });
   }
   onPivotReady(pivot: WebDataRocks.Pivot): void {
-  //  console.log("[ready] WebDataRocksPivot", this.child);
+    //  console.log("[ready] WebDataRocksPivot", this.child);
     // this.child.webDataRocks.setReport({
     //   dataSource: {
     //     data: this.dataSource
     //   }
-      // ,
-      // slice: {
-      //   rows: [{
-      //     uniqueName: "source"
-      //   }],
-      //   columns: [{
-      //     uniqueName: "uphc"
-      //   }],
+    // ,
+    // slice: {
+    //   rows: [{
+    //     uniqueName: "source"
+    //   }],
+    //   columns: [{
+    //     uniqueName: "uphc"
+    //   }],
 
-      //   measures: [{
-      //     uniqueName: "name",
-      //     aggregation: "count"
-      //   }
-      // ]
-      // }
+    //   measures: [{
+    //     uniqueName: "name",
+    //     aggregation: "count"
+    //   }
+    // ]
+    // }
     // });
   }
 
@@ -82,8 +92,26 @@ export class CandidateAnalysisComponent implements OnInit {
     if (data.isGrandTotalColumn) cell.addClass("fm-grand-total-c");
   }
 
+  filterReportData(serviceData: CandidateDateWiseReport[]): ReportData[] {
+    let reportData: ReportData[] = [];
+    if (serviceData) {
+      for (let reportItem of serviceData) {
+        let reportDataItem: ReportData = { 
+          statusDate: reportItem.statusDate,
+          uphc: reportItem.uphc, name: reportItem.name, source: reportItem.source 
+          , age: reportItem.age, countryVisited: reportItem.countryVisited
+          , dateOfArival : reportItem.dateOfArival
+         // , isContactedOnCurrentDate : reportItem.isContactedOnCurrentDate
+        };
+        reportData.push(reportDataItem);
+      }
+    }
+
+    return reportData;
+  }
+
   onReportComplete(): void {
-    this.child.webDataRocks.off("reportcomplete", ()=> {});
+    this.child.webDataRocks.off("reportcomplete", () => { });
     // this.child.webDataRocks.setReport({
     //   dataSource: {
     //     data: this.dataSource
@@ -105,4 +133,42 @@ export class CandidateAnalysisComponent implements OnInit {
     //   // }
     // });
   }
+
+
+}
+
+export class ReportData {
+  id?: string;
+  serialNo?: string | undefined;
+  isEverContacted?: string | undefined;
+  isContactedOnCurrentDate?: string | undefined;
+  dateOfContacted?: Date | undefined;
+  isSymptomatic?: string | undefined;
+  isReferredForMedicalCare?: string | undefined;
+  reasonForUnableToTrace?: string | undefined;
+  isReleasedFromSurveillance?: string | undefined;
+  wardNo?: string | undefined;
+  uphc?: string | undefined;
+  commentByMOIC?: string | undefined;
+  statusDate?: Date | undefined;
+  candidateReason?: string | undefined;
+  dateOfArival?: Date | undefined;
+  note?: string | undefined;
+  isActive?: boolean;
+  candidateStatusId?: number | undefined;
+  referenceNo?: number;
+  source?: string | undefined;
+  name?: string | undefined;
+  flightNo?: string | undefined;
+  countryVisited?: string | undefined;
+  dob?: string | undefined;
+  age?: string | undefined;
+  sex?: string | undefined;
+  flightNumber?: string | undefined;
+  arivalDate?: string | undefined;
+  mobileNo?: string | undefined;
+  address?: string | undefined;
+  finalDestination?: string | undefined;
+  block?: string | undefined;
+  state?: string | undefined;
 }
