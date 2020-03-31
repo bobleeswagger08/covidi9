@@ -148,7 +148,7 @@ export interface fieldFormValues {
   isReferredForMedicalCare:string,
   reasonForNotContacted:string,
   isReleasedFromSurveillanc:string,
-  commentByMOIC:string,
+  commentByMOIC:string
 //  fieldNote:string
 }
 

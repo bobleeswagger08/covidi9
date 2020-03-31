@@ -74,7 +74,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
     return this.fieldInputForm.controls.isEverContacted;
   }
   @Input('candidate-id') candidateId: string;
-
+  @Input('button-visible') isButtonVisible: boolean;
   get value(): fieldFormValues {
     return this.fieldInputForm.value;
   }
@@ -113,7 +113,6 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   ngOnInit() {
     this.getNoContactReason();
     this.isReferredMControl.disable();
-    
   }
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
@@ -131,7 +130,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
       this.lastStatusDate = value.dateOfContacted;
      
       this.isEvrContactedControl.disable();
-      
+     
 
       if(value.isSymptomatic=='Y'){
         this.isReferredMControl.enable();

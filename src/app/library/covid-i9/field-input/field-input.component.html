@@ -129,8 +129,9 @@
                     </div>
                 </div> -->
             </div>
-            <button mat-raised-button color="primary" [disabled]="fieldInputForm.invalid"
-                (click)="submitCandidateInputData()">Submit</button>
+            <button mat-raised-button color="primary" [disabled]="fieldInputForm.invalid" *ngIf="isButtonVisible"
+                        (click)="submitCandidateInputData()">Submit</button>
+            <div *ngIf="!isButtonVisible">Field data input is disabled for this candidate </div>
             <!-- <button mat-raised-button *ngIf="this.id && this.id != 'null'" color="primary"
                 (click)="updateCourtMasterData(fieldInputForm.value)">Update</button> -->
         </form>
