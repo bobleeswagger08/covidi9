@@ -10,6 +10,6 @@ export const environment = {
   // courtCaseServiceUrl:'http://192.168.1.200/courtcase'
 
     rtpsServiceUrl: 'http://13.232.154.36/rtps_qa',
-    configServiceUrl:   'http://13.232.154.36/CovidCandiateTracker', //  'https://localhost:5001' , // 
+    configServiceUrl: 'http://13.232.154.36/datacollector_qa', //  'http://13.232.154.36/CovidCandiateTracker', //  'https://localhost:5001' , // 
     courtCaseServiceUrl:'http://13.232.154.36/ccm_qa'
 };
