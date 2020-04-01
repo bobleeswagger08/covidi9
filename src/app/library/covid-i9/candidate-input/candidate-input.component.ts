@@ -82,7 +82,7 @@ export class CandidateInputComponent implements OnInit {
           this.fiButtonVisible = cItem.candidateStatusId > 0 && cItem.candidateStatusId < 3;
           // Test Code
           if (cItem.arivalDate) {
-            console.log("end date : " + this.appEnvironmentService.configParam.addDays(new Date(cItem.arivalDate), this.covidService.surveillancePeriod))
+            this.maxStatusDate = this.appEnvironmentService.configParam.addDays(new Date(cItem.arivalDate), this.covidService.surveillancePeriod)
           }
           // var aD = new Date();
           // var mD = aD.setDate(28);

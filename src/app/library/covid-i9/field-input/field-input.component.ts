@@ -75,6 +75,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   }
   @Input('candidate-id') candidateId: string;
   @Input('button-visible') isButtonVisible: boolean;
+  @Input('max-date') maxContactDate: Date;
   get value(): fieldFormValues {
     return this.fieldInputForm.value;
   }
@@ -229,6 +230,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
     if(isSymptomatic=="Y")
     {
     this.isReferredMControl.enable();
+    this.isReleasedSControl.setValue('');
     this.isReleasedSControl.disable();
     }
     else{
