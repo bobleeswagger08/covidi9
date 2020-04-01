@@ -189,7 +189,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
         if (error instanceof BadInput) {
           alert('invalid data');
         }
-        else throw error;
+        alert(error.originalError);
       });
   }
   getNoContactReason(){

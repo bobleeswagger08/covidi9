@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Input, ChangeDetectorRef, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { IFieldData } from '../model/candidate-input';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import * as XLSX from "xlsx";
 
 
 @Component({
@@ -26,6 +27,15 @@ export class FieldInputHistoryComponent implements OnInit  {
     this.cdr.detectChanges();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+  
+  exportToExcelWithId(tableId: string, name?: string) {
+    let timeSpan = new Date().toISOString();
+    let prefix = name || "ExportResult";
+    let fileName = `${prefix}-${timeSpan}`;
+    let targetTableElm = document.getElementById(tableId);
+    let wb = XLSX.utils.table_to_book(targetTableElm, <XLSX.Table2SheetOpts>{ sheet: prefix });
+    XLSX.writeFile(wb, `${fileName}.xlsx`);
   }
   
 
