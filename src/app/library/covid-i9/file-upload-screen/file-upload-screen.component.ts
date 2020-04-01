@@ -15,7 +15,7 @@ export class FileUploadScreenComponent implements OnInit {
   candidateList: CandidateInfo[] = [];
   listSourceName: string = "District";
   ignoreDataError: boolean = false;
-
+  fileName : string;
   dataSource = new MatTableDataSource(this.candidateList);
   public get rowCount(): number {
     if (this.candidateList) {
@@ -71,6 +71,7 @@ export class FileUploadScreenComponent implements OnInit {
 
     let fileToUpload = <File>files[0];
     const formData = new FormData();
+    this.fileName = files[0];
     formData.append('file', fileToUpload, fileToUpload.name);
     this.dataLoaded = false;
     this.dataSource = new MatTableDataSource([]);
@@ -99,7 +100,7 @@ export class FileUploadScreenComponent implements OnInit {
     this.isSaving = true;
     const candidateFileInfo: CandidateFileInfo = {};
     candidateFileInfo.id = this.applicationEnvironment.configParam.getUuid();
-    candidateFileInfo.fileName = "abc";
+    candidateFileInfo.fileName =this.fileName;
     candidateFileInfo.candidates = this.candidateList;
     for (let candidate of candidateFileInfo.candidates) {
       candidate.source = this.listSourceName;

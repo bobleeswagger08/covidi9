@@ -37,7 +37,7 @@ export class ConfigParamService {
       const timeZoneOffset : number = date.getTimezoneOffset();
       const millisecondFactor : number = -1 * 60 * 1000;
       date = new Date(date.getTime() + millisecondFactor * timeZoneOffset);
-      console.log(date);
+     // console.log(date);
     }
     return date;
   }

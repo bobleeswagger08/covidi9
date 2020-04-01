@@ -9,7 +9,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
   styleUrls: ['./field-input-history.component.scss']
 })
 export class FieldInputHistoryComponent implements OnInit  {
-  displayedColumns: string[] = ['isEverContacted', 'dateOfContacted', 'isSymptomatic', 'isReferredForMedicalCare', 'reasonForNotContacted', 'isReleasedFromSurveillanc','commentByMOIC'];
+  displayedColumns: string[] = ['isEverContacted', 'dateOfContacted','reasonForNotContacted', 'isSymptomatic', 'isReferredForMedicalCare',  'isReleasedFromSurveillance','commentByMOIC'];
   listField: IFieldData[] =[];
   dataSource: MatTableDataSource<IFieldData>;
   @Input('field-history') ilistField: IFieldData[];
