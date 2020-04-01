@@ -4,7 +4,7 @@
       <td>
         <mat-form-field>
           <mat-label>Data Source</mat-label>
-          <mat-select [(ngModel)]="this.listSourceName">
+          <mat-select #uploadType [(ngModel)]="this.listSourceName">
             <mat-option  [value]="'Format 1'"> Format 1 </mat-option> 
             <mat-option  [value]="'Format 2'"> Format 2 </mat-option> 
             <mat-option  [value]="'Others'"> Other Sources </mat-option> 
@@ -15,7 +15,7 @@
       <td>
         <div class="form-group">
           <label for="file">  Select data file </label>
-          <input type="file" id="file" (change)="uploadFile($event.target.files)">
+          <input [disabled]="!uploadType.selected" type="file" id="file" (change)="uploadFile($event.target.files)">
         
           <mat-checkbox [disabled]="!this.hasDataError" [(ngModel)]="this.ignoreDataError">Ignore {{this.incorrectArrivalDateCount}} arrival date errors </mat-checkbox>
           <button mat-raised-button color="primary" [disabled]="!canSubmit" (click)="this.saveCandidateList()">Submit {{this.rowCount}} records</button>
