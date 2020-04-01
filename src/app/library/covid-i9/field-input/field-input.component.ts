@@ -244,6 +244,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
     }
     else{
       this.isReleasedSControl.disable();
+      this.isReleasedSControl.setValue('');
     }
   }
 }

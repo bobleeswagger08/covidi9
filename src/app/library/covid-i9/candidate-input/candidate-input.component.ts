@@ -16,6 +16,7 @@ import { formatDate } from '@angular/common';
 export class CandidateInputComponent implements OnInit {
   candidateForm: FormGroup;
   fieldInput:IFieldData[];
+  listFieldHistory: IFieldData[];
   listWard:IListWard[];
   listUPHC:IListUPHC[];
   listClosedReason : ColsedReason[];
@@ -78,6 +79,7 @@ export class CandidateInputComponent implements OnInit {
         // var mD = aD.setDate(28);
         // console.log('modified',mD);
          if(cItem.fieldData && cItem.fieldData.length>0){
+           this.listFieldHistory = cItem.fieldData;
           var dates = cItem.fieldData.map(function(x) { return new Date(x.dateOfContacted);});
           var latest = new Date(Math.max.apply(null,dates));
           this.fieldInputFormValue ={
@@ -101,7 +103,7 @@ export class CandidateInputComponent implements OnInit {
             candidateStatusId:cItem.candidateStatusId,
             flightNo: cItem.flightNo,
             countryVisited: cItem.countryVisited,
-            dob: cItem.dob?new Date(cItem.dob):cItem.arivalDate,
+            dob: cItem.dob,
             age: cItem.age,
             sex: cItem.sex,
             flightNumber: cItem.flightNumber,
@@ -140,7 +142,7 @@ export class CandidateInputComponent implements OnInit {
       candidateStatusId:candidateInputFormValue.candidateStatusId,
       flightNo: candidateInputFormValue.flightNo,
       countryVisited: candidateInputFormValue.countryVisited,
-      dob: formatDate(candidateInputFormValue.dob,'yyyy-MM-dd', 'en-US'),
+      dob: candidateInputFormValue.dob,
       age: candidateInputFormValue.age,
       sex: candidateInputFormValue.sex,
       flightNumber: candidateInputFormValue.flightNumber,
@@ -183,7 +185,7 @@ export class CandidateInputComponent implements OnInit {
       candidateStatusId:candidateInputFormValue.candidateStatusId,
       flightNo: candidateInputFormValue.flightNo,
       countryVisited: candidateInputFormValue.countryVisited,
-      dob: formatDate(candidateInputFormValue.dob,'yyyy-MM-dd', 'en-US'),
+      dob: candidateInputFormValue.dob,
       age: candidateInputFormValue.age,
       sex: candidateInputFormValue.sex,
       flightNumber: candidateInputFormValue.flightNumber,

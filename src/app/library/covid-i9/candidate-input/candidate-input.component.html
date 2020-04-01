@@ -117,10 +117,7 @@
                         <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                             <div class="pb-1">
                                 <mat-form-field class="full-width">
-                                    <input matInput name="dob" formControlName="dob" [matDatepicker]="picker"
-                                        placeholder="Date of birth">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
+                                    <input matInput name="dob" formControlName="dob" placeholder="Date of birth"  value="">
                                 </mat-form-field>
                             </div>
                         </div>
@@ -225,6 +222,7 @@
             <app-field-input name="fieldData" formControlName="fieldData"  [candidate-id]="candidateId" [button-visible]="fiButtonVisible"></app-field-input>
         </mat-tab>
         <mat-tab label="History">
+            <app-field-input-history *ngIf="listFieldHistory" [field-history]="listFieldHistory"></app-field-input-history>
         </mat-tab>
     </mat-tab-group>
 </form>
