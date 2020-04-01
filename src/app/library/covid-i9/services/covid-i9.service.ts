@@ -58,4 +58,6 @@ export class CovidI9Service {
   {
     return this.httpClient.post<CandidateDateWiseReport[]>(this.urlCovidI9+'/Covid19Candidate/DateWiseReport',reportFilter);
   }
+
+  public surveillancePeriod : number = 28;
 }

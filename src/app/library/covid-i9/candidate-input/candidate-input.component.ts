@@ -7,41 +7,46 @@ import { BadInput } from 'app/shared/commonerror/bad-input';
 import { AppError } from 'app/shared/commonerror/app-error';
 import { ICandidateInput, IFieldData, IListWard, IListUPHC, fieldFormValues, ColsedReason } from '../model/candidate-input';
 import { formatDate } from '@angular/common';
+import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
 
 @Component({
-  selector: 'app-candidate-input',    
+  selector: 'app-candidate-input',
   templateUrl: './candidate-input.component.html',
   styleUrls: ['./candidate-input.component.scss']
 })
 export class CandidateInputComponent implements OnInit {
   candidateForm: FormGroup;
-  fieldInput:IFieldData[];
-  listWard:IListWard[];
-  listUPHC:IListUPHC[];
-  listClosedReason : ColsedReason[];
+  fieldInput: IFieldData[];
+  listWard: IListWard[];
+  listUPHC: IListUPHC[];
+  listClosedReason: ColsedReason[];
   id: string;
-  tabIndex:number;
-  candidateFormValue:ICandidateInput;
-  fieldInputFormValue:fieldFormValues;
-  candidateId:string;
-  fiButtonVisible:boolean;
-  maxStatusDate:Date;
-  
-  constructor(private route: ActivatedRoute,private router:Router,private formBuilder: FormBuilder,private covidService:CovidI9Service,private cdr: ChangeDetectorRef) { }
+  tabIndex: number;
+  candidateFormValue: ICandidateInput;
+  fieldInputFormValue: fieldFormValues;
+  candidateId: string;
+  fiButtonVisible: boolean;
+  maxStatusDate: Date;
+
+  constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder
+    , private covidService: CovidI9Service, private cdr: ChangeDetectorRef
+    , private appEnvironmentService: ApplicationEnvironmentService
+  ) { }
 
   ngOnInit() {
     this.candidateId = uuid();
     this.id = this.route.snapshot.paramMap.get('id');
     this.tabIndex = Number(this.route.snapshot.paramMap.get('tabIndex'));
+
     // this.route.queryParams
     //   .subscribe(params => {s
     //     this.tabIndex = params.tabIndex;
     // });
     this.candidateForm = this.formBuilder.group({
       id: [this.candidateId],
-      source: ['',Validators.required],
+      source: ['', Validators.required],
       serialNo: [],
-      name: ['',Validators.required],
+      name: ['', Validators.required],
       candidateStatusId: [0],
       flightNo: [],
       countryVisited: [],
@@ -68,44 +73,48 @@ export class CandidateInputComponent implements OnInit {
     this.getClosedReasonList();
 
     if (this.id && this.id != 'null') {
-      this.candidateId=this.id;
+      this.candidateId = this.id;
       this.covidService.getCandidateById(this.id)
-        .subscribe((cItem:ICandidateInput) => {
-         // let result:IFieldData = { isEverContacted: "N"};
-       //  let dateList =[];
-        this.fiButtonVisible = cItem.candidateStatusId>0 && cItem.candidateStatusId<3;
-        // var aD = new Date();
-        // var mD = aD.setDate(28);
-        // console.log('modified',mD);
-         if(cItem.fieldData && cItem.fieldData.length>0){
-          var dates = cItem.fieldData.map(function(x) { return new Date(x.dateOfContacted);});
-          var latest = new Date(Math.max.apply(null,dates));
-          this.fieldInputFormValue ={
-              commentByMOIC:'',
-              dateOfContacted:formatDate(latest,'yyyy-MM-dd', 'en-US'),
-              id:uuid(),
-              isEverContacted:cItem.fieldData[0].isEverContacted,
-              isReferredForMedicalCare:'',
-              isReleasedFromSurveillanc:'',
-              isSymptomatic:'',
-              reasonForNotContacted:'',
-              reasonForUnableToTraceId:''
+        .subscribe((cItem: ICandidateInput) => {
+          // let result:IFieldData = { isEverContacted: "N"};
+          //  let dateList =[];
+          this.fiButtonVisible = cItem.candidateStatusId > 0 && cItem.candidateStatusId < 3;
+          // Test Code
+          if (cItem.arivalDate) {
+            console.log("end date : " + this.appEnvironmentService.configParam.addDays(new Date(cItem.arivalDate), this.covidService.surveillancePeriod))
           }
-        }
-        else{
-          this.fieldInputFormValue =null;
-        }
+          // var aD = new Date();
+          // var mD = aD.setDate(28);
+          // console.log('modified',mD);
+          if (cItem.fieldData && cItem.fieldData.length > 0) {
+            var dates = cItem.fieldData.map(function (x) { return new Date(x.dateOfContacted); });
+            var latest = new Date(Math.max.apply(null, dates));
+            this.fieldInputFormValue = {
+              commentByMOIC: '',
+              dateOfContacted: formatDate(latest, 'yyyy-MM-dd', 'en-US'),
+              id: uuid(),
+              isEverContacted: cItem.fieldData[0].isEverContacted,
+              isReferredForMedicalCare: '',
+              isReleasedFromSurveillanc: '',
+              isSymptomatic: '',
+              reasonForNotContacted: '',
+              reasonForUnableToTraceId: ''
+            }
+          }
+          else {
+            this.fieldInputFormValue = null;
+          }
           this.candidateForm.setValue({
-            source: cItem.source , // ? 'District' : 'Others',
+            source: cItem.source, // ? 'District' : 'Others',
             name: cItem.name,
-            candidateStatusId:cItem.candidateStatusId,
+            candidateStatusId: cItem.candidateStatusId,
             flightNo: cItem.flightNo,
             countryVisited: cItem.countryVisited,
-            dob: cItem.dob?new Date(cItem.dob):cItem.arivalDate,
+            dob: cItem.dob ? new Date(cItem.dob) : cItem.arivalDate,
             age: cItem.age,
             sex: cItem.sex,
             flightNumber: cItem.flightNumber,
-            arivalDate:cItem.arivalDate?new Date(cItem.arivalDate):cItem.arivalDate,
+            arivalDate: cItem.arivalDate ? new Date(cItem.arivalDate) : cItem.arivalDate,
             mobileNo: cItem.mobileNo,
             address: cItem.address,
             finalDestination: cItem.finalDestination,
@@ -115,36 +124,36 @@ export class CandidateInputComponent implements OnInit {
             wardNo: cItem.wardNo,
             uphc: cItem.uphc,
             isActive: cItem.isActive,
-          //  commentByMOIC:cItem.commentByMOIC,
-            commentByMOIC:'',
-            fieldData:  this.fieldInputFormValue, 
+            //  commentByMOIC:cItem.commentByMOIC,
+            commentByMOIC: '',
+            fieldData: this.fieldInputFormValue,
             id: cItem.id,
             serialNo: cItem.serialNo
           }
           );
-      }
-      ,(e)=> alert("An error occurred loading data")
-      );
+        }
+          , (e) => alert("An error occurred loading data")
+        );
     }
   }
-  submitCandidateInputData(candidateInputFormValue){
+  submitCandidateInputData(candidateInputFormValue) {
     //this.candidateForm.controls['fieldData'][0].commentByMOIC{}
     console.log(candidateInputFormValue);
     //  this.fieldInput =[]
     //  if(candidateInputFormValue.fieldData && (candidateInputFormValue.fieldData!=[] || candidateInputFormValue.fieldData!=null))
     //  this.fieldInput.push(candidateInputFormValue.fieldData)
 
-    this.candidateFormValue={
+    this.candidateFormValue = {
       source: candidateInputFormValue.source,
       name: candidateInputFormValue.name,
-      candidateStatusId:candidateInputFormValue.candidateStatusId,
+      candidateStatusId: candidateInputFormValue.candidateStatusId,
       flightNo: candidateInputFormValue.flightNo,
       countryVisited: candidateInputFormValue.countryVisited,
-      dob: formatDate(candidateInputFormValue.dob,'yyyy-MM-dd', 'en-US'),
+      dob: formatDate(candidateInputFormValue.dob, 'yyyy-MM-dd', 'en-US'),
       age: candidateInputFormValue.age,
       sex: candidateInputFormValue.sex,
       flightNumber: candidateInputFormValue.flightNumber,
-      arivalDate: formatDate(candidateInputFormValue.arivalDate,'yyyy-MM-dd', 'en-US'),
+      arivalDate: formatDate(candidateInputFormValue.arivalDate, 'yyyy-MM-dd', 'en-US'),
       mobileNo: candidateInputFormValue.mobileNo,
       address: candidateInputFormValue.address,
       finalDestination: candidateInputFormValue.finalDestination,
@@ -154,15 +163,15 @@ export class CandidateInputComponent implements OnInit {
       wardNo: candidateInputFormValue.wardNo,
       uphc: candidateInputFormValue.uphc,
       isActive: true,
-     // commentByMOIC:candidateInputFormValue.commentByMOIC,
-      fieldData: null, 
+      // commentByMOIC:candidateInputFormValue.commentByMOIC,
+      fieldData: null,
       id: candidateInputFormValue.id,
       serialNo: candidateInputFormValue.serialNo
     }
     console.log(this.candidateFormValue)
     this.covidService.saveCandidateInput(this.candidateFormValue)
       .subscribe(court => {
-        alert('Candidate data submited successfully')
+        alert('Candidate data submitted successfully')
         //this.router.navigate(['administration/userlist']);
       }, (error: AppError) => {
         if (error instanceof BadInput) {
@@ -171,23 +180,23 @@ export class CandidateInputComponent implements OnInit {
         alert(error.originalError);
       });
   }
-  updateCandidateInputData(candidateInputFormValue){
+  updateCandidateInputData(candidateInputFormValue) {
     console.log(candidateInputFormValue);
     //  this.fieldInput =[]
     //  if(candidateInputFormValue.fieldData!=[])
     //  this.fieldInput.push(candidateInputFormValue.fieldData)
 
-    this.candidateFormValue={
+    this.candidateFormValue = {
       source: candidateInputFormValue.source,
       name: candidateInputFormValue.name,
-      candidateStatusId:candidateInputFormValue.candidateStatusId,
+      candidateStatusId: candidateInputFormValue.candidateStatusId,
       flightNo: candidateInputFormValue.flightNo,
       countryVisited: candidateInputFormValue.countryVisited,
-      dob: formatDate(candidateInputFormValue.dob,'yyyy-MM-dd', 'en-US'),
+      dob: formatDate(candidateInputFormValue.dob, 'yyyy-MM-dd', 'en-US'),
       age: candidateInputFormValue.age,
       sex: candidateInputFormValue.sex,
       flightNumber: candidateInputFormValue.flightNumber,
-      arivalDate: formatDate(candidateInputFormValue.arivalDate,'yyyy-MM-dd', 'en-US'),
+      arivalDate: formatDate(candidateInputFormValue.arivalDate, 'yyyy-MM-dd', 'en-US'),
       mobileNo: candidateInputFormValue.mobileNo,
       address: candidateInputFormValue.address,
       finalDestination: candidateInputFormValue.finalDestination,
@@ -197,8 +206,8 @@ export class CandidateInputComponent implements OnInit {
       wardNo: candidateInputFormValue.wardNo,
       uphc: candidateInputFormValue.uphc,
       isActive: true,
-     // commentByMOIC:candidateInputFormValue.commentByMOIC,
-      fieldData: null, 
+      // commentByMOIC:candidateInputFormValue.commentByMOIC,
+      fieldData: null,
       id: candidateInputFormValue.id,
       serialNo: candidateInputFormValue.serialNo
     }
@@ -217,28 +226,27 @@ export class CandidateInputComponent implements OnInit {
   }
   getWardList() {
     this.covidService.getWardList()
-      .subscribe((listW:IListWard[]) => {
+      .subscribe((listW: IListWard[]) => {
         this.listWard = listW
         this.cdr.detectChanges();
       });
   }
   getUPHCList() {
     this.covidService.getUPHCList()
-      .subscribe((listU:IListUPHC[]) => {
+      .subscribe((listU: IListUPHC[]) => {
         this.listUPHC = listU
         this.cdr.detectChanges();
       });
 
-     
+
   }
 
-  getClosedReasonList()
-  {
+  getClosedReasonList() {
     this.covidService.getCandidateClosedReason()
-    .subscribe((r :ColsedReason[])=>{
-      this.listClosedReason = r;
-      this.cdr.detectChanges();
+      .subscribe((r: ColsedReason[]) => {
+        this.listClosedReason = r;
+        this.cdr.detectChanges();
       }
-    )
+      )
   }
 }

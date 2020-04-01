@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CovidI9Service } from '../services/covid-i9.service';
 import * as XLSX from "xlsx";
+import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
 
 @Component({
   selector: 'app-daily-report',
@@ -31,7 +32,7 @@ export class DailyReportComponent implements OnInit {
 
   reportFilter: CandidateReportFilter = {};
   dataSource: MatTableDataSource<CandidateDateWiseReport>;
-  constructor(private router: Router, private cdr: ChangeDetectorRef
+  constructor(private applicationConfig: ApplicationEnvironmentService, private router: Router, private cdr: ChangeDetectorRef
     , private SpinnerService: NgxSpinnerService, private covidService: CovidI9Service) {
      
   }
@@ -41,8 +42,8 @@ export class DailyReportComponent implements OnInit {
   }
 
   getReportData() {
-    this.reportFilter.reportStartDate=this.selectedDate;
-    this.reportFilter.reportEndDate=this.selectedDate;
+    this.reportFilter.reportStartDate=this.applicationConfig.configParam.presentAsUTC(this.selectedDate);
+    this.reportFilter.reportEndDate=this.applicationConfig.configParam.presentAsUTC(this.selectedDate);
     this.dataLoadStatus = 1; // loading started
     this.covidService.getDailyReportData(this.reportFilter)
       .subscribe((cList: CandidateDateWiseReport[]) => {
