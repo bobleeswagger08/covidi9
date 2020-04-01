@@ -88,6 +88,7 @@ export class CandidateInputComponent implements OnInit {
           // var mD = aD.setDate(28);
           // console.log('modified',mD);
           if (cItem.fieldData && cItem.fieldData.length > 0) {
+            this.listFieldHistory = cItem.fieldData;
             var dates = cItem.fieldData.map(function (x) { return new Date(x.dateOfContacted); });
             var latest = new Date(Math.max.apply(null, dates));
             this.fieldInputFormValue = {
