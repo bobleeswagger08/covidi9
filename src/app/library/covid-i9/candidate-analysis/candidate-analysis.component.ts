@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { WebDataRocksPivot } from 'app/library/rtps/webdatarocks/webdatarocks.angular4';
 import { IListCandidate, CandidateListItem, CandidateDateWiseReport, CandidateReportFilter } from '../model/candidate-input';
 import { CovidI9Service } from '../services/covid-i9.service';
+import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
 
 @Component({
   selector: 'app-candidate-analysis',
@@ -11,7 +12,7 @@ import { CovidI9Service } from '../services/covid-i9.service';
 export class CandidateAnalysisComponent implements OnInit {
   @ViewChild('pivot1', { static: false }) child: WebDataRocksPivot;
   dataSource: any;
-  constructor(private covidService: CovidI9Service, private cdr: ChangeDetectorRef) {
+  constructor(private applicationConfig: ApplicationEnvironmentService, private covidService: CovidI9Service, private cdr: ChangeDetectorRef) {
 
 
   }
@@ -32,11 +33,11 @@ dateChanged(eventType: string, eventData: any) {
   getReportData() {
     let candidateFilterP: CandidateReportFilter = {};
     //candidateFilterP.isEverContacted=""
-    candidateFilterP.reportStartDate = this.reportDate;
-    candidateFilterP.reportEndDate = this.reportDate;
+    candidateFilterP.reportStartDate =this.applicationConfig.configParam.presentAsUTC(this.reportDate);
+    candidateFilterP.reportEndDate = this.applicationConfig.configParam.presentAsUTC(this.reportDate);
     this.covidService.getDailyReportData(candidateFilterP).subscribe((cList: CandidateDateWiseReport[]) => {
       this.dataSource = cList;
-      alert("Data loaded");
+     // alert("Data loaded");
       this.child.webDataRocks.setReport({
         dataSource: {
           data: this.dataSource // this.filterReportData(this.dataSource)
