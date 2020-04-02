@@ -189,7 +189,8 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
     console.log(this.fieldInputValue)
     this.covidService.saveFieldInput(this.fieldInputValue)
       .subscribe(court => {
-        alert('Field Input data saved successfully')
+        alert('Field Input data saved successfully');
+        this.fieldInputForm.reset();
         this.router.navigate(['covidi9/candidatelist']);
       }, (error: AppError) => {
         if (error instanceof BadInput) {
@@ -197,6 +198,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
         }
         alert(error.originalError);
       });
+     
   }
   getNoContactReason(){
       this.covidService.getNotPickedUpReason()

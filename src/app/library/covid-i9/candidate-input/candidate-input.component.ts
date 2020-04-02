@@ -174,6 +174,7 @@ export class CandidateInputComponent implements OnInit {
     this.covidService.saveCandidateInput(this.candidateFormValue)
       .subscribe(court => {
         alert('Candidate data submitted successfully');
+        this.candidateForm.reset();
         this.router.navigate(['covidi9/candidatelist']);
       }, (error: AppError) => {
         if (error instanceof BadInput) {
