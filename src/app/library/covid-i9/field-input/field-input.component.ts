@@ -242,7 +242,8 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
     else{
       this.isReferredMControl.disable();
       this.isReferredMControl.setValue('');
-      this.isReleasedSControl.enable();
+      this.isReleasedSControl.setValue('');
+      this.isReleasedSControl.disable();
     }
   }
   onReferedForMdclCChange(isMedicalCare){
