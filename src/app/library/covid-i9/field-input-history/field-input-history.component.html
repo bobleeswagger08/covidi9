@@ -15,7 +15,7 @@
         </ng-container>
 
         <ng-container matColumnDef="dateOfContacted">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Contacted</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status Date</th>
           <td mat-cell *matCellDef="let row"> {{row.dateOfContacted| date : "dd/MM/yyyy"}} </td>
         </ng-container>
 
@@ -33,7 +33,7 @@
           <td mat-cell *matCellDef="let row"> {{ row.isReferredForMedicalCare }}</td>
         </ng-container>
         <ng-container matColumnDef="reasonForNotContacted">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Reason For Not Contacted</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Reason For No Contact</th>
           <td mat-cell *matCellDef="let row"> {{row.reasonForNotContacted}} </td>
         </ng-container>
         <!-- Due date Column -->
@@ -43,7 +43,7 @@
         </ng-container>
         <!-- Due Service Code -->
         <ng-container matColumnDef="commentByMOIC">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Comment By MOIC</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>MOIC Comment</th>
           <td mat-cell *matCellDef="let row"> {{row.commentByMOIC}}</td>
         </ng-container>
 
