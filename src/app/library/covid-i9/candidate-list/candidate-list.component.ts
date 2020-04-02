@@ -24,36 +24,30 @@ export class CandidateListComponent implements OnInit {
             lastContactDate?: Date | undefined;
             address?: string | undefined;
             */
-  displayedColumns: string[] = ['referenceNo', 'source', 'serialNo', 'arivalDate', 'name', 'mobileNo','uphc','lastContactDate',  'updatebutton', 'updateStatus'];
+  displayedColumns: string[] = ['referenceNo', 'source', 'serialNo', 'arivalDate', 'name', 'mobileNo', 'uphc', 'lastContactDate', 'updatebutton', 'updateStatus'];
   listCandidate: IListCandidate[];
-  listOfUpHC : IListUPHC[]=[];
-  listOfWards : IListWard[]=[];
+  listOfUpHC: IListUPHC[] = [];
+  listOfWards: IListWard[] = [];
 
-  selectedUphc : IListUPHC[] = [];
+  selectedUphc: IListUPHC[] = [];
 
-  set uphcFilter(value : IListUPHC[])
-  {
+  set uphcFilter(value: IListUPHC[]) {
     console.log("setting data");
-    this.candidateFilter.uphcs=[];
-    if(value)
-    {
-      for(let currentSelection of value)
-      {
-        let selectedItem :SelectedUPHC ={uphc : currentSelection.uphc};
+    this.candidateFilter.uphcs = [];
+    if (value) {
+      for (let currentSelection of value) {
+        let selectedItem: SelectedUPHC = { uphc: currentSelection.uphc };
         this.candidateFilter.uphcs.push(selectedItem);
       }
     }
   }
 
-  get uphcFilter(): IListUPHC[]
-  {
+  get uphcFilter(): IListUPHC[] {
     console.log("reading data");
-    let filter : IListUPHC[] =[];
-    if( this.candidateFilter.uphcs)
-    {
-      for(let currentSelection of this.candidateFilter.uphcs)
-      {
-        let selectedItem :IListUPHC ={uphc :  currentSelection.uphc };
+    let filter: IListUPHC[] = [];
+    if (this.candidateFilter.uphcs) {
+      for (let currentSelection of this.candidateFilter.uphcs) {
+        let selectedItem: IListUPHC = { uphc: currentSelection.uphc };
         this.candidateFilter.uphcs.push(selectedItem);
       }
     }
@@ -67,66 +61,69 @@ export class CandidateListComponent implements OnInit {
 
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  constructor(private router: Router, private cdr: ChangeDetectorRef, private SpinnerService: NgxSpinnerService,private covidService:CovidI9Service) {
-    this.candidateFilter.isEverContacted=null;
-    this.candidateFilter.uphcs=[];
-    this.candidateFilter.wards=[];
-   // this.candidateFilterP.names=[];
-    this.candidateFilter.selectedStatuses=[];
-    this.filterSource();
-   ;
-   }
+  @ViewChild(MatSort, { static: false })
+  set sort(sort: MatSort) {
+    if (this.dataSource) {
+      this.dataSource.sort = sort;
+    }
+    //this.selectedSortiments.sort = sort;
+  }
 
-  ngOnInit() {  
+  constructor(private router: Router, private cdr: ChangeDetectorRef, private SpinnerService: NgxSpinnerService, private covidService: CovidI9Service) {
+    this.candidateFilter.isEverContacted = null;
+    this.candidateFilter.uphcs = [];
+    this.candidateFilter.wards = [];
+    // this.candidateFilterP.names=[];
+    this.candidateFilter.selectedStatuses = [];
+
+    ;
+  }
+
+  ngOnInit() {
     this.getUPHCList();
     this.getWardList();
-
+    this.filterSource();
   }
 
   getUPHCList() {
     this.covidService.getUPHCList()
-      .subscribe((listU:IListUPHC[]) => {
+      .subscribe((listU: IListUPHC[]) => {
         this.listOfUpHC = listU;
       });
   }
 
   getWardList() {
     this.covidService.getWardList()
-      .subscribe((listW:IListWard[]) => {
+      .subscribe((listW: IListWard[]) => {
         this.listOfWards = listW
       });
   }
 
-  setUPHCList()
-  {
-    this.candidateFilter.uphcs=[];
-    if(this.selectedUphc)
-    {
-      for(let currentSelection of this.selectedUphc)
-      {
-        let selectedItem :SelectedUPHC ={uphc : currentSelection.uphc};
+  setUPHCList() {
+    this.candidateFilter.uphcs = [];
+    if (this.selectedUphc) {
+      for (let currentSelection of this.selectedUphc) {
+        let selectedItem: SelectedUPHC = { uphc: currentSelection.uphc };
         this.candidateFilter.uphcs.push(selectedItem);
       }
     }
 
   }
 
-  filterSource()
-  {
+  filterSource() {
     this.setUPHCList();
     this.covidService.getCandidateList(this.candidateFilter)
-    .subscribe((cList:IListCandidate[]) => {
-      //this.listServiceRequest = srList;
-      this.dataSource = new MatTableDataSource(cList);
-     this.cdr.detectChanges();
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.SpinnerService.hide();
-    }, (e) => {
-      alert("An unexpected error occurred")
-      this.SpinnerService.hide();
-    })
+      .subscribe((cList: IListCandidate[]) => {
+        //this.listServiceRequest = srList;
+        this.dataSource = new MatTableDataSource<IListCandidate>(cList);
+        this.dataSource.paginator = this.paginator;
+       // this.dataSource.sort = this.sort;
+        this.cdr.detectChanges();
+        this.SpinnerService.hide();
+      }, (e) => {
+        alert("An unexpected error occurred")
+        this.SpinnerService.hide();
+      })
   }
 
   applyFilter(filterValue: string) {
@@ -140,11 +137,11 @@ export class CandidateListComponent implements OnInit {
     this.router.navigate(['covidi9/candidate', id, 0])
   }
   gotoStatusUpdatePage(id) {
-   // this.router.navigate(['covidi9/candidate', id,1], { queryParams: { tabIndex: '1' } })
-   this.router.navigate(['covidi9/candidate', id, 1])
+    // this.router.navigate(['covidi9/candidate', id,1], { queryParams: { tabIndex: '1' } })
+    this.router.navigate(['covidi9/candidate', id, 1])
   }
   goToAddPage() {
-    this.router.navigate(['covidi9/candidate', 'null',0]);
+    this.router.navigate(['covidi9/candidate', 'null', 0]);
   }
 
 }

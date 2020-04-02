@@ -25,6 +25,7 @@ import {
   MatSlideToggleModule,
   MatTabsModule,
   MAT_DATE_LOCALE
+  
 } from '@angular/material';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 
@@ -73,7 +74,8 @@ import { FieldInputHistoryComponent } from './field-input-history/field-input-hi
     ReactiveFormsModule,
     FlexLayoutModule,
     NgxSpinnerModule,
-    CustomcontrolsModule
+    CustomcontrolsModule,
+    MatSortModule
   ],
   providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
