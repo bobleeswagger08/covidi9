@@ -173,8 +173,8 @@ export class CandidateInputComponent implements OnInit {
     console.log(this.candidateFormValue)
     this.covidService.saveCandidateInput(this.candidateFormValue)
       .subscribe(court => {
-        alert('Candidate data submitted successfully')
-        //this.router.navigate(['administration/userlist']);
+        alert('Candidate data submitted successfully');
+        this.router.navigate(['covidi9/candidatelist']);
       }, (error: AppError) => {
         if (error instanceof BadInput) {
           alert('invalid data');
@@ -216,8 +216,8 @@ export class CandidateInputComponent implements OnInit {
     console.log(this.candidateFormValue)
     this.covidService.updateCandidateInput(this.candidateFormValue)
       .subscribe(court => {
-        alert('Candidate data saved successfully')
-        //this.router.navigate(['administration/userlist']);
+        alert('Candidate data saved successfully');
+        this.router.navigate(['covidi9/candidatelist']);
       }, (error: AppError) => {
         if (error instanceof BadInput) {
           alert('invalid data');
