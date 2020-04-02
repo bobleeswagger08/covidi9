@@ -160,8 +160,14 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   // validate(_: FormControl) {
   //   return this.fieldInputForm.valid ? null : { address: { valid: false } };
   // }
+
   submitCandidateInputData(){
     let fieldFormValue = this.fieldInputForm.getRawValue();
+    let unableToTraceReason : any = null;
+    if(fieldFormValue.reasonForUnableToTraceId)
+    {
+      unableToTraceReason= fieldFormValue.reasonForUnableToTraceId;
+    }
     this.fieldInputValue={
       isEverContacted: fieldFormValue.isEverContacted,
       isContactedOnCurrentDate: fieldFormValue.isContactedOnCurrentDate,
@@ -174,7 +180,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
       isReleasedFromSurveillanc: fieldFormValue.isReleasedFromSurveillanc,
       streetName: '',
       commentByMOIC: fieldFormValue.commentByMOIC,
-      reasonForUnableToTraceId: fieldFormValue.reasonForUnableToTraceId,
+      reasonForUnableToTraceId:unableToTraceReason, // fieldFormValue.reasonForUnableToTraceId,
       fieldNote: '',
       candidateId: this.candidateId,
       isActive: true,
