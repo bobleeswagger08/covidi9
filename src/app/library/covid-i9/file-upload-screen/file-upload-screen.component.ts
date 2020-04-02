@@ -15,8 +15,10 @@ export class FileUploadScreenComponent implements OnInit {
   candidateList: CandidateInfo[] = [];
   listSourceName: string = "District";
   ignoreDataError: boolean = false;
-  fileName : string;
+  fileName: string;
   dataSource = new MatTableDataSource(this.candidateList);
+  uploadHistoryDataSource: MatTableDataSource<CandidateFileInfo>;
+
   public get rowCount(): number {
     if (this.candidateList) {
       return this.candidateList.length;
@@ -58,10 +60,15 @@ export class FileUploadScreenComponent implements OnInit {
 
   // dataSource: CandidateData[];
   displayedColumns: string[] = ['serialNo', 'name', 'mobileNo', 'arivalDate', 'address', 'countryVisited'];
+  uploadHistoryColumns: string[] = ['dateOfUpload', 'fileSource', 'fileName', 'totalNoOfRecords', 'errorCount', 'uploadedBy'];
 
   constructor(private http: HttpClient, private applicationEnvironment: ApplicationEnvironmentService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.getFileUploadHistory()
+      .subscribe(
+        r => this.uploadHistoryDataSource = new MatTableDataSource<CandidateFileInfo>(r)
+      );
   }
 
   public uploadFile = (files) => {
@@ -71,7 +78,7 @@ export class FileUploadScreenComponent implements OnInit {
 
     let fileToUpload = <File>files[0];
     const formData = new FormData();
-    this.fileName = files[0];
+    this.fileName = fileToUpload.name;
     formData.append('file', fileToUpload, fileToUpload.name);
     this.dataLoaded = false;
     this.dataSource = new MatTableDataSource([]);
@@ -100,8 +107,12 @@ export class FileUploadScreenComponent implements OnInit {
     this.isSaving = true;
     const candidateFileInfo: CandidateFileInfo = {};
     candidateFileInfo.id = this.applicationEnvironment.configParam.getUuid();
-    candidateFileInfo.fileName =this.fileName;
+    candidateFileInfo.fileName = this.fileName;
+    candidateFileInfo.dateOfUpload = new Date();
     candidateFileInfo.candidates = this.candidateList;
+    candidateFileInfo.uploadedBy = this.applicationEnvironment.userSession.loggedInUser.id;
+
+
     for (let candidate of candidateFileInfo.candidates) {
       candidate.source = this.listSourceName;
     }
@@ -133,6 +144,10 @@ export class FileUploadScreenComponent implements OnInit {
     return this.http.post(serviceUrl, fileData);
   }
 
+  private getFileUploadHistory(): Observable<CandidateFileInfo[]> {
+    let serviceUrl = this.applicationEnvironment.configParam.configServiceUrl + '/FileInformation';
+    return this.http.get<CandidateFileInfo[]>(serviceUrl);
+  }
 
 }
 
