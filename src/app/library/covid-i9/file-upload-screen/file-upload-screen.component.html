@@ -1,128 +1,128 @@
-<mat-expansion-panel *ngIf="false">
-  <mat-expansion-panel-header>
-    <mat-panel-title>File Upload History </mat-panel-title>
+<mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel-header >
+    Upload new excel data file
   </mat-expansion-panel-header>
-    <table  mat-table [dataSource]="this.uploadHistoryDataSource" style="width: 100%;" >
-        
-      <!-- Position Column -->
-      
-      <ng-container matColumnDef="dateOfUpload">
-        <th mat-header-cell *matHeaderCellDef > Upload Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.dateOfUpload | date : "dd/MM/yyyy"}} </td>
-       
-      </ng-container>
-  
-      <!-- Name Column -->
-      <ng-container matColumnDef="fileSource">
-        <th mat-header-cell *matHeaderCellDef> Source </th>
-        <td mat-cell *matCellDef="let element"> {{element.fileSource}} </td>
-
-      </ng-container>
-      <ng-container matColumnDef="totalNoOfRecords">
-        <th mat-header-cell *matHeaderCellDef > Records #  </th>
-        <td mat-cell *matCellDef="let element"> {{element.totalNoOfRecords}} </td>
-      </ng-container>
-      <ng-container matColumnDef="errorCount">
-        <th mat-header-cell *matHeaderCellDef > Data Errors </th>
-        <td mat-cell *matCellDef="let element"> {{element.errorCount}} </td>
-      </ng-container>
-      <ng-container matColumnDef="uploadedBy">
-        <th mat-header-cell *matHeaderCellDef > User Id </th>
-        <td mat-cell *matCellDef="let element"> {{element.uploadedBy}} </td>
-      </ng-container>
-
-     
-     
-      <tr mat-header-row *matHeaderRowDef="uploadHistoryColumns; "></tr>
-      <tr mat-row *matRowDef="let row; columns: uploadHistoryColumns; "></tr>
-      
-    </table>
-
-  
-
-</mat-expansion-panel>
-<div class="row" style="margin-bottom:15px;">
-  <table>
-    <tr>
-      <td>
-        <mat-form-field>
-          <mat-label>Data Source</mat-label>
-          <mat-select #uploadType [(ngModel)]="this.listSourceName">
-            <mat-option  [value]="'Format 1'"> Format 1 </mat-option> 
-            <mat-option  [value]="'Format 2'"> Format 2 </mat-option> 
-            <mat-option  [value]="'Others'"> Other Sources </mat-option> 
-          </mat-select>
-             
-        </mat-form-field>
-      </td>
-      <td>
-        <div class="form-group">
-          <label for="file">  Select data file </label>
-          <input [disabled]="!uploadType.selected" type="file" id="file" (change)="uploadFile($event.target.files)">
-        
-          <mat-checkbox [disabled]="!this.hasDataError" [(ngModel)]="this.ignoreDataError">Ignore {{this.incorrectArrivalDateCount}} arrival date errors </mat-checkbox>
-          <button mat-raised-button color="primary" [disabled]="!canSubmit" (click)="this.saveCandidateList()">Submit {{this.rowCount}} records</button>
-      </div>
-      </td>
-    </tr>
-  </table>
-  <ng-container *ngIf="this.dataLoaded" >
-    
-    <table>
-      <tr>
-        <td>
-         
-        </td>
-      </tr>
-      <tr>
-  
-        <td colspan="2" >
-          <div class="example-container mat-elevation-z8" >
-          <table #datalist mat-table [dataSource]="this.dataSource" style="width: 100%;">
-        
-            <!-- Position Column -->
-            <ng-container matColumnDef="serialNo">
-              <th mat-header-cell *matHeaderCellDef > Serial# </th>
-              <td mat-cell *matCellDef="let element"> {{element.serialNo}} </td>
-             
-            </ng-container>
-        
-            <!-- Name Column -->
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef> Name </th>
-              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  
-            </ng-container>
-            <ng-container matColumnDef="mobileNo">
-              <th mat-header-cell *matHeaderCellDef > Mobile  </th>
-              <td mat-cell *matCellDef="let element"> {{element.mobileNo}} </td>
-            </ng-container>
-            <ng-container matColumnDef="address">
-              <th mat-header-cell *matHeaderCellDef > Address </th>
-              <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-            </ng-container>
-            <ng-container matColumnDef="countryVisited">
-              <th mat-header-cell *matHeaderCellDef > Country Visited </th>
-              <td mat-cell *matCellDef="let element"> {{element.countryVisited}} </td>
-            </ng-container>
-  
-            <ng-container matColumnDef="arivalDate">
-              <th mat-header-cell *matHeaderCellDef > Arrival Date </th>
-              <td mat-cell *matCellDef="let element"> {{element.arivalDate}} </td>
-            </ng-container>
-           
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; "></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+    <div class="row" style="margin-bottom:15px;">
+      <table>
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>Data Source</mat-label>
+              <mat-select #uploadType [(ngModel)]="this.listSourceName">
+                <mat-option  [value]="'Format 1'"> Format 1 </mat-option> 
+                <mat-option  [value]="'Format 2'"> Format 2 </mat-option> 
+                <mat-option  [value]="'Others'"> Other Sources </mat-option> 
+              </mat-select>
+                 
+            </mat-form-field>
+          </td>
+          <td>
+            <div class="form-group">
+              <label for="file">  Select data file </label>
+              <input [disabled]="!uploadType.selected" type="file" id="file" (change)="uploadFile($event.target.files)">
             
-          </table>
-        </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
+              <mat-checkbox [disabled]="!this.hasDataError" [(ngModel)]="this.ignoreDataError">Ignore {{this.incorrectArrivalDateCount}} arrival date errors </mat-checkbox>
+              <button mat-raised-button color="primary" [disabled]="!canSubmit" (click)="this.saveCandidateList()">Submit {{this.rowCount}} records</button>
+          </div>
+          </td>
+        </tr>
+      </table>
+      <ng-container *ngIf="this.dataLoaded" >
+        
+      
+              <div class="example-container mat-elevation-z8" >
+              <table #datalist mat-table [dataSource]="this.dataSource" style="width: 100%;">
+            
+                <!-- Position Column -->
+                <ng-container matColumnDef="serialNo">
+                  <th mat-header-cell *matHeaderCellDef > Serial# </th>
+                  <td mat-cell *matCellDef="let element"> {{element.serialNo}} </td>
+                 
+                </ng-container>
+            
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      
+                </ng-container>
+                <ng-container matColumnDef="mobileNo">
+                  <th mat-header-cell *matHeaderCellDef > Mobile  </th>
+                  <td mat-cell *matCellDef="let element"> {{element.mobileNo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="address">
+                  <th mat-header-cell *matHeaderCellDef > Address </th>
+                  <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                </ng-container>
+                <ng-container matColumnDef="countryVisited">
+                  <th mat-header-cell *matHeaderCellDef > Country Visited </th>
+                  <td mat-cell *matCellDef="let element"> {{element.countryVisited}} </td>
+                </ng-container>
+      
+                <ng-container matColumnDef="arivalDate">
+                  <th mat-header-cell *matHeaderCellDef > Arrival Date </th>
+                  <td mat-cell *matCellDef="let element"> {{element.arivalDate}} </td>
+                </ng-container>
+               
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; "></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+                
+              </table>
+            </div>           
+      </ng-container> 
+      </div>
+  
+</mat-expansion-panel>
+
+
+  <mat-expansion-panel *ngIf="this.uploadHistoryDataSource">
+    <mat-expansion-panel-header>
+      <mat-panel-title>File Upload History </mat-panel-title>
+    </mat-expansion-panel-header>
+      <table  mat-table [dataSource]="this.uploadHistoryDataSource" style="width: 100%;" >
           
-        </td>
-    </table>
-  </ng-container> 
-  </div>
+        <!-- Position Column -->
+        
+        <ng-container matColumnDef="dateOfUpload">
+          <th mat-header-cell *matHeaderCellDef > Upload Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.dateOfUpload | date : "dd/MM/yyyy"}} </td>
+         
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="fileSource">
+          <th mat-header-cell *matHeaderCellDef> Source </th>
+          <td mat-cell *matCellDef="let element"> {{element.fileSource}} </td>
+  
+        </ng-container>
+  
+        <ng-container matColumnDef="fileName">
+          <th mat-header-cell *matHeaderCellDef> File </th>
+          <td mat-cell *matCellDef="let element"> {{element.fileName}} </td>
+  
+        </ng-container>
+  
+        <ng-container matColumnDef="totalNoOfRecords">
+          <th mat-header-cell *matHeaderCellDef > Records #  </th>
+          <td mat-cell *matCellDef="let element"> {{element.totalNoOfRecords}} </td>
+        </ng-container>
+        <ng-container matColumnDef="errorCount">
+          <th mat-header-cell *matHeaderCellDef > Data Errors </th>
+          <td mat-cell *matCellDef="let element"> {{element.errorCount}} </td>
+        </ng-container>
+        <ng-container matColumnDef="uploadedBy">
+          <th mat-header-cell *matHeaderCellDef > User Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.uploadedBy}} </td>
+        </ng-container>
+  
+       
+       
+        <tr mat-header-row *matHeaderRowDef="uploadHistoryColumns; "></tr>
+        <tr mat-row *matRowDef="let row; columns: uploadHistoryColumns; "></tr>
+        
+      </table>
+  
+    
+  
+  </mat-expansion-panel>
   
