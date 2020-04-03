@@ -26,7 +26,7 @@ interface IBadge {
 
 @Injectable()
 export class NavigationService {
-  constructor() {}
+  constructor() { }
 
   plainMenu: IMenuItem[] = [
     // {
@@ -53,42 +53,50 @@ export class NavigationService {
     //   icon: "address",
     //   state: "administration",
     //   sub: [
-    //     { name:"Masters",type:"dropDown", sub:[
-    //       {name:"User Role", state: "rolemasterlist"},
-    //       {name:"User", state: "userlist"},
-    //       {name:"User Role Assignment", state:"userroleassignment"},
-    //       {name:"Role Access Permissions", state:"rolepermission"}
-    //       // {name:"AddressComponent", state:"newaddress"}
-    //      // {name:"Reset Password", state: "changepassword/null"}
-    //     ]}
-    //   ]},
-  // {
-  //   name: "Common",
-  //   type: "dropDown",
-  //   tooltip: "Common Module",
-  //   icon: "address",
-  //   state: "administration",
-  //   sub: [
-  //     { name: "Candidate", state: "candidate" },
-  //    //{ name: "TextEditor", state: "texteditor" },
-  //     //{ name: "UserRolePermission", state: "rolepermission" },
-  //   ]},
-  {
-    name: "Candidate Tracker",
-    type: "dropDown",
-    tooltip: "Covid 19",
-    icon: "address",
-    state: "covidi9",
-    sub: [
-      { name: "Candidate", state: "candidatelist" },
-     // { name: "Candidate Master", state: "candidate/null/0" },
-     // { name: "Field Input", state: "candidate/null/1" },
-      { name: "Excel Upload", state: "excelupload" },
-      { name: "Candidate Analysis", state: "candidateanalysis" },
-      { name : "Daily Report", state : "dailyreport" }
-     //{ name: "TextEditor", state: "texteditor" },
-      //{ name: "UserRolePermission", state: "rolepermission" },
-    ]},
+    //     {
+    //       name: "Masters", type: "dropDown", sub: [
+    //         { name: "User Role", state: "rolemasterlist" },
+    //         { name: "User", state: "userlist" },
+    //         { name: "User Role Assignment", state: "userroleassignment" },
+    //         { name: "Role Access Permissions", state: "rolepermission" }
+    //         // {name:"AddressComponent", state:"newaddress"}
+    //         // {name:"Reset Password", state: "changepassword/null"}
+    //       ]
+    //     }
+    //   ]
+    // },
+    // {
+    //   name: "Common",
+    //   type: "dropDown",
+    //   tooltip: "Common Module",
+    //   icon: "address",
+    //   state: "administration",
+    //   sub: [
+    //     {
+    //       name: "Masters", type: "dropDown", sub: [
+    //         { name: "Office", state: "officelist" },
+    //         { name: "Department", state: "departmentlist" }
+    //       ]
+    //     }
+    //   ]
+    // },
+    {
+      name: "Candidate Tracker",
+      type: "dropDown",
+      tooltip: "Covid 19",
+      icon: "address",
+      state: "covidi9",
+      sub: [
+        { name: "Candidate", state: "candidatelist" },
+        // { name: "Candidate Master", state: "candidate/null/0" },
+        // { name: "Field Input", state: "candidate/null/1" },
+        { name: "Excel Upload", state: "excelupload" },
+        { name: "Candidate Analysis", state: "candidateanalysis" },
+        { name: "Daily Report", state: "dailyreport" }
+        //{ name: "TextEditor", state: "texteditor" },
+        //{ name: "UserRolePermission", state: "rolepermission" },
+      ]
+    },
     // {
     //   name: "Court Case",
     //   type: "dropDown",
@@ -101,7 +109,7 @@ export class NavigationService {
     //       {name:"Lawyer", state: "lawyermasterlist"},
     //       {name:"Lawyer Panel", state: "lawyerpanel"},
     //       {name:"Lawyer Assignment", state: "lawyerassign"}
-          
+
     //     ]},
     //     { name:"Activities",type:"dropDown", sub:[
     //       {name:"Court Case", state: "courtcasemasterlist"},
@@ -109,37 +117,37 @@ export class NavigationService {
     //       {name:"Outgoing Legal Document", state: "courtcaseorderlist/false"}  
     //     ]}
     //   ]},
-  //   {
-  //     name: "RTPS",
-  //     type: "dropDown",
-  //     tooltip: "RTPS Module",
-  //     icon: "address",
-  //     state: "rtps",
-  //     sub: [
-  //       { name:"Master",type:"dropDown", sub:[
-  //         {name:"SetUp", state: ""},
-  //         {name:"Service Master", state: "svcmasterlist"},
-  //         {name:"Form (I) Access Delegation", state:"formiaccessdelegation"}
-  //       ]},
-  //       { name:"Activities",type:"dropDown", sub:[
-  //         {name:"Issue Form (I)", state: "svcrequestlist"},
-  //         {name:"Update Status", state: "servicerequeststatus/null"}
-  //       ]},
-  //       { name:"Reports",type:"dropDown", sub:[
-  //         {name:"Form (IV) Register", state: "formivreport"},
-  //         {name:"Service Request Analysis", state: "dashboardchart"},
-  //         {name:"Department Wise Analysis", state: "dwiseanalysis"}
-  //        // {name:"Dash Board", state:"dashboardchart"}
-  //        ]}
-       
+    //   {
+    //     name: "RTPS",
+    //     type: "dropDown",
+    //     tooltip: "RTPS Module",
+    //     icon: "address",
+    //     state: "rtps",
+    //     sub: [
+    //       { name:"Master",type:"dropDown", sub:[
+    //         {name:"SetUp", state: ""},
+    //         {name:"Service Master", state: "svcmasterlist"},
+    //         {name:"Form (I) Access Delegation", state:"formiaccessdelegation"}
+    //       ]},
+    //       { name:"Activities",type:"dropDown", sub:[
+    //         {name:"Issue Form (I)", state: "svcrequestlist"},
+    //         {name:"Update Status", state: "servicerequeststatus/null"}
+    //       ]},
+    //       { name:"Reports",type:"dropDown", sub:[
+    //         {name:"Form (IV) Register", state: "formivreport"},
+    //         {name:"Service Request Analysis", state: "dashboardchart"},
+    //         {name:"Department Wise Analysis", state: "dwiseanalysis"}
+    //        // {name:"Dash Board", state:"dashboardchart"}
+    //        ]}
 
-  //       // { name: "RoleMaster", state: "rolemaster" },
-  //       // { name: "ServiceMaster", state: "servicemaster/null" },
-  //       // { name: "ServiceRole", state: "servicerole" },
-  //       // { name: "ServiceRequestForm", state: "servicerequestform/null" },
-  //       // { name: "ServiceRequestStatus", state: "servicerequeststatus/null" },
-        
-  // ]}
+
+    //       // { name: "RoleMaster", state: "rolemaster" },
+    //       // { name: "ServiceMaster", state: "servicemaster/null" },
+    //       // { name: "ServiceRole", state: "servicerole" },
+    //       // { name: "ServiceRequestForm", state: "servicerequestform/null" },
+    //       // { name: "ServiceRequestStatus", state: "servicerequeststatus/null" },
+
+    // ]}
     // {
     //   name: "DOC",
     //   type: "extLink",

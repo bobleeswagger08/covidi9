@@ -222,7 +222,7 @@
             <!-- <app-field-input name="fieldData" formControlName="fieldData"  [candidate-id]="candidateId"></app-field-input> -->
             <app-field-input name="fieldData" formControlName="fieldData"  [candidate-id]="candidateId" [max-date]='maxStatusDate' [button-visible]="fiButtonVisible"></app-field-input>
         </mat-tab>
-        <mat-tab label="History">
+        <mat-tab label="History" disabled = "listFieldHistory">
             <app-field-input-history *ngIf="listFieldHistory" [field-history]="listFieldHistory"></app-field-input-history>
         </mat-tab>
     </mat-tab-group>

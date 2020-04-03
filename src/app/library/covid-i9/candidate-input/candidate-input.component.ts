@@ -249,7 +249,6 @@ export class CandidateInputComponent implements OnInit {
       .subscribe((r: ColsedReason[]) => {
         this.listClosedReason = r;
         this.cdr.detectChanges();
-      }
-      )
+      });
   }
 }

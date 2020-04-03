@@ -14,9 +14,9 @@ table {
     height: 27px!important ;
     min-height:0!important 
   }
-  ::ng-deep .mat-option{
-    padding: 0!important;
-    }
+  // ::ng-deep .mat-option{
+  //   padding: 0!important;
+  //   }
   ::ng-deep .mat-paginator-icon {
       width: 25px!important
     }
@@ -29,6 +29,10 @@ table {
    ::ng-deep .mat-icon-button {
     width: 29px!important;
     height: 24px!important;
+  }
+  ::ng-deep .mat-calendar-controls .mat-icon-button {
+    width: 40px!important;
+    height: 40px!important;
   }
   ::ng-deep .mat-option-text{
     padding-left:8px;

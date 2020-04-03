@@ -95,14 +95,14 @@ export class HeaderSideComponent implements OnInit {
     this.router.navigate(['/home']);
   }
   UpdateProfile() {
-    this.router.navigate(['/roleservice/user', this.loginUser.id])
+    this.router.navigate(['/administration/user', this.loginUser.id])
     // this.router.navigate(['/roleservice/user','4872b3a2-3212-11ea-ab85-02151f5d67f6'])
   }
   UpdatePassword() {
-    this.router.navigate(['/roleservice/changepassword', this.loginUser.id]);
+    this.router.navigate(['/administration/changepassword', this.loginUser.id]);
     // this.router.navigate(['/roleservice/changepassword','4872b3a2-3212-11ea-ab85-02151f5d67f6']);
   }
   UnlockUser() {
-    this.router.navigate(['/roleservice/unlockuser']);
+    this.router.navigate(['/administration/unlockuser']);
   }
 }
