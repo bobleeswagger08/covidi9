@@ -13,7 +13,7 @@ export class FileUploadScreenComponent implements OnInit {
 
 
   candidateList: CandidateInfo[] = [];
-  listSourceName: string = "District";
+  listSourceName: string ;
   ignoreDataError: boolean = false;
   fileName: string;
   dataSource = new MatTableDataSource(this.candidateList);
@@ -67,7 +67,10 @@ export class FileUploadScreenComponent implements OnInit {
   ngOnInit() {
     this.getFileUploadHistory()
       .subscribe(
-        r => this.uploadHistoryDataSource = new MatTableDataSource<CandidateFileInfo>(r)
+        r => {
+          this.uploadHistoryDataSource = new MatTableDataSource<CandidateFileInfo>(r);
+          this.cdr.detectChanges();
+        }
       );
   }
 
@@ -108,6 +111,8 @@ export class FileUploadScreenComponent implements OnInit {
     const candidateFileInfo: CandidateFileInfo = {};
     candidateFileInfo.id = this.applicationEnvironment.configParam.getUuid();
     candidateFileInfo.fileName = this.fileName;
+    candidateFileInfo.fileSource=this.listSourceName;
+    candidateFileInfo.errorCount =this.incorrectArrivalDateCount;
     candidateFileInfo.dateOfUpload = new Date();
     candidateFileInfo.candidates = this.candidateList;
     candidateFileInfo.uploadedBy = this.applicationEnvironment.userSession.loggedInUser.id;
