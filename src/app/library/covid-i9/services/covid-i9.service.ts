@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
-import { ICandidateFilter,  IFieldInput, ColsedReason, CandidateDateWiseReport, CandidateReportFilter } from '../model/candidate-input';
+import { ICandidateFilter,  IFieldInput, ColsedReason, CandidateDateWiseReport, CandidateReportFilter, UphcOffice } from '../model/candidate-input';
 import { ICandidateInput, CandidateSearchFilter, CandidateListItem } from '../model/candidate-input';
 import { Observable } from 'rxjs';
 
@@ -60,4 +60,9 @@ export class CovidI9Service {
   }
 
   public surveillancePeriod : number = 28;
+
+  getUpscOfficeList():Observable<UphcOffice[]>
+  {
+    return this.httpClient.get<UphcOffice[]>(this.urlCovidI9+'/UPHCOffice');
+  }
 }

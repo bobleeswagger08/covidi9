@@ -32,7 +32,7 @@ export class CandidateListComponent implements OnInit {
   listStatus : ColsedReason[];
   filterParameter : CandidateListFilterParameter;
 
-  selectedUphc: IListUPHC[] = [];
+  //selectedUphc: IListUPHC[] = [];
   candidateFilter: CandidateSearchFilter;
   dataSource: MatTableDataSource<IListCandidate>;
   noDataMessage:string="No records found";
@@ -76,14 +76,31 @@ export class CandidateListComponent implements OnInit {
   constructor(private router: Router, private cdr: ChangeDetectorRef, private SpinnerService: NgxSpinnerService,
      private covidService: CovidI9Service) {
       this.filterParameter = new CandidateListFilterParameter();
+      this.filterParameter.inputDate = new Date();
+      this.filterParameter.uphcSelectedValues=[];
+      this.filterParameter.statusSelectedValue=[];
+      //this.filterParameter.uphcSelectedValues=[];
+      
      }
 
   ngOnInit() {
     this.filterParameter.inputDate = new Date();
-    this.getUPHCList();
-    this.getWardList();
-    this.filterSource();
-    this.getStatusList();
+   // this.getUPHCList();
+    this.getWardList();   
+    this.getStatusList();  
+   
+   // this.filterSource();
+  }
+  
+  uphcInitilized : boolean;
+  statusInitialized : boolean;
+
+  runFilter()
+  {
+    if(this.statusInitialized && this.uphcInitilized)
+    {
+      this.filterSource();
+    }
   }
 
   getUPHCList() {
@@ -100,6 +117,12 @@ export class CandidateListComponent implements OnInit {
       });
   }
 
+  onUphcLoaded()
+  {
+    this.uphcInitilized=true;
+    this.runFilter();
+  }
+
   // setUPHCList() {
   //   this.candidateFilter.uphcs = [];
   //   if (this.selectedUphc) {
@@ -113,7 +136,7 @@ export class CandidateListComponent implements OnInit {
 
   filterSource() {
    // this.setUPHCList();
-   console.log(this.filterParameter.uphcSelectedValues)
+   console.log(this.filterParameter.uphcSelectedValues);
    this.candidateFilter ={
      isEverContacted : "",
      wards:[],
@@ -131,7 +154,7 @@ export class CandidateListComponent implements OnInit {
       .subscribe((cList: IListCandidate[]) => {
         //this.listServiceRequest = srList;
         if (cList.length == 0) 
-        this.noDataMessage ="Filter criteria does not match any record"
+        this.noDataMessage ="Filter criteria did not match any record"
 
         this.panelOpenState = !this.panelOpenState;
         this.dataSource = new MatTableDataSource<IListCandidate>(cList);
@@ -166,6 +189,9 @@ export class CandidateListComponent implements OnInit {
     this.covidService.getCandidateClosedReason()
       .subscribe((ls: ColsedReason[]) => {
         this.listStatus = ls;
+        this.filterParameter.statusSelectedValue=[1];
+        this.statusInitialized=true;
+        this.runFilter();
         this.cdr.detectChanges();
       });
   }
@@ -173,6 +199,6 @@ export class CandidateListComponent implements OnInit {
 export class CandidateListFilterParameter
 {
   uphcSelectedValues : string[];
-  statusSelectedValue : string[];
+  statusSelectedValue : number[];
   inputDate:Date;
 }

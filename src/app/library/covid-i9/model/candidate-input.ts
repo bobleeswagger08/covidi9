@@ -1,51 +1,48 @@
-export interface ICandidateInput{
-        source: string,
-        name: string,
-        flightNo: string,
-        candidateStatusId:number,
-        countryVisited: string,
-        dob: string,
-        age: string,
-        sex: string,
-        flightNumber: string,
-        arivalDate: string,
-        mobileNo: string,
-        address: string,
-        finalDestination: string,
-        block: string,
-        state: string,
-        note: string,
-        wardNo: string,
-        uphc: string,
-        isActive: true,
-       // commentByMOIC: string,
-        fieldData?: IFieldData[],
-        id: string,
-        serialNo: string
-      
+export interface ICandidateInput {
+  source: string,
+  name: string,
+  flightNo: string,
+  candidateStatusId: number,
+  countryVisited: string,
+  dob: string,
+  age: string,
+  sex: string,
+  flightNumber: string,
+  arivalDate: string,
+  mobileNo: string,
+  address: string,
+  finalDestination: string,
+  block: string,
+  state: string,
+  note: string,
+  wardNo: string,
+  uphc: string,
+  isActive: true,
+  // commentByMOIC: string,
+  fieldData?: IFieldData[],
+  id: string,
+  serialNo: string
+
 }
-export interface IFieldData{
-        isEverContacted: string,
-       // isContactedOnCurrentDate: string,
-        dateOfContacted?: string,
-       // timeOfConected: string,
-        isSymptomatic?: string,
-        isReferredForMedicalCare?: string,
-        reasonForNotContacted?: string,
-        isReleasedFromSurveillanc?: string,
-        commentByMOIC?: string,
-        //fieldNote: string
+export interface IFieldData {
+  isEverContacted: string,
+  // isContactedOnCurrentDate: string,
+  dateOfContacted?: string,
+  // timeOfConected: string,
+  isSymptomatic?: string,
+  isReferredForMedicalCare?: string,
+  reasonForNotContacted?: string,
+  isReleasedFromSurveillanc?: string,
+  commentByMOIC?: string,
+  //fieldNote: string
 }
-export interface IListWard 
-{
+export interface IListWard {
   wardNo: string
 }
-export interface IListUPHC
-{
+export interface IListUPHC {
   uphc: string
 }
-export interface IListCandidate
-{
+export interface IListCandidate {
   id: string,
   serialNo: string,
   source: string,
@@ -68,7 +65,7 @@ export interface IListCandidate
   isActive: string,
   fieldData: []
 }
-export interface ICandidateFilter{
+export interface ICandidateFilter {
   isEverContacted: string,
   words: [
   ],
@@ -79,7 +76,7 @@ export interface ICandidateFilter{
   selectedStatuses: [
   ]
 }
-export interface IFieldInput{
+export interface IFieldInput {
   isEverContacted: string,
   isContactedOnCurrentDate: string,
   dateOfContacted: string,
@@ -96,10 +93,10 @@ export interface IFieldInput{
   candidateId: string,
   isActive: true
 }
-export interface IListNoContactReason{
-  id:string,
-  category:string,
-  description:string
+export interface IListNoContactReason {
+  id: string,
+  category: string,
+  description: string
 }
 export interface SearchCriteria {
   isEverContacted?: string | undefined;
@@ -138,24 +135,24 @@ export interface CandidateListItem {
   address?: string | undefined;
 }
 export interface fieldFormValues {
-  id:string,
+  id: string,
   isEverContacted: string,
-//  isContactedOnCurrentDate: string,
+  //  isContactedOnCurrentDate: string,
   dateOfContacted: string,
- // timeOfConected: string,
-  reasonForUnableToTraceId:string,
+  // timeOfConected: string,
+  reasonForUnableToTraceId: string,
   isSymptomatic: string,
-  isReferredForMedicalCare:string,
-  reasonForNotContacted:string,
-  isReleasedFromSurveillanc:string,
-  commentByMOIC:string
-//  fieldNote:string
+  isReferredForMedicalCare: string,
+  reasonForNotContacted: string,
+  isReleasedFromSurveillanc: string,
+  commentByMOIC: string
+  //  fieldNote:string
 }
 
 export interface ColsedReason {
   id: number;
   category: string;
-  description:string;
+  description: string;
 }
 
 export interface CandidateCoreData {
@@ -193,7 +190,7 @@ export interface CandidateFieldDataDefiinition {
 }
 
 export interface CandidateDefinition extends CandidateCoreData {
- 
+
   note?: string | undefined;
   wardNo?: string | undefined;
   uphc?: string | undefined;
@@ -231,4 +228,13 @@ export interface CandidateReportFilter {
   reportStartDate?: Date;
   reportEndDate?: Date;
   sourceVal?: string | undefined;
+}
+
+
+export interface UphcOffice {
+  organizationId?: string | undefined;
+  organizationCode?: string | undefined;
+  organizationName?: string | undefined;
+  uphc?: string | undefined;
+  uphcOrderBy?: string | undefined;
 }

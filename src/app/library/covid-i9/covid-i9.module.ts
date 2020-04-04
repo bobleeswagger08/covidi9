@@ -40,12 +40,13 @@ import { CandidateAnalysisComponent } from './candidate-analysis/candidate-analy
 import { WebDataRocksPivot } from './webdatarocks/webdatarocks.angular4';
 import { SourceSelectionComponent } from './source-selection/source-selection.component';
 import { DailyReportComponent } from './daily-report/daily-report.component';
-import { FieldInputHistoryComponent } from './field-input-history/field-input-history.component'
+import { FieldInputHistoryComponent } from './field-input-history/field-input-history.component';
+import { UphcFilteredListComponent } from './uphc-filtered-list/uphc-filtered-list.component'
 
 
 
 @NgModule({
-  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent, CandidateAnalysisComponent,WebDataRocksPivot, SourceSelectionComponent, DailyReportComponent, FieldInputHistoryComponent],
+  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent, CandidateAnalysisComponent,WebDataRocksPivot, SourceSelectionComponent, DailyReportComponent, FieldInputHistoryComponent, UphcFilteredListComponent],
   imports: [
     CommonModule,
     CovidI9RoutingModule,
