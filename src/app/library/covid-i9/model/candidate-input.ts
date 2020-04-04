@@ -224,7 +224,7 @@ export interface CandidateDateWiseReport extends CandidateData {
   category?: string | undefined;
 }
 
-export interface CandidateReportFilter {
+export interface CandidateReportFilter extends SearchCriteria {
   reportStartDate?: Date;
   reportEndDate?: Date;
   sourceVal?: string | undefined;

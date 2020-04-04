@@ -22,7 +22,7 @@
               </div>
               </td>
               <td>
-                <app-uphc-filtered-list [access-id] = "2" [functionality-id] ="1540"></app-uphc-filtered-list>
+                <app-uphc-filtered-list [access-id] = "2" [functionality-id] ="1540" [(uphclist)]="selectedUphcs"  (on-data-loaded)="this.uphcDataLoaded()"></app-uphc-filtered-list>
               </td>
               <td>
                 

@@ -81,21 +81,24 @@ export class NavigationService {
     //   ]
     // },
     {
-      name: "Candidate Tracker",
+      name: "Data Collector",
       type: "dropDown",
-      tooltip: "Covid 19",
+      tooltip: "Data Collector module for COVID-19 surviellence",
       icon: "address",
       state: "covidi9",
       sub: [
-        { name: "Candidate", state: "candidatelist" },
+        {name: "Masters", type: "dropDown", sub: [
+        { name: "Candidate List", state: "candidatelist" },
         // { name: "Candidate Master", state: "candidate/null/0" },
         // { name: "Field Input", state: "candidate/null/1" },
-        { name: "Excel Upload", state: "excelupload" },
-        { name: "Candidate Analysis", state: "candidateanalysis" },
+        { name: "Excel File Upload", state: "excelupload" }]
+        },
+        { name: "Reporting And Analysis", type: "dropDown", sub: [
+        { name: "Field Input Analysis", state: "candidateanalysis" },
         { name: "Daily Report", state: "dailyreport" }
         //{ name: "TextEditor", state: "texteditor" },
         //{ name: "UserRolePermission", state: "rolepermission" },
-      ]
+      ]}]
     },
     // {
     //   name: "Court Case",

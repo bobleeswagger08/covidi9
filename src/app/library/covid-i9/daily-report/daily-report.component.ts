@@ -27,7 +27,7 @@ export class DailyReportComponent implements OnInit {
   listCandidate: CandidateDateWiseReport[];
   listOfUpHC: IListUPHC[] = [];
   listOfWards: IListWard[] = [];
-
+  selectedUphcs : string[]=[];
   dataLoadStatus : number =0;
 
   reportFilter: CandidateReportFilter = {};
@@ -38,12 +38,20 @@ export class DailyReportComponent implements OnInit {
   }
 
   ngOnInit() {
+   // this.getReportData();
+  }
+
+  uphcDataLoaded()
+  {
     this.getReportData();
   }
 
   getReportData() {
     this.reportFilter.reportStartDate=this.applicationConfig.configParam.presentAsUTC(this.selectedDate);
     this.reportFilter.reportEndDate=this.applicationConfig.configParam.presentAsUTC(this.selectedDate);
+    this.reportFilter.uphcs=this.selectedUphcs? this.selectedUphcs.reduce(function(s, a){
+      s.push({uphc: a});
+      return s;}, []):[];
     this.dataLoadStatus = 1; // loading started
     this.covidService.getDailyReportData(this.reportFilter)
       .subscribe((cList: CandidateDateWiseReport[]) => {

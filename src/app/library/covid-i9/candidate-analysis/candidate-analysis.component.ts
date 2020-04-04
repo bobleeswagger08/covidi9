@@ -17,7 +17,7 @@ export class CandidateAnalysisComponent implements OnInit {
 
   }
 reportDate : Date =new Date();
-
+selectedUphcs : string[]=[];
 dateChanged(eventType: string, eventData: any) {
   console.log(eventData);
   let newDate: Date = eventData.value;
@@ -28,6 +28,10 @@ dateChanged(eventType: string, eventData: any) {
   }
 }
   ngOnInit() {
+  }
+
+  uphcDataLoaded()
+  {
     this.getReportData();
   }
   getReportData() {
@@ -35,6 +39,9 @@ dateChanged(eventType: string, eventData: any) {
     //candidateFilterP.isEverContacted=""
     candidateFilterP.reportStartDate =this.applicationConfig.configParam.presentAsUTC(this.reportDate);
     candidateFilterP.reportEndDate = this.applicationConfig.configParam.presentAsUTC(this.reportDate);
+    candidateFilterP.uphcs=this.selectedUphcs? this.selectedUphcs.reduce(function(s, a){
+      s.push({uphc: a});
+      return s;}, []):[];
     this.covidService.getDailyReportData(candidateFilterP).subscribe((cList: CandidateDateWiseReport[]) => {
       this.dataSource = cList;
      // alert("Data loaded");

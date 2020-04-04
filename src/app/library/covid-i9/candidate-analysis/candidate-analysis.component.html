@@ -19,6 +19,9 @@
                 </div>
                 </td>
                 <td>
+                    <app-uphc-filtered-list [access-id] = "2" [functionality-id] ="1541" [(uphclist)]="selectedUphcs"  (on-data-loaded)="this.uphcDataLoaded()"></app-uphc-filtered-list>
+                  </td>
+                <td>
                   
                     <button mat-raised-button color="primary" (click)="getReportData()" >Show</button>  
                 </td>               
