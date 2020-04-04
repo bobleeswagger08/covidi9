@@ -8,6 +8,8 @@ import { CovidI9Service } from '../services/covid-i9.service';
 import { AppError } from 'app/shared/commonerror/app-error';
 import { BadInput } from 'app/shared/commonerror/bad-input';
 import { formatDate } from '@angular/common';
+import { UserAuthorization } from 'app/services/application-user/application-user.service';
+import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
 
 
    
@@ -36,6 +38,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   listNoContactReason:IListNoContactReason[];
   lastStatusDate:string;
   NoContactReasonHierarchy: NoContactCategory[];
+  fieldDataInputAccess: UserAuthorization;
 
   getNoContactReasonHierarchy(): NoContactCategory[]
   {
@@ -86,7 +89,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
     this.onTouched();
   }
   constructor(private route: ActivatedRoute,private router:Router,private formBuilder: FormBuilder,private covidService:CovidI9Service,
-    private cdr: ChangeDetectorRef) {
+    private cdr: ChangeDetectorRef, private appEnvironment : ApplicationEnvironmentService) {
     this.fieldInputForm = this.formBuilder.group({
       id: [uuid()],
       isEverContacted: [],
@@ -108,7 +111,9 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
         this.onChange(value);
         this.onTouched();
       })
+     
     );
+    this.fieldDataInputAccess=new UserAuthorization(1521, appEnvironment.userSession);
    }
 
   ngOnInit() {

@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
 import { Observable } from 'rxjs';
+import { UserAuthorization } from 'app/services/application-user/application-user.service';
 
 @Component({
   selector: 'app-file-upload-screen',
@@ -18,6 +19,7 @@ export class FileUploadScreenComponent implements OnInit {
   fileName: string;
   dataSource = new MatTableDataSource(this.candidateList);
   uploadHistoryDataSource: MatTableDataSource<CandidateFileInfo>;
+  fileUploadAccess: UserAuthorization;
 
   public get rowCount(): number {
     if (this.candidateList) {
@@ -62,7 +64,9 @@ export class FileUploadScreenComponent implements OnInit {
   displayedColumns: string[] = ['serialNo', 'name', 'mobileNo', 'arivalDate', 'address', 'countryVisited'];
   uploadHistoryColumns: string[] = ['dateOfUpload', 'fileSource', 'fileName', 'totalNoOfRecords', 'errorCount', 'uploadedBy'];
 
-  constructor(private http: HttpClient, private applicationEnvironment: ApplicationEnvironmentService, private cdr: ChangeDetectorRef) { }
+  constructor(private http: HttpClient, private applicationEnvironment: ApplicationEnvironmentService, private cdr: ChangeDetectorRef) { 
+    this.fileUploadAccess=new UserAuthorization(1523, applicationEnvironment.userSession);
+  }
 
   ngOnInit() {
     this.getFileUploadHistory()

@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CovidI9Service } from '../services/covid-i9.service';
 import { formatDate } from '@angular/common';
+import { UserAuthorization } from 'app/services/application-user/application-user.service';
+import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
 
 @Component({
   selector: 'app-candidate-list',
@@ -31,6 +33,7 @@ export class CandidateListComponent implements OnInit {
   listOfWards: IListWard[] = [];
   listStatus : ColsedReason[];
   filterParameter : CandidateListFilterParameter;
+  addCandidateAccess : UserAuthorization;
 
   //selectedUphc: IListUPHC[] = [];
   candidateFilter: CandidateSearchFilter;
@@ -74,12 +77,13 @@ export class CandidateListComponent implements OnInit {
   }
 
   constructor(private router: Router, private cdr: ChangeDetectorRef, private SpinnerService: NgxSpinnerService,
-     private covidService: CovidI9Service) {
+     private covidService: CovidI9Service, private appEnvironment : ApplicationEnvironmentService) {
       this.filterParameter = new CandidateListFilterParameter();
       this.filterParameter.inputDate = new Date();
       this.filterParameter.uphcSelectedValues=[];
       this.filterParameter.statusSelectedValue=[];
       //this.filterParameter.uphcSelectedValues=[];
+      this.addCandidateAccess=new UserAuthorization(1520, appEnvironment.userSession);
       
      }
 
@@ -136,7 +140,7 @@ export class CandidateListComponent implements OnInit {
 
   filterSource() {
    // this.setUPHCList();
-   console.log(this.filterParameter.uphcSelectedValues);
+  // console.log(this.filterParameter.uphcSelectedValues);
    this.candidateFilter ={
      isEverContacted : "",
      wards:[],

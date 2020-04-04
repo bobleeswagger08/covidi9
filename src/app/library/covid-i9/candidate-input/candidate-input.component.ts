@@ -8,6 +8,7 @@ import { AppError } from 'app/shared/commonerror/app-error';
 import { ICandidateInput, IFieldData, IListWard, IListUPHC, fieldFormValues, ColsedReason } from '../model/candidate-input';
 import { formatDate } from '@angular/common';
 import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
+import { UserAuthorization } from 'app/services/application-user/application-user.service';
 
 @Component({
   selector: 'app-candidate-input',
@@ -29,10 +30,14 @@ export class CandidateInputComponent implements OnInit {
   fiButtonVisible: boolean;
   maxStatusDate: Date;
 
+  userAccess : UserAuthorization;
+
   constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder
     , private covidService: CovidI9Service, private cdr: ChangeDetectorRef
     , private appEnvironmentService: ApplicationEnvironmentService
-  ) { }
+  ) {
+    this.userAccess=new UserAuthorization(1520,appEnvironmentService.userSession);
+   }
 
   ngOnInit() {
     this.candidateId = uuid();

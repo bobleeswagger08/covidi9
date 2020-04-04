@@ -5,11 +5,13 @@
       <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
         <div class="card-title-text">Registered Candidate List</div>
       </div>
+      <ng-container *ngIf="this.addCandidateAccess.canAdd()">
       <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
         <button style="float: right;margin-top:1em" mat-raised-button color="accent" (click)="goToAddPage()">
           Add Candidate
         </button>
       </div>
+    </ng-container>
     </div>
 
     <mat-divider></mat-divider>

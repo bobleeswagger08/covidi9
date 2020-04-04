@@ -1,4 +1,7 @@
-<mat-expansion-panel [expanded]="true">
+<div *ngIf="this.fileUploadAccess.canAdd() || this.fileUploadAccess.canViewList(); else elseBlock">
+ 
+
+<mat-expansion-panel [expanded]="true" *ngIf="this.fileUploadAccess.canAdd()">
   <mat-expansion-panel-header >
     Upload new excel data file
   </mat-expansion-panel-header>
@@ -122,7 +125,8 @@
         
       </table>
   
-    
-  
   </mat-expansion-panel>
-  
+</div>
+<ng-template #elseBlock>
+  <div>You do not have file upload access rights</div>
+</ng-template>
