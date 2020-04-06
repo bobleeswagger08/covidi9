@@ -32,7 +32,7 @@
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
                         <mat-form-field class="full-width">
-                            <input matInput name="dateOfContacted" [max]="maxContactDate" [min]="minStatusDate"
+                            <input matInput name="dateOfContacted" [max]="maxContactDate"
                                 formControlName="dateOfContacted" [matDatepicker]="picker" placeholder="Status Date">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -134,7 +134,7 @@
             <div *ngIf="this.fieldDataInputAccess.canModify(); else elseBlock">
                 <button mat-raised-button color="primary" [disabled]="fieldInputForm.invalid" *ngIf="isButtonVisible"
                     (click)="submitCandidateInputData()">Submit</button>
-                <div *ngIf="!isButtonVisible">Field data input is disabled for this candidate </div>
+                <div *ngIf="!isButtonVisible">{{isButtonVisibleText}}</div>
             </div>
             <ng-template #elseBlock>
                 <div>You do not have field data update access</div>

@@ -39,7 +39,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   lastStatusDate:string;
   NoContactReasonHierarchy: NoContactCategory[];
   fieldDataInputAccess: UserAuthorization;
-  minStatusDate:Date;
+ // minStatusDate:Date;
   getNoContactReasonHierarchy(): NoContactCategory[]
   {
     let hierarchyList : NoContactCategory[] =[];
@@ -79,6 +79,8 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   @Input('candidate-id') candidateId: string;
   @Input('button-visible') isButtonVisible: boolean;
   @Input('max-date') maxContactDate: Date;
+
+  isButtonVisibleText:string= "Field data input is disabled for this candidate";
   get value(): fieldFormValues {
     return this.fieldInputForm.value;
   }
@@ -119,7 +121,19 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   ngOnInit() {
     this.getNoContactReason();
     this.isReferredMControl.disable();
-    this.minStatusDate = new Date();
+   // this.minStatusDate = new Date();
+    let defaultDate =  new Date(0);
+    if(this.maxContactDate.getTime() === defaultDate.getTime()){
+      this.maxContactDate = new Date();
+    }
+    else if((this.maxContactDate.getTime() != defaultDate.getTime()) && (this.maxContactDate > new Date())){
+          this.maxContactDate = new Date();
+    }
+    else{
+      this.fieldInputForm.controls.dateOfContacted.disable();
+      this.isButtonVisible =  false;
+      this.isButtonVisibleText = "Max contact date surpassed current date";
+    } 
   }
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());

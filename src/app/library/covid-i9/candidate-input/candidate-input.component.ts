@@ -17,11 +17,11 @@ import { UserAuthorization } from 'app/services/application-user/application-use
 })
 export class CandidateInputComponent implements OnInit {
   candidateForm: FormGroup;
-  fieldInput:IFieldData[];
+  fieldInput: IFieldData[];
   listFieldHistory: IFieldData[];
-  listWard:IListWard[];
-  listUPHC:IListUPHC[];
-  listClosedReason : ColsedReason[];
+  listWard: IListWard[];
+  listUPHC: IListUPHC[];
+  listClosedReason: ColsedReason[];
   id: string;
   tabIndex: number;
   candidateFormValue: ICandidateInput;
@@ -30,14 +30,14 @@ export class CandidateInputComponent implements OnInit {
   fiButtonVisible: boolean;
   maxStatusDate: Date;
 
-  userAccess : UserAuthorization;
+  userAccess: UserAuthorization;
 
   constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder
     , private covidService: CovidI9Service, private cdr: ChangeDetectorRef
     , private appEnvironmentService: ApplicationEnvironmentService
   ) {
-    this.userAccess=new UserAuthorization(1520,appEnvironmentService.userSession);
-   }
+    this.userAccess = new UserAuthorization(1520, appEnvironmentService.userSession);
+  }
 
   ngOnInit() {
     this.candidateId = uuid();
@@ -88,6 +88,9 @@ export class CandidateInputComponent implements OnInit {
           // Test Code
           if (cItem.arivalDate) {
             this.maxStatusDate = this.appEnvironmentService.configParam.addDays(new Date(cItem.arivalDate), this.covidService.surveillancePeriod)
+          }
+          else {
+            this.maxStatusDate = new Date(0);
           }
           // var aD = new Date();
           // var mD = aD.setDate(28);
@@ -142,6 +145,10 @@ export class CandidateInputComponent implements OnInit {
           , (e) => alert("An error occurred loading data")
         );
     }
+    else {
+      this.maxStatusDate = new Date(0);
+    }
+
   }
   submitCandidateInputData(candidateInputFormValue) {
     //this.candidateForm.controls['fieldData'][0].commentByMOIC{}
@@ -160,7 +167,7 @@ export class CandidateInputComponent implements OnInit {
       age: candidateInputFormValue.age,
       sex: candidateInputFormValue.sex,
       flightNumber: candidateInputFormValue.flightNumber,
-      arivalDate: candidateInputFormValue.arivalDate?formatDate(candidateInputFormValue.arivalDate, 'yyyy-MM-dd', 'en-US'):candidateInputFormValue.arivalDate,
+      arivalDate: candidateInputFormValue.arivalDate ? formatDate(candidateInputFormValue.arivalDate, 'yyyy-MM-dd', 'en-US') : candidateInputFormValue.arivalDate,
       mobileNo: candidateInputFormValue.mobileNo,
       address: candidateInputFormValue.address,
       finalDestination: candidateInputFormValue.finalDestination,
@@ -204,7 +211,7 @@ export class CandidateInputComponent implements OnInit {
       age: candidateInputFormValue.age,
       sex: candidateInputFormValue.sex,
       flightNumber: candidateInputFormValue.flightNumber,
-      arivalDate: candidateInputFormValue.arivalDate?formatDate(candidateInputFormValue.arivalDate, 'yyyy-MM-dd', 'en-US'):candidateInputFormValue.arivalDate,
+      arivalDate: candidateInputFormValue.arivalDate ? formatDate(candidateInputFormValue.arivalDate, 'yyyy-MM-dd', 'en-US') : candidateInputFormValue.arivalDate,
       mobileNo: candidateInputFormValue.mobileNo,
       address: candidateInputFormValue.address,
       finalDestination: candidateInputFormValue.finalDestination,
