@@ -32,7 +32,7 @@
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
                     <div class="pb-1">
                         <mat-form-field class="full-width">
-                            <input matInput name="dateOfContacted" [max]="maxContactDate"
+                            <input matInput name="dateOfContacted" [max]="maxContactDate" [min]="minStatusDate"
                                 formControlName="dateOfContacted" [matDatepicker]="picker" placeholder="Status Date">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>

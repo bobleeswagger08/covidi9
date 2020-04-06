@@ -39,7 +39,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   lastStatusDate:string;
   NoContactReasonHierarchy: NoContactCategory[];
   fieldDataInputAccess: UserAuthorization;
-
+  minStatusDate:Date;
   getNoContactReasonHierarchy(): NoContactCategory[]
   {
     let hierarchyList : NoContactCategory[] =[];
@@ -119,6 +119,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   ngOnInit() {
     this.getNoContactReason();
     this.isReferredMControl.disable();
+    this.minStatusDate = new Date();
   }
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
