@@ -53,6 +53,7 @@ export class DailyReportComponent implements OnInit {
       s.push({uphc: a});
       return s;}, []):[];
     this.dataLoadStatus = 1; // loading started
+    this.SpinnerService.show();
     this.covidService.getDailyReportData(this.reportFilter)
       .subscribe((cList: CandidateDateWiseReport[]) => {
         //this.listServiceRequest = srList;

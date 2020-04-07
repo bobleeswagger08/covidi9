@@ -63,6 +63,7 @@ export interface IListCandidate {
   wardNo: string,
   uphc: string,
   isActive: string,
+  status? : string,
   fieldData: []
 }
 export interface ICandidateFilter {

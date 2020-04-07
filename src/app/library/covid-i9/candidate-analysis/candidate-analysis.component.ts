@@ -3,6 +3,7 @@ import { WebDataRocksPivot } from 'app/library/rtps/webdatarocks/webdatarocks.an
 import { IListCandidate, CandidateListItem, CandidateDateWiseReport, CandidateReportFilter } from '../model/candidate-input';
 import { CovidI9Service } from '../services/covid-i9.service';
 import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-candidate-analysis',
@@ -12,7 +13,7 @@ import { ApplicationEnvironmentService } from 'app/services/application-environm
 export class CandidateAnalysisComponent implements OnInit {
   @ViewChild('pivot1', { static: false }) child: WebDataRocksPivot;
   dataSource: any;
-  constructor(private applicationConfig: ApplicationEnvironmentService, private covidService: CovidI9Service, private cdr: ChangeDetectorRef) {
+  constructor(private applicationConfig: ApplicationEnvironmentService, private covidService: CovidI9Service, private SpinnerService: NgxSpinnerService, private cdr: ChangeDetectorRef) {
 
 
   }
@@ -42,12 +43,14 @@ dateChanged(eventType: string, eventData: any) {
     candidateFilterP.uphcs=this.selectedUphcs? this.selectedUphcs.reduce(function(s, a){
       s.push({uphc: a});
       return s;}, []):[];
+      this.SpinnerService.show();
     this.covidService.getDailyReportData(candidateFilterP).subscribe((cList: CandidateDateWiseReport[]) => {
       this.dataSource = cList;
+     
      // alert("Data loaded");
       this.child.webDataRocks.setReport({
         dataSource: {
-          data: this.dataSource // this.filterReportData(this.dataSource)
+          data: this.filterReportData(this.dataSource)
         }
         ,
         slice: {
@@ -76,9 +79,15 @@ dateChanged(eventType: string, eventData: any) {
           ]
         }
       });
+      this.SpinnerService.hide();
       // this.cdr.detectChanges();
       // update table
-    });
+    },
+    (e)=> {
+      this.SpinnerService.hide();
+      alert("An unexpected error occurred, please try after sometime");
+    }
+    );
   }
   onPivotReady(pivot: WebDataRocks.Pivot): void {
     //  console.log("[ready] WebDataRocksPivot", this.child);

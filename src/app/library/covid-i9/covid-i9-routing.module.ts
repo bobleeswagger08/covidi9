@@ -5,6 +5,7 @@ import { CandidateListComponent } from './candidate-list/candidate-list.componen
 import { FileUploadScreenComponent } from './file-upload-screen/file-upload-screen.component';
 import { CandidateAnalysisComponent } from './candidate-analysis/candidate-analysis.component';
 import { DailyReportComponent } from './daily-report/daily-report.component';
+import { CandiateStatusChartComponent } from './candiate-status-chart/candiate-status-chart.component';
 
 
 const routes: Routes = [{
@@ -45,8 +46,14 @@ const routes: Routes = [{
     path: 'dailyreport',
     component: DailyReportComponent,
     data: { title: 'Daily Report', breadcrumb: 'DAILYREPORT' }
-  }]
-}
+  }]},
+  {
+    path: '',
+    children: [{
+      path: 'candidatestatus',
+      component: CandiateStatusChartComponent,
+      data: { title: 'Candidate Status', breadcrumb: 'candidatestatus' }
+    }]},
 ];
 
 @NgModule({

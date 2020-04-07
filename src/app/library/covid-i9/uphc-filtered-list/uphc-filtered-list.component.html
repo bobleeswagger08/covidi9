@@ -1,10 +1,12 @@
-<mat-form-field style="width:275px">
+<div>
+  <mat-form-field style="width:275px">
     <mat-label>UPHC Selection</mat-label>
-    <mat-select  multiple [(ngModel)]="selectedItems" (selectionChange)="whenSelectionChanged($event)" >
+    <mat-select  multiple [(ngModel)]="selectedItems" (selectionChange)="whenSelectionChanged($event)">
       <mat-option>--</mat-option>
-      <mat-option *ngFor="let sourceItem of this.filteredList" [value]="sourceItem.uphc" >
+      <mat-option *ngFor="let sourceItem of this.filteredList" [value]="sourceItem.uphc">
         {{sourceItem.uphc}}
       </mat-option>
-     
+
     </mat-select>
   </mat-form-field>
+</div>

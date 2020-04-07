@@ -41,12 +41,14 @@ import { WebDataRocksPivot } from './webdatarocks/webdatarocks.angular4';
 import { SourceSelectionComponent } from './source-selection/source-selection.component';
 import { DailyReportComponent } from './daily-report/daily-report.component';
 import { FieldInputHistoryComponent } from './field-input-history/field-input-history.component';
-import { UphcFilteredListComponent } from './uphc-filtered-list/uphc-filtered-list.component'
+import { UphcFilteredListComponent } from './uphc-filtered-list/uphc-filtered-list.component';
+import { CandiateStatusChartComponent } from './candiate-status-chart/candiate-status-chart.component'
+import { GoogleChartModule } from 'app/services/google-chart/google-chart.module';
 
 
 
 @NgModule({
-  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent, CandidateAnalysisComponent,WebDataRocksPivot, SourceSelectionComponent, DailyReportComponent, FieldInputHistoryComponent, UphcFilteredListComponent],
+  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent, CandidateAnalysisComponent,WebDataRocksPivot, SourceSelectionComponent, DailyReportComponent, FieldInputHistoryComponent, UphcFilteredListComponent, CandiateStatusChartComponent],
   imports: [
     CommonModule,
     CovidI9RoutingModule,
@@ -76,7 +78,8 @@ import { UphcFilteredListComponent } from './uphc-filtered-list/uphc-filtered-li
     FlexLayoutModule,
     NgxSpinnerModule,
     CustomcontrolsModule,
-    MatSortModule
+    MatSortModule,
+    GoogleChartModule
   ],
   providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })

@@ -1,0 +1,30 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <table>
+            <tr>
+                <td>
+                    <div class="card-title-text">Candidate Status</div>
+                </td>
+                <td>
+             
+                </td>
+                <td>
+                    <app-uphc-filtered-list [access-id] = "2" [functionality-id] ="1541" [(uphclist)]="selectedUphcs"  (on-data-loaded)="this.uphcDataLoaded()"></app-uphc-filtered-list>
+                  </td>
+                <td>
+                    <button mat-raised-button color="primary" (click)="getReportData()" >Show</button>  
+                </td>               
+            </tr>
+        </table>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <div id="main-chart">
+    
+    </div>
+  </mat-card-content>
+  </mat-card> 
+
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.5)" size="default" type="ball-spin-clockwise">
+    <p style="color: white">Please Wait. </p>
+  </ngx-spinner>
