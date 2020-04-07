@@ -80,6 +80,7 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
   @Input('button-visible') isButtonVisible: boolean;
   @Input('max-date') maxContactDate: Date;
 
+  minContactDate:Date;
   isButtonVisibleText:string= "Field data input is disabled for this candidate";
   get value(): fieldFormValues {
     return this.fieldInputForm.value;
@@ -123,17 +124,20 @@ export class FieldInputComponent implements OnInit,ControlValueAccessor, OnDestr
     this.isReferredMControl.disable();
    // this.minStatusDate = new Date();
     let defaultDate =  new Date(0);
+    let todayDate = new Date();
     if(this.maxContactDate.getTime() === defaultDate.getTime()){
-      this.maxContactDate = new Date();
+      this.maxContactDate = todayDate;
     }
-    else if((this.maxContactDate.getTime() != defaultDate.getTime()) && (this.maxContactDate > new Date())){
-          this.maxContactDate = new Date();
+    else if((this.maxContactDate.getTime() != defaultDate.getTime()) && (this.maxContactDate > todayDate)){
+          this.maxContactDate = todayDate;
     }
     else{
       this.fieldInputForm.controls.dateOfContacted.disable();
       this.isButtonVisible =  false;
       this.isButtonVisibleText = "Max contact date surpassed current date";
     } 
+    let backlogPeriod = this.appEnvironment.userSession.backLogPeriod;
+    this.minContactDate = this.appEnvironment.configParam.addDays(todayDate, -Number(backlogPeriod.backlogPeriod));
   }
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());

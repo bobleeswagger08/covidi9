@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { MasterListItem, OrganizationUnitHierarchicalListItem } from 'app/model/master-list-item';
-import { LoggedInUser, AccessRightType } from 'app/model/user';
+import { LoggedInUser, AccessRightType, IDataCollectorConfiguration } from 'app/model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,7 @@ import { LoggedInUser, AccessRightType } from 'app/model/user';
 export class ApplicationUserService {
 
   private _loggedInUser: LoggedInUser;
+  private _backlogPeriod:IDataCollectorConfiguration;
   // public officeHierarchy: OrganizationUnitHierarchicalListItem[];
   private officeHierarchyHelper: OrganizationUnitHierarchyHelper;
   constructor() { }
@@ -21,6 +22,14 @@ export class ApplicationUserService {
       }
     }
     return this._loggedInUser;
+  }
+  get backLogPeriod() {
+    if (!this._backlogPeriod) {
+      if (localStorage.getItem('bp')) {
+        this._backlogPeriod = JSON.parse(localStorage.getItem('bp'));
+      }
+    }
+    return this._backlogPeriod;
   }
 
   get officeHierarchy(): OrganizationUnitHierarchicalListItem[] {
@@ -50,6 +59,10 @@ export class ApplicationUserService {
     localStorage.setItem('loginuser', JSON.stringify(userSession));
     //localStorage.setItem('securityToken', userSession.securityToken);
     this.officeHierarchyHelper = new OrganizationUnitHierarchyHelper(this.officeHierarchy);
+  }
+  public registerBacklogPeriod(BackLogPeriod: IDataCollectorConfiguration) {
+    this._backlogPeriod = BackLogPeriod;
+    localStorage.setItem('bp', JSON.stringify(BackLogPeriod));
   }
   public resetSession() {
     this._loggedInUser = null;

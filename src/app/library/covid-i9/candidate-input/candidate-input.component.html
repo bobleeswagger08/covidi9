@@ -32,9 +32,15 @@
                                     <mat-label>Current Status</mat-label>
                                     <mat-select name="candidateStatusId" formControlName="candidateStatusId">
                                         <mat-option> -- </mat-option>
-                                        <mat-option *ngFor="let cr of listClosedReason" [value]="cr.id">
+                                        <!-- <mat-option *ngFor="let cr of listClosedReason" [value]="cr.id">
                                             {{cr.description}}
+                                        </mat-option> -->
+                                        <mat-optgroup *ngFor="let group of ClosedReasonHierarchy"
+                                        [label]="group.categoryName">
+                                        <mat-option *ngFor="let reason of group.reason" [value]="reason.id">
+                                            {{reason.description}}
                                         </mat-option>
+                                    </mat-optgroup>
                                     </mat-select>
                                 </mat-form-field>
                                    

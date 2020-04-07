@@ -47,6 +47,10 @@
   </button>
 
   <mat-menu #accountMenu="matMenu">
+    <button mat-menu-item (click)="gotoHome()">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
     <button mat-menu-item (click)="UpdateProfile()">
       <mat-icon>account_box</mat-icon>
       <span>Profile</span>
