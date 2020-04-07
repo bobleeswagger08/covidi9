@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
 import { CovidI9Service } from '../services/covid-i9.service';
 import { UphcOffice } from '../model/candidate-input';
 import { UserAuthorization } from 'app/services/application-user/application-user.service';
+import { MatSelect, MatOption } from '@angular/material';
 
 @Component({
   selector: 'app-uphc-filtered-list',
@@ -17,6 +18,8 @@ export class UphcFilteredListComponent implements OnInit {
   @Input() get uphclist(){
     return this.selectedItems;
   }
+  
+  @ViewChild('mySel',{static:false}) skillSel: MatSelect;
 
   set uphclist(val) {
     this.selectedItems = val;
@@ -37,6 +40,9 @@ export class UphcFilteredListComponent implements OnInit {
   filteredList: UphcOffice[] = [];
   officeList: string[];
   selectedUphc: string[];
+
+  allSelected = false;
+
   ngOnInit() {
     this.userAuthorization = new UserAuthorization(this.functionalityId, this.appEnvironmentServie.userSession);
     this.officeList = this.getOfficeList();
@@ -98,4 +104,14 @@ export class UphcFilteredListComponent implements OnInit {
   //   this.selectedItems = value;
   //   this.selectedItems.emit(value);
   // }
+  toggleAllSelection() {
+    this.allSelected = !this.allSelected;  // to control select-unselect
+    
+    if (this.allSelected) {
+      this.skillSel.options.forEach( (item : MatOption) => item.select());
+    } else {
+      this.skillSel.options.forEach( (item : MatOption) => {item.deselect()});
+    }
+    this.skillSel.close();
+  }
 }

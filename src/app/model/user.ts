@@ -49,7 +49,9 @@ export interface LoginResponse {
     isBlocked: boolean,
     isExternal: boolean
   }
-
+export interface IDataCollectorConfiguration{
+  backlogPeriod : string
+}
   
 export interface LoggedInUser {
   id: string;

@@ -52,7 +52,10 @@ export class SigninComponent implements OnInit {
         if (result.userSession && result.status === 1) {
         
           this.appEnvService.userSession.registerLoggedInUser(result.userSession);
-         
+          if(result.dataCollectorConfiguration)
+          {
+            this.appEnvService.userSession.registerBacklogPeriod(result.dataCollectorConfiguration);
+          }
           this.router.navigate(['others/blank']);
           return true;
         }

@@ -105,4 +105,7 @@ export class HeaderSideComponent implements OnInit {
   UnlockUser() {
     this.router.navigate(['/administration/unlockuser']);
   }
+  gotoHome(){
+    this.router.navigate(['others/blank']);
+  }
 }

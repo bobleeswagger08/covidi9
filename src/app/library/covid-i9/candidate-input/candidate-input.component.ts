@@ -29,6 +29,7 @@ export class CandidateInputComponent implements OnInit {
   candidateId: string;
   fiButtonVisible: boolean;
   maxStatusDate: Date;
+  ClosedReasonHierarchy: ClosedCategory[];
 
   userAccess: UserAuthorization;
 
@@ -87,7 +88,7 @@ export class CandidateInputComponent implements OnInit {
           this.fiButtonVisible = cItem.candidateStatusId > 0 && cItem.candidateStatusId < 3;
           // Test Code
           if (cItem.arivalDate) {
-            this.maxStatusDate = this.appEnvironmentService.configParam.addDays(new Date(cItem.arivalDate), this.covidService.surveillancePeriod)
+            this.maxStatusDate = this.appEnvironmentService.configParam.addDays(new Date(cItem.arivalDate), this.covidService.surveillancePeriod);
           }
           else {
             this.maxStatusDate = new Date(0);
@@ -260,7 +261,32 @@ export class CandidateInputComponent implements OnInit {
     this.covidService.getCandidateClosedReason()
       .subscribe((r: ColsedReason[]) => {
         this.listClosedReason = r;
+        this.getNoContactReasonHierarchy();
         this.cdr.detectChanges();
       });
   }
+  getNoContactReasonHierarchy(): ClosedCategory[]
+  {
+    let hierarchyList : ClosedCategory[] =[];
+    if(this.listClosedReason)
+    {
+      for(let reason of this.listClosedReason)
+      {
+          let hierarchyItem = hierarchyList.find(h=> h.categoryName === reason.category);
+          if(!hierarchyItem)
+          {
+            hierarchyItem = {categoryName: reason.category,reason : []};
+            hierarchyList.push(hierarchyItem);
+          }
+          hierarchyItem.reason.push(reason);
+      }
+    }
+    this.ClosedReasonHierarchy = hierarchyList;
+    return hierarchyList;
+  }
+}
+export interface ClosedCategory
+{
+  categoryName : string;
+  reason? : ColsedReason[];
 }
