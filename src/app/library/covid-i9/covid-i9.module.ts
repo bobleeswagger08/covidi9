@@ -24,7 +24,8 @@ import {
   MatDialogModule,
   MatSlideToggleModule,
   MatTabsModule,
-  MAT_DATE_LOCALE
+  MAT_DATE_LOCALE,
+  MatGridListModule
   
 } from '@angular/material';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
@@ -44,11 +45,17 @@ import { FieldInputHistoryComponent } from './field-input-history/field-input-hi
 import { UphcFilteredListComponent } from './uphc-filtered-list/uphc-filtered-list.component';
 import { CandiateStatusChartComponent } from './candiate-status-chart/candiate-status-chart.component'
 import { GoogleChartModule } from 'app/services/google-chart/google-chart.module';
+import { CandidateSummaryReportComponent } from './candidate-summary-report/candidate-summary-report.component';
+import { DataTrackerDashboardComponent } from './data-tracker-dashboard/data-tracker-dashboard.component';
+import { DailyInputStatusChartComponent } from './daily-input-status-chart/daily-input-status-chart.component';
 
 
 
 @NgModule({
-  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent, CandidateAnalysisComponent,WebDataRocksPivot, SourceSelectionComponent, DailyReportComponent, FieldInputHistoryComponent, UphcFilteredListComponent, CandiateStatusChartComponent],
+  declarations: [CandidateInputComponent, FieldInputComponent, CandidateListComponent, FileUploadScreenComponent
+    , CandidateAnalysisComponent,WebDataRocksPivot, SourceSelectionComponent, DailyReportComponent
+    , FieldInputHistoryComponent, UphcFilteredListComponent, CandiateStatusChartComponent
+    , CandidateSummaryReportComponent, DataTrackerDashboardComponent, DailyInputStatusChartComponent],
   imports: [
     CommonModule,
     CovidI9RoutingModule,
@@ -79,8 +86,10 @@ import { GoogleChartModule } from 'app/services/google-chart/google-chart.module
     NgxSpinnerModule,
     CustomcontrolsModule,
     MatSortModule,
-    GoogleChartModule
+    GoogleChartModule,
+    MatGridListModule
   ],
-  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
+  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
+  exports : [DataTrackerDashboardComponent]
 })
 export class CovidI9Module { }

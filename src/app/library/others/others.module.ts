@@ -28,6 +28,8 @@ import { OthersRoutes } from "./others.routing";
 import { CustomcontrolsModule } from '../shared-controls/customcontrols.module';
 import { RtpsModule } from '../../library/rtps/rtps.module';
 import { LineChartComponent } from '../../library/rtps/line-chart/line-chart.component';
+import { CovidI9Module } from '../covid-i9/covid-i9.module';
+import { GoogleChartModule } from 'app/services/google-chart/google-chart.module';
 
 @NgModule({
   imports: [
@@ -53,7 +55,9 @@ import { LineChartComponent } from '../../library/rtps/line-chart/line-chart.com
     SharedModule,
     CustomcontrolsModule,
     RtpsModule,
-    RouterModule.forChild(OthersRoutes)
+    RouterModule.forChild(OthersRoutes),
+    CovidI9Module,
+    GoogleChartModule
   ],
   declarations: [
     AppBlankComponent

@@ -90,27 +90,8 @@ dateChanged(eventType: string, eventData: any) {
     );
   }
   onPivotReady(pivot: WebDataRocks.Pivot): void {
-    //  console.log("[ready] WebDataRocksPivot", this.child);
-    // this.child.webDataRocks.setReport({
-    //   dataSource: {
-    //     data: this.dataSource
-    //   }
-    // ,
-    // slice: {
-    //   rows: [{
-    //     uniqueName: "source"
-    //   }],
-    //   columns: [{
-    //     uniqueName: "uphc"
-    //   }],
+  
 
-    //   measures: [{
-    //     uniqueName: "name",
-    //     aggregation: "count"
-    //   }
-    // ]
-    // }
-    // });
   }
 
   onCustomizeCell(cell: WebDataRocks.CellBuilder, data: WebDataRocks.CellData): void {
@@ -165,7 +146,7 @@ dateChanged(eventType: string, eventData: any) {
 
 }
 
-export class ReportData {
+class ReportData {
   id?: string;
   serialNo?: string | undefined;
   isEverContacted?: string | undefined;

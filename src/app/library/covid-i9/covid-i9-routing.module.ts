@@ -47,13 +47,13 @@ const routes: Routes = [{
     component: DailyReportComponent,
     data: { title: 'Daily Report', breadcrumb: 'DAILYREPORT' }
   }]},
-  {
-    path: '',
-    children: [{
-      path: 'candidatestatus',
-      component: CandiateStatusChartComponent,
-      data: { title: 'Candidate Status', breadcrumb: 'candidatestatus' }
-    }]},
+  // {
+  //   path: '',
+  //   children: [{
+  //     path: 'candidatestatus',
+  //     component: CandiateStatusChartComponent,
+  //     data: { title: 'Candidate Status', breadcrumb: 'candidatestatus' }
+  //   }]},
 ];
 
 @NgModule({

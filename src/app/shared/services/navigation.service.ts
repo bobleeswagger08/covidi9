@@ -96,7 +96,7 @@ export class NavigationService {
         { name: "Reporting And Analysis", type: "dropDown", sub: [
         { name: "Field Input Analysis", state: "candidateanalysis" },
         { name: "Daily Report", state: "dailyreport" },
-        { name: "Candidate Status", state: "candidatestatus" }, 
+        // { name: "Candidate Status", state: "candidatestatus" }, 
         //{ name: "TextEditor", state: "texteditor" },
         //{ name: "UserRolePermission", state: "rolepermission" },
       ]}]

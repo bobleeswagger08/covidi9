@@ -1,16 +1,17 @@
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { CandidateReportFilter, CandidateDateWiseReport, IListCandidate } from '../model/candidate-input';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { CandidateDateWiseReport } from '../model/candidate-input';
 import { ApplicationEnvironmentService } from 'app/services/application-environment/application-environment.service';
 import { CovidI9Service } from '../services/covid-i9.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { GoogleChartService } from 'app/services/google-chart/service/google-chart.service';
 
 @Component({
-  selector: 'app-candiate-status-chart',
-  templateUrl: './candiate-status-chart.component.html',
-  styleUrls: ['./candiate-status-chart.component.scss']
+  selector: 'app-daily-input-status-chart',
+  templateUrl: './daily-input-status-chart.component.html',
+  styleUrls: ['./daily-input-status-chart.component.scss']
 })
-export class CandiateStatusChartComponent implements OnInit {
+export class DailyInputStatusChartComponent implements OnInit {
+
   @Input("candidate-status") set candidateStatus(status: CandidateDateWiseReport[]) {
     this.candidateStatusData = status;
     if (status && status.length > 0) {
@@ -85,7 +86,7 @@ export class CandiateStatusChartComponent implements OnInit {
       is3D: true
     };
 
-    var chart = new this.gLib.visualization.PieChart(document.getElementById('main-chart'));
+    var chart = new this.gLib.visualization.PieChart(document.getElementById('daily-status'));
 
     chart.draw(chartData, options);
   }
