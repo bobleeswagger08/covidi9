@@ -1,38 +1,39 @@
-<table width="100%" height="100%">
-    <th>
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+        <div [hidden]="true" class="pb-1">
         Data Tracker DashBoard
-        <div [hidden]="true">
             <app-uphc-filtered-list [access-id]="2" [functionality-id]="1540" [(uphclist)]="selectedUphcs"
                 (on-data-loaded)="this.uphcDataLoaded()"></app-uphc-filtered-list>
         </div>
-    </th>
+    </div>
+</div>
     <!-- <tr>
         <td>
             <app-uphc-filtered-list [access-id]="2" [functionality-id]="1540" [(uphclist)]="selectedUphcs"
                 (on-data-loaded)="this.uphcDataLoaded()"></app-uphc-filtered-list>
         </td>
     </tr> -->
-    <tr>
-        <td>
-            <div>
-                <mat-grid-list rows="2" cols="2">
-                    <mat-grid-tile>
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+        <div class="pb-1">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
                         <app-candiate-status-chart [candidate-status]="this.listCandidate">
                         </app-candiate-status-chart>
-
-                    </mat-grid-tile>
-                    <mat-grid-tile >
-                        <app-candidate-summary-report [candidate-list]="this.listCandidate"></app-candidate-summary-report>
-                    </mat-grid-tile>
-                    <mat-grid-tile >
-                        <app-daily-input-status-chart [candidate-status]="this.listCandidate"></app-daily-input-status-chart>
-                    </mat-grid-tile>
-
-                </mat-grid-list>
+                </div>
             </div>
-        </td>
-    </tr>
-</table>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">      
+                        <app-daily-input-status-chart [candidate-status]="this.listCandidate">
+                        </app-daily-input-status-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-xs="50">
+            <app-candidate-summary-report [candidate-list]="this.listCandidate"></app-candidate-summary-report>
+    </div>
+</div>           
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.5)" size="default" type="ball-spin-clockwise">
     <p style="color: white">Please Wait. </p>
 </ngx-spinner>
