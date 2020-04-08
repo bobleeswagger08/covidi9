@@ -1,39 +1,52 @@
 <div fxLayout="row wrap">
-    <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+    <div fxFlex="100%" fxFlex.gt-xs="100" class="pr-1">
         <div [hidden]="true" class="pb-1">
-        Data Tracker DashBoard
+            Data Tracker DashBoard
             <app-uphc-filtered-list [access-id]="2" [functionality-id]="1540" [(uphclist)]="selectedUphcs"
                 (on-data-loaded)="this.uphcDataLoaded()"></app-uphc-filtered-list>
         </div>
     </div>
 </div>
-    <!-- <tr>
-        <td>
-            <app-uphc-filtered-list [access-id]="2" [functionality-id]="1540" [(uphclist)]="selectedUphcs"
-                (on-data-loaded)="this.uphcDataLoaded()"></app-uphc-filtered-list>
-        </td>
-    </tr> -->
-<div fxLayout="row wrap">
-    <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
-        <div class="pb-1">
-            <div fxLayout="row wrap">
-                <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
-                        <app-candiate-status-chart [candidate-status]="this.listCandidate">
-                        </app-candiate-status-chart>
-                </div>
+
+
+<div class="container" fxLayout="column"  fxLayoutAlign="center" fxLayoutGap="10px"
+    fxLayoutGap.xs="0" height="100%" min-height="400px">
+
+    <div fxFlex="40%">
+
+        <div class="container" fxLayout.fxFlex.xs="row wrap" >
+            <div  class="pr-1" >
+                <app-candiate-status-chart [candidate-status]="this.listCandidate">
+                </app-candiate-status-chart>
             </div>
-            <div fxLayout="row wrap">
-                <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">      
-                        <app-daily-input-status-chart [candidate-status]="this.listCandidate">
-                        </app-daily-input-status-chart>
-                </div>
+            <div  class="pr-1" fxFlexAlign="stretch">
+                <app-daily-input-status-chart [candidate-status]="this.listCandidate">
+                </app-daily-input-status-chart>
             </div>
         </div>
     </div>
-    <div fxFlex="100" fxFlex.gt-xs="50">
-            <app-candidate-summary-report [candidate-list]="this.listCandidate"></app-candidate-summary-report>
+    <div fxFlex="60%" class="pr-1" fxFlexAlign="stretch" fxFlex:2 min-height="300px">
+        <app-candidate-summary-report [candidate-list]="this.listCandidate"></app-candidate-summary-report>
     </div>
-</div>           
-<ngx-spinner bdColor="rgba(51, 51, 51, 0.5)" size="default" type="ball-spin-clockwise">
-    <p style="color: white">Please Wait. </p>
-</ngx-spinner>
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.5)" size="default" type="ball-spin-clockwise">
+        <p style="color: white">Please Wait. </p>
+    </ngx-spinner>
+
+<!-- <div height ="80%">
+<div class="container" fx = "2" fxLayout="column wrap" fxLayoutAlign="space-evenly none" fxLayoutGap="10px" fxLayoutGap.xs="0" height="100%">
+    <div fxFill="50%" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="gappx">">
+        <div class="container" fxLayout fxLayoutAlign="space-evenly none" fxLayoutGap="10px" fxLayoutGap.xs="0" height="100%">
+            <div fxFill="100%" style="border: thin solid black">
+                <app-candiate-status-chart [candidate-status]="this.listCandidate">
+                </app-candiate-status-chart>
+            </div>
+            <div fxFill="50%" style="border: thin solid black">
+                Input Status
+            </div>
+            </div>
+    </div>
+    <div fxFill="50%" style="border: thin solid black">
+        Candidate Summary
+    </div>
+</div>
+</div> -->

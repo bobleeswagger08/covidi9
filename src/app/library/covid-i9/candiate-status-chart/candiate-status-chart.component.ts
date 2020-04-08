@@ -48,9 +48,6 @@ export class CandiateStatusChartComponent implements OnInit {
     tempArry.push('Count');
     chartData.push(tempArry);
 
-    // tempArry.push('Due Date');
-    // tempArry.push('Count');
-    // this.dueDateData.push(tempArry);
     let statusCount: { category: string, count: number }[] = [];
     if (statusData && statusData.length > 0) {
       for (let applicationData of statusData) {
@@ -77,18 +74,18 @@ export class CandiateStatusChartComponent implements OnInit {
   }
 
   drawChart(data: any[]) {
+    if (data) {
+      let chartData = this.gLib.visualization.arrayToDataTable(data);
 
-    let chartData = data ? this.gLib.visualization.arrayToDataTable(data): null;
+      let options = {
+        title: 'Candidate Status',
+        is3D: true,
+       legend : {position: 'right', textStyle: {color: 'blue', fontSize: 14}}
+      };
 
-    let options = {
-      title: 'Candidate Status',
-      is3D: true
-    };
+      var chart = new this.gLib.visualization.PieChart(document.getElementById('main-chart'));
 
-    var chart = new this.gLib.visualization.PieChart(document.getElementById('main-chart'));
-
-    chart.draw(chartData, options);
+      chart.draw(chartData, options);
+    }
   }
-
-
 }

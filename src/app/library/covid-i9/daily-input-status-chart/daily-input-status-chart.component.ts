@@ -45,33 +45,43 @@ export class DailyInputStatusChartComponent implements OnInit {
   prepareChartData(statusData: CandidateDateWiseReport[]): any[] {
     let chartData = [];
     let tempArry = [];
-    tempArry.push('Status');
-    tempArry.push('Count');
+    tempArry.push('UPHC');
+    tempArry.push('Active');
+    tempArry.push('Status Captured');
     chartData.push(tempArry);
 
     // tempArry.push('Due Date');
     // tempArry.push('Count');
     // this.dueDateData.push(tempArry);
-    let statusCount: { category: string, count: number }[] = [];
+    let statusCount: { uphc: string, active: number, statusCount: number }[] = [];
     if (statusData && statusData.length > 0) {
       for (let applicationData of statusData) {
+        if (applicationData.category === "Active") {
+          let uphc = applicationData.uphc;
+          let currentStatus = statusCount.find(s => s.uphc === uphc)
+          if (!currentStatus) {
+            currentStatus = { uphc: uphc, active: 0, statusCount: 0 };
+            statusCount.push(currentStatus);
+          }
 
-
-        let candidateCategory = applicationData.status;
-        let currentStatus = statusCount.find(s => s.category === candidateCategory)
-        if (!currentStatus) {
-          currentStatus = { category: candidateCategory, count: 0 };
-          statusCount.push(currentStatus);
+          currentStatus.active++;
+          if (applicationData.isContactedOnCurrentDate === "Y") {
+            currentStatus.statusCount= currentStatus.statusCount + 1;
+          }
         }
-
-        currentStatus.count = currentStatus.count + 1;
       }
 
+      if (statusCount) {
+        statusCount.sort((a, b) => {
+          let firstNumber = a.uphc.length === 1 ? '0' + a.uphc : a.uphc;
+          let secondNumber = b.uphc.length === 1 ? '0' + b.uphc : b.uphc;
+          return firstNumber.localeCompare(secondNumber);
+        })
+      }
       for (let category of statusCount) {
-        chartData.push([category.category, category.count]);
+        chartData.push([category.uphc, category.active, category.statusCount]);
 
       }
-      // this.dueDateData.push([ applicationData.dueDate,applicationData.count]);
     }
 
     return chartData;
@@ -79,16 +89,19 @@ export class DailyInputStatusChartComponent implements OnInit {
 
   drawChart(data: any[]) {
 
-    let chartData = data ? this.gLib.visualization.arrayToDataTable(data): null;
+    if (data) {
+      let chartData = data ? this.gLib.visualization.arrayToDataTable(data) : null;
 
-    let options = {
-      title: 'Candidate Status',
-      is3D: true
-    };
+      var options = {
+        title: 'UPHC-wise field input status',
+        vAxis: { title: 'Count' },
+        hAxis: { title: 'UPHC' }
+      };
 
-    var chart = new this.gLib.visualization.PieChart(document.getElementById('daily-status'));
+      var chart = new this.gLib.visualization.ColumnChart(document.getElementById('daily-status'));
+      chart.draw(chartData, options);
+    }
 
-    chart.draw(chartData, options);
   }
 
 

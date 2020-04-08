@@ -17,58 +17,62 @@ export class CandidateAnalysisComponent implements OnInit {
 
 
   }
-reportDate : Date =new Date();
-selectedUphcs : string[]=[];
-dateChanged(eventType: string, eventData: any) {
-  console.log(eventData);
-  let newDate: Date = eventData.value;
-  if (this.reportDate != newDate) {
-    // alert("Date selection changed to " + newDate);
-    this.reportDate = newDate;
-    //this.masterSelectionChanged();
+  reportDate: Date = new Date();
+  selectedUphcs: string[] = [];
+  dateChanged(eventType: string, eventData: any) {
+    console.log(eventData);
+    let newDate: Date = eventData.value;
+    if (this.reportDate != newDate) {
+      // alert("Date selection changed to " + newDate);
+      this.reportDate = newDate;
+      //this.masterSelectionChanged();
+    }
   }
-}
   ngOnInit() {
   }
 
-  uphcDataLoaded()
-  {
+  uphcDataLoaded() {
     this.getReportData();
   }
   getReportData() {
     let candidateFilterP: CandidateReportFilter = {};
     //candidateFilterP.isEverContacted=""
-    candidateFilterP.reportStartDate =this.applicationConfig.configParam.presentAsUTC(this.reportDate);
+    candidateFilterP.reportStartDate = this.applicationConfig.configParam.presentAsUTC(this.reportDate);
     candidateFilterP.reportEndDate = this.applicationConfig.configParam.presentAsUTC(this.reportDate);
-    candidateFilterP.uphcs=this.selectedUphcs? this.selectedUphcs.reduce(function(s, a){
-      s.push({uphc: a});
-      return s;}, []):[];
-      this.SpinnerService.show();
+    candidateFilterP.uphcs = this.selectedUphcs ? this.selectedUphcs.reduce(function (s, a) {
+      s.push({ uphc: a });
+      return s;
+    }, []) : [];
+    this.SpinnerService.show();
     this.covidService.getDailyReportData(candidateFilterP).subscribe((cList: CandidateDateWiseReport[]) => {
       this.dataSource = cList;
-     
-     // alert("Data loaded");
+
+      // alert("Data loaded");
       this.child.webDataRocks.setReport({
         dataSource: {
           data: this.filterReportData(this.dataSource)
         }
         ,
         slice: {
-          rows: [{
-            uniqueName: "isContactedOnCurrentDate"
-          },
-          {
-            uniqueName : "reasonForUnableToTrace"
-          },
-          {
-            uniqueName : "isSymptomatic"
-          },
-        ],
+          rows: [
+            {
+              uniqueName: "surviellanceStatus"
+            },
+            {
+              uniqueName: "candidateStatus"
+            },
+            {
+            uniqueName: "isContactedToday"
+          }
+          ],
           reportFilters: [{
             uniqueName: "source"
           }],
           columns: [{
             uniqueName: "uphc"
+          },
+          {
+            uniqueName: "isSymptomatic"
           }],
 
           measures: [{
@@ -83,14 +87,14 @@ dateChanged(eventType: string, eventData: any) {
       // this.cdr.detectChanges();
       // update table
     },
-    (e)=> {
-      this.SpinnerService.hide();
-      alert("An unexpected error occurred, please try after sometime");
-    }
+      (e) => {
+        this.SpinnerService.hide();
+        alert("An unexpected error occurred, please try after sometime");
+      }
     );
   }
   onPivotReady(pivot: WebDataRocks.Pivot): void {
-  
+
 
   }
 
@@ -105,12 +109,25 @@ dateChanged(eventType: string, eventData: any) {
     let reportData: ReportData[] = [];
     if (serviceData) {
       for (let reportItem of serviceData) {
-        let reportDataItem: ReportData = { 
-          statusDate: reportItem.statusDate,
-          uphc: reportItem.uphc, name: reportItem.name, source: reportItem.source 
-          , age: reportItem.age, countryVisited: reportItem.countryVisited
-          , dateOfArival : reportItem.dateOfArival
-         // , isContactedOnCurrentDate : reportItem.isContactedOnCurrentDate
+        let reportDataItem: ReportData = {
+          internalReferenceNumber: reportItem.referenceNo,
+          source: reportItem.source,
+          surviellanceStatus : reportItem.category,
+          candidateStatus : reportItem.status,
+          uphc: reportItem.uphc,
+          wardNo: reportItem.wardNo,
+          name: reportItem.name,
+          age: reportItem.age,
+          sex : reportItem.sex,
+          countryVisited: reportItem.countryVisited,
+          dateOfArrival: reportItem.dateOfArival,
+          sourceSerialNumber: reportItem.serialNo, 
+          isEverContacted: reportItem.serialNo,
+          isContactedToday: reportItem.isContactedOnCurrentDate,
+          isSymptomatic: reportItem.isSymptomatic,
+          isReferredForMedicalCare: reportItem.isReferredForMedicalCare,
+          noContactReason: reportItem.reasonForUnableToTrace,
+          // , isContactedOnCurrentDate : reportItem.isContactedOnCurrentDate
         };
         reportData.push(reportDataItem);
       }
@@ -146,34 +163,35 @@ dateChanged(eventType: string, eventData: any) {
 
 }
 
-class ReportData {
-  id?: string;
-  serialNo?: string | undefined;
+interface ReportData {
+  sourceSerialNumber?: string | undefined;
   isEverContacted?: string | undefined;
-  isContactedOnCurrentDate?: string | undefined;
+  isContactedToday?: string | undefined;
   dateOfContacted?: Date | undefined;
   isSymptomatic?: string | undefined;
   isReferredForMedicalCare?: string | undefined;
-  reasonForUnableToTrace?: string | undefined;
+  noContactReason?: string | undefined;
   isReleasedFromSurveillance?: string | undefined;
   wardNo?: string | undefined;
   uphc?: string | undefined;
   commentByMOIC?: string | undefined;
   statusDate?: Date | undefined;
   candidateReason?: string | undefined;
-  dateOfArival?: Date | undefined;
-  note?: string | undefined;
-  isActive?: boolean;
-  candidateStatusId?: number | undefined;
-  referenceNo?: number;
+  surviellanceStatus? : string | undefined;
+  candidateStatus? : string | undefined;
+  dateOfArrival?: Date | undefined;
+  // note?: string | undefined;
+  // isActive?: boolean;
+  // candidateStatusId?: number | undefined;
+  internalReferenceNumber: number;
   source?: string | undefined;
   name?: string | undefined;
-  flightNo?: string | undefined;
+ // flightNo?: string | undefined;
   countryVisited?: string | undefined;
   dob?: string | undefined;
   age?: string | undefined;
   sex?: string | undefined;
-  flightNumber?: string | undefined;
+ // flightNumber?: string | undefined;
   arivalDate?: string | undefined;
   mobileNo?: string | undefined;
   address?: string | undefined;
