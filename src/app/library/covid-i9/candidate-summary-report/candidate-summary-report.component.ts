@@ -48,9 +48,7 @@ export class CandidateSummaryReportComponent implements OnInit {
       slice: {
         rows: [
         {
-          uniqueName: "category"
-        },{
-          uniqueName: "status"
+          uniqueName: "surviellanceStatus"
         },
         ],
         reportFilters: [{
@@ -59,7 +57,9 @@ export class CandidateSummaryReportComponent implements OnInit {
         {
           uniqueName: "uphc"
         }],
-        columns: [],
+        columns: [{
+          uniqueName: "candidateStatus"
+        },],
         measures: [{
           uniqueName: "name",
           aggregation: "count"
@@ -70,27 +70,7 @@ export class CandidateSummaryReportComponent implements OnInit {
   }
 
   onPivotReady(pivot: WebDataRocks.Pivot): void {
-    //  console.log("[ready] WebDataRocksPivot", this.child);
-    // this.child.webDataRocks.setReport({
-    //   dataSource: {
-    //     data: this.dataSource
-    //   }
-    // ,
-    // slice: {
-    //   rows: [{
-    //     uniqueName: "source"
-    //   }],
-    //   columns: [{
-    //     uniqueName: "uphc"
-    //   }],
-
-    //   measures: [{
-    //     uniqueName: "name",
-    //     aggregation: "count"
-    //   }
-    // ]
-    // }
-    // });
+   
   }
 
   onCustomizeCell(cell: WebDataRocks.CellBuilder, data: WebDataRocks.CellData): void {
@@ -105,12 +85,23 @@ export class CandidateSummaryReportComponent implements OnInit {
     if (serviceData) {
       for (let reportItem of serviceData) {
         let reportDataItem = { 
-        
-          uphc: reportItem.uphc, name: reportItem.name, source: reportItem.source 
-          , age: reportItem.age, countryVisited: reportItem.countryVisited
-          , dateOfArival : reportItem.dateOfArival,
-          ward : reportItem.wardNo,
-          category : reportItem.category, status : reportItem.status
+          internalReferenceNumber: reportItem.referenceNo,
+          source: reportItem.source,
+          surviellanceStatus : reportItem.category,
+          candidateStatus : reportItem.status,
+          uphc: reportItem.uphc,
+          wardNo: reportItem.wardNo,
+          name: reportItem.name,
+          age: reportItem.age,
+          sex : reportItem.sex,
+          countryVisited: reportItem.countryVisited,
+          dateOfArrival: reportItem.dateOfArival,
+          sourceSerialNumber: reportItem.serialNo, 
+          isEverContacted: reportItem.serialNo,
+          isContactedToday: reportItem.isContactedOnCurrentDate,
+          isSymptomatic: reportItem.isSymptomatic,
+          isReferredForMedicalCare: reportItem.isReferredForMedicalCare,
+          noContactReason: reportItem.reasonForUnableToTrace,
          // , isContactedOnCurrentDate : reportItem.isContactedOnCurrentDate
         };
         reportData.push(reportDataItem);
