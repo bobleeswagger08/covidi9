@@ -92,6 +92,7 @@ export class HeaderSideComponent implements OnInit {
   }
   signOut() {
     this.systemEnvironmentService.userSession.logout();
+    localStorage.removeItem('bp');
     this.router.navigate(['/home']);
   }
   UpdateProfile() {

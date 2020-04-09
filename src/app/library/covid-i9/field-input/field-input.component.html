@@ -37,6 +37,12 @@
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
+                        <small
+                        *ngIf="fieldInputForm.controls['dateOfContacted'].hasError('matDatepickerMax') && fieldInputForm.controls['dateOfContacted'].touched"
+                         class="form-error-msg">Status date can not be greater than {{maxContactDate | date: 'dd-MM-yyyy'}}</small>
+                         <small
+                        *ngIf="fieldInputForm.controls['dateOfContacted'].hasError('matDatepickerMin') && fieldInputForm.controls['dateOfContacted'].touched"
+                         class="form-error-msg">Status date can not be lesser than {{minContactDate | date: 'dd-MM-yyyy'}}</small>
                     </div>
                 </div>
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
@@ -77,6 +83,9 @@
                                 <mat-option value="N">No</mat-option>
                             </mat-select>
                         </mat-form-field>
+                        <small
+                        *ngIf="fieldInputForm.controls['isSymptomatic'].hasError('required') && fieldInputForm.controls['isSymptomatic'].touched"
+                         class="form-error-msg">Is Symptomatic is required</small>
                     </div>
                 </div>
                 <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
