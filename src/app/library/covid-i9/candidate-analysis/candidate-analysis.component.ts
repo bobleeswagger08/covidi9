@@ -76,7 +76,7 @@ export class CandidateAnalysisComponent implements OnInit {
           }],
 
           measures: [{
-            uniqueName: "name",
+            uniqueName: "internalReferenceNumber",
             aggregation: "count"
           }
 
@@ -120,7 +120,7 @@ export class CandidateAnalysisComponent implements OnInit {
           age: reportItem.age,
           sex : reportItem.sex,
           countryVisited: reportItem.countryVisited,
-          dateOfArrival: reportItem.dateOfArival,
+          dateOfArrival: reportItem.arivalDate,
           sourceSerialNumber: reportItem.serialNo, 
           isEverContacted: reportItem.serialNo,
           isContactedToday: reportItem.isContactedOnCurrentDate,
@@ -179,7 +179,7 @@ interface ReportData {
   candidateReason?: string | undefined;
   surviellanceStatus? : string | undefined;
   candidateStatus? : string | undefined;
-  dateOfArrival?: Date | undefined;
+  //dateOfArrival?: Date | undefined;
   // note?: string | undefined;
   // isActive?: boolean;
   // candidateStatusId?: number | undefined;
@@ -192,7 +192,7 @@ interface ReportData {
   age?: string | undefined;
   sex?: string | undefined;
  // flightNumber?: string | undefined;
-  arivalDate?: string | undefined;
+  dateOfArrival?: string | undefined;
   mobileNo?: string | undefined;
   address?: string | undefined;
   finalDestination?: string | undefined;

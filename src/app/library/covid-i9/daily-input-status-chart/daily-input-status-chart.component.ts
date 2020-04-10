@@ -46,8 +46,8 @@ export class DailyInputStatusChartComponent implements OnInit {
     let chartData = [];
     let tempArry = [];
     tempArry.push('UPHC');
-    tempArry.push('Active');
-    tempArry.push('Status Captured');
+    tempArry.push('Total Active');
+    tempArry.push('Contacted');
     chartData.push(tempArry);
 
     // tempArry.push('Due Date');
@@ -93,7 +93,6 @@ export class DailyInputStatusChartComponent implements OnInit {
       let chartData = data ? this.gLib.visualization.arrayToDataTable(data) : null;
 
       var options = {
-        title: 'UPHC-wise field input status',
         vAxis: { title: 'Count' },
         hAxis: { title: 'UPHC' }
       };

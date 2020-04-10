@@ -2,7 +2,7 @@
   <mat-form-field style="width:275px">
     <mat-label>UPHC Selection</mat-label>
     <mat-select  #mySel multiple [(ngModel)]="selectedItems" (selectionChange)="whenSelectionChanged($event)" >
-      <mat-option [value]='"0"' (click)="toggleAllSelection()">Select All</mat-option>     
+      <mat-option *ngIf="this.filteredList.length>1" [value]='"0"' (click)="toggleAllSelection()">Select All</mat-option>     
       <mat-option *ngFor="let sourceItem of this.filteredList" [value]="sourceItem.uphc" >
         {{sourceItem.uphc}}
       </mat-option>

@@ -1,6 +1,13 @@
+<!-- <ng-container *ngIf="this.isInitializing">
+<div fxFlex="100" fxFlex.gt-xs="100" class="pr-1" style="padding:20px">
+    <img src="assets/images/banner_covid1.jpg" alt="">
+</div>
+</ng-container> -->
 
-    <!-- <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1" style="padding:20px">
-     <img src="assets/images/banner_covid1.jpg" alt="" >  -->
-         <!-- <img src="../../../../assets/images/banner_covid1.jpg" alt="" > -->
-         <app-data-tracker-dashboard></app-data-tracker-dashboard>
-
+<div [hidden] = "this.isInitializing" width="100%" height="100%">
+    <!-- <img src="../../../../assets/images/banner_covid1.jpg" alt="" > -->
+    <app-data-tracker-dashboard (data-load-completed)="this.dataLoadComplete($event)"></app-data-tracker-dashboard>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.5)" size="default" type="ball-spin-clockwise">
+    <p style="color: white">Please Wait. </p>
+</ngx-spinner>

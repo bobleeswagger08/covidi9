@@ -3,6 +3,7 @@ import { WebDataRocksPivot } from 'app/library/rtps/webdatarocks/webdatarocks.an
 import { IListCandidate } from 'app/library/covid-i9/model/candidate-input';
 import { CovidI9Service } from 'app/library/covid-i9/services/covid-i9.service';
 import { DataTrackerDashboardComponent } from 'app/library/covid-i9/data-tracker-dashboard/data-tracker-dashboard.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-blank',
@@ -10,12 +11,23 @@ import { DataTrackerDashboardComponent } from 'app/library/covid-i9/data-tracker
   styleUrls: ['./app-blank.component.css']
 })
 export class AppBlankComponent implements OnInit {
-  constructor() {
-    
-   }
-
-  ngOnInit() {
+  isInitializing: boolean;
+  constructor(private SpinnerService: NgxSpinnerService) {
+    this.isInitializing = true;
   }
 
+  ngOnInit() {
+    if (this.isInitializing) {
+      this.SpinnerService.show();
+    }
+  }
+
+  dataLoadComplete(event: any) {
+    if (event && event > 1) {
+      this.isInitializing = false;
+    }
+    this.SpinnerService.hide();
+
+  }
 
 }

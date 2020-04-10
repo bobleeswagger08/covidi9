@@ -49,9 +49,9 @@ export class ConfigParamService {
       // console.log((new Date()).getTimezoneOffset());
       const dateFactor : number = 24 * 60 * 60 * 1000;
       date = new Date(date.getTime() + dateFactor * daysToAdd);
-      console.log(date);
+      //console.log(date);
     }
     return date;
   }
-
+// ng build --prod --configuration=uat --base-href /qa_datacollector/
 }

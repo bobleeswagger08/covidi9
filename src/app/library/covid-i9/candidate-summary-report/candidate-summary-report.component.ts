@@ -61,7 +61,7 @@ export class CandidateSummaryReportComponent implements OnInit {
           uniqueName: "candidateStatus"
         },],
         measures: [{
-          uniqueName: "name",
+          uniqueName: "internalReferenceNumber",
           aggregation: "count"
         }
         ]

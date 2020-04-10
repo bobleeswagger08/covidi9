@@ -37,8 +37,10 @@ export class CandiateStatusChartComponent implements OnInit {
   private drawChartFromData(cList: CandidateDateWiseReport[]) {
     if (cList && cList.length == 0)
       this.noDataMessage = "Filter criteria did not match any record";
-    var chartData = this.prepareChartData(cList);
+    let chartData = this.prepareChartData(cList);
     this.drawChart(chartData);
+    let timelineData = this.prepareTimelineData(cList);
+    this.drawTimelineChart(timelineData);
   }
 
   prepareChartData(statusData: CandidateDateWiseReport[]): any[] {
@@ -73,19 +75,113 @@ export class CandiateStatusChartComponent implements OnInit {
     return chartData;
   }
 
+  prepareTimelineData(statusData: CandidateDateWiseReport[]): any[] {
+    let chartData = [];
+    let tempArry = [];
+    tempArry.push('Date');
+    tempArry.push('No Date');
+    tempArry.push('Incorrect Date');
+    tempArry.push('Valid Date');
+    chartData.push(tempArry);
+
+    let noArrivalDateCount: number = 0;
+    let incorrectArrivalDateCount: number = 0;
+    let validArrivalDateCount: number = 0;
+    let releaseDateCount: { closureDate: Date, count: number }[] = [];
+    let thresholDate: Date = new Date("2020-01-01");
+    let tempToday = new Date();
+    let today: Date = new Date(tempToday.getFullYear(), tempToday.getMonth(), tempToday.getDate(),0,0,0);
+    let endDate: Date = this.applicationConfig.configParam.addDays(today, this.covidService.surveillancePeriod);
+    if (statusData && statusData.length > 0) {
+      for (let candidateDetail of statusData) {
+        if (candidateDetail.category === "Active") {
+          if (candidateDetail.arivalDate) {
+            let arrDate = new Date(candidateDetail.arivalDate);
+            if (arrDate >= thresholDate && arrDate <= today) {
+              if (this.setRealeaseDateStatus(candidateDetail, arrDate, today, releaseDateCount)) {
+                validArrivalDateCount = validArrivalDateCount + 1;
+              }
+            }
+            else {
+              incorrectArrivalDateCount++;
+            }
+          }
+          else {
+            noArrivalDateCount++;
+          }
+        }
+      }
+
+      // prepare date wise data
+      // let chartData: { date: Date, noArrivalDate: number, incorrectArrivalDate: number, ValidData: number }[] = [];
+     // console.log(releaseDateCount);
+      for (let index: number = 0; index < this.covidService.surveillancePeriod; index++) {
+        let currentDate = this.applicationConfig.configParam.addDays(today, index);
+        let currentDaysRelease = releaseDateCount.find(d => d.closureDate.getTime() === currentDate.getTime());
+        if (currentDaysRelease) {
+          validArrivalDateCount = validArrivalDateCount - currentDaysRelease.count;
+        }
+       
+        chartData.push([currentDate, noArrivalDateCount, incorrectArrivalDateCount, validArrivalDateCount]);
+
+
+      }
+    }
+    return chartData;
+
+  }
+
+
+  private setRealeaseDateStatus(applicationData: CandidateDateWiseReport, arrivalDate: Date, today: Date, releaseDateCount: { closureDate: Date; count: number; }[]): boolean {
+    let releaseDate = this.applicationConfig.configParam.addDays(arrivalDate, this.covidService.surveillancePeriod);
+    if (releaseDate >= today) {
+      let entry = releaseDateCount.find(c => c.closureDate.getTime() === releaseDate.getTime());
+      if (!entry) {
+        entry = { closureDate: releaseDate, count: 0 };
+        releaseDateCount.push(entry);
+      }
+      entry.count++;
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+
+
+
+
   drawChart(data: any[]) {
     if (data) {
       let chartData = this.gLib.visualization.arrayToDataTable(data);
 
       let options = {
-        title: 'Candidate Status',
         is3D: true,
-       legend : {position: 'right', textStyle: {color: 'blue', fontSize: 14}}
+        legend: { position: 'bottom', textStyle: { color: 'blue', fontSize: 12 } }
       };
 
-      var chart = new this.gLib.visualization.PieChart(document.getElementById('main-chart'));
+      let chart = new this.gLib.visualization.PieChart(document.getElementById('main-chart'));
 
       chart.draw(chartData, options);
+
+    }
+  }
+
+  drawTimelineChart(data: any[]) {
+    if (data) {
+      let chartData = this.gLib.visualization.arrayToDataTable(data);
+
+      let options = {
+        legend: { position: 'bottom', textStyle: { color: 'blue', fontSize: 12 } },
+        isStacked: true
+
+      };
+
+      let chart = new this.gLib.visualization.AreaChart(document.getElementById('main-chart2'));
+
+      chart.draw(chartData, options);
+
     }
   }
 }

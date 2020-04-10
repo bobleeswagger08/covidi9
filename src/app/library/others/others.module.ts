@@ -30,6 +30,7 @@ import { RtpsModule } from '../../library/rtps/rtps.module';
 import { LineChartComponent } from '../../library/rtps/line-chart/line-chart.component';
 import { CovidI9Module } from '../covid-i9/covid-i9.module';
 import { GoogleChartModule } from 'app/services/google-chart/google-chart.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import { GoogleChartModule } from 'app/services/google-chart/google-chart.module
     RtpsModule,
     RouterModule.forChild(OthersRoutes),
     CovidI9Module,
-    GoogleChartModule
+    GoogleChartModule,
+    NgxSpinnerModule
   ],
   declarations: [
     AppBlankComponent
